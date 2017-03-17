@@ -17,11 +17,11 @@ A no-nonsense diagramming library written entirely in React with the help of Lod
 ## How to install
 
 ```
-npm install storm-react-diagrams
+npm install react-js-diagrams
 ```
 or
 ```
-yarn add storm-react-diagrams
+yarn add react-js-diagrams
 ```
 
 * Its only dependency is Lodash and obviously React so it will install that too.
