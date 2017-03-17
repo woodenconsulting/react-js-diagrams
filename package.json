@@ -1,0 +1,43 @@
+{
+  "name": "react-js-diagrams",
+  "version": "2.3.4",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scalingdata/react-js-diagrams.git"
+  },
+  "keywords": [
+    "web",
+    "diagram",
+    "react",
+    "flowchart",
+    "simple",
+    "links",
+    "nodes"
+  ],
+  "main": "./dist/main.js",
+  "typings": "./dist/src/main",
+  "author": "rocana",
+  "dependencies": {
+    "lodash": "4.17.4"
+  },
+  "devDependencies": {
+    "babel-core": "6.24.0",
+    "babel-loader": "6.4.0",
+    "babel-plugin-add-module-exports": "0.2.1",
+    "babel-plugin-transform-runtime": "6.23.0",
+    "babel-preset-es2015": "6.24.0",
+    "babel-preset-es2016": "6.22.0",
+    "babel-preset-es2017": "6.22.0",
+    "babel-preset-react": "6.23.0",
+    "babel-preset-stage-0": "6.22.0",
+    "babel-runtime": "6.23.0",
+    "css-loader": "0.26.1",
+    "node-sass": "4.5.0",
+    "react": "^15.1.0",
+    "react-dom": "15.1.0",
+    "sass-loader": "6.0.0",
+    "source-map-loader": "0.1.6",
+    "style-loader": "0.13.1",
+    "webpack": "2.2.1"
+  }
+}
