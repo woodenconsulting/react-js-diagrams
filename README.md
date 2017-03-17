@@ -1,11 +1,8 @@
-# STORM React Diagrams
+# React JS Diagrams
 
-A super simple, no-nonsense diagramming library written in React that just works.
+A JSX / ECMAScript port of the awesome [react-diagrams](https://github.com/projectstorm/react-diagrams) repository by dylanvorster.
 
-[![Join the chat at https://gitter.im/projectstorm/react-diagrams](https://badges.gitter.im/projectstorm/react-diagrams.svg)](https://gitter.im/projectstorm/react-diagrams?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![NPM](https://nodei.co/npm/storm-react-diagrams.png?mini=true)](https://npmjs.org/package/storm-react-diagrams)
-
-![Demo2](./demo2.png)
+Note that this repo is currently under development.
 
 ## Introduction
 
