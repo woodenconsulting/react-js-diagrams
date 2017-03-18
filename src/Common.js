@@ -1,25 +1,23 @@
-import { BaseEntity } from "./BaseEntity";
-import * as _ from "lodash";
+import _ from 'lodash';
+import { BaseEntity } from './BaseEntity';
 
-/**
- * @author Dylan Vorster
- */
 export class BaseModel extends BaseEntity {
-	constructor(){
+	constructor() {
 		super();
 		this.selected = false;
 	}
 
-	deSerialize(ob){
+	deSerialize(ob) {
 		super.deSerialize(ob);
 		this.selected = ob.selected;
 	}
 
-	serialize(){
-		return _.merge(super.serialize(),{
+	serialize() {
+		return {
+		  ...super.serialize(),
 			_class: this.constructor.name,
 			selected: this.selected
-		});
+		};
 	}
 
 	getID() {
@@ -30,7 +28,7 @@ export class BaseModel extends BaseEntity {
 		return this.selected;
 	}
 
-	setSelected(selected){
+	setSelected(selected) {
 		this.selected = selected;
 
 		this.itterateListeners(listener => {
@@ -40,7 +38,7 @@ export class BaseModel extends BaseEntity {
 		});
 	}
 
-	remove(){
+	remove() {
 		this.itterateListeners(listener => {
 			if(listener.entityRemoved) {
 				listener.entityRemoved();
@@ -49,7 +47,7 @@ export class BaseModel extends BaseEntity {
 	}
 }
 
-export class PointModel extends BaseModel{
+export class PointModel extends BaseModel {
 	constructor(link, points) {
 		super();
 		this.x = points.x;
@@ -57,24 +55,25 @@ export class PointModel extends BaseModel{
 		this.link = link;
 	}
 
-	deSerialize(ob){
+	deSerialize(ob) {
 		super.deSerialize(ob);
 		this.x = ob.x;
 		this.y = ob.y;
 	}
 
 	serialize() {
-		return _.merge(super.serialize(),{
+		return {
+		  ...super.serialize(),
 			x: this.x,
 			y: this.y
-		});
+		};
 	}
 
 	remove() {
 		super.remove();
 
-		//clear references
-		if (this.link){
+		// Clear references
+		if (this.link) {
 			this.link.removePoint(this);
 		}
 	}
@@ -97,8 +96,8 @@ export class PointModel extends BaseModel{
 	}
 }
 
-export class LinkModel extends BaseModel{
-	constructor(){
+export class LinkModel extends BaseModel {
+	constructor() {
 		super();
 		this.linkType = 'default';
 		this.points = [
@@ -110,43 +109,41 @@ export class LinkModel extends BaseModel{
 		this.targetPort = null;
 	}
 
-	deSerialize(ob){
+	deSerialize(ob) {
 		super.deSerialize(ob);
 		this.linkType = ob.type;
-		this.points = _.map(ob.points, point => {
+		this.points = ob.points.map(point => {
 			var p = new PointModel(this, {x: point.x,y:point.y});
 			p.deSerialize(point);
 			return p;
-		})
+		});
 	}
 
-	serialize(){
-		return _.merge(super.serialize(),{
+	serialize() {
+		return {
+		  ...super.serialize(),
 			type: this.linkType,
 			source: this.sourcePort ? this.sourcePort.getParent().id:null,
 			sourcePort: this.sourcePort ? this.sourcePort.id:null,
 			target: this.targetPort ? this.targetPort.getParent().id:null,
 			targetPort: this.targetPort ? this.targetPort.id:null,
-			points: _.map(this.points,(point) => {
-				return point.serialize();
-			}),
+			points: this.points.map(point => point.serialize()),
 			extras: this.extras
-		});
+		};
 	}
 
 	remove() {
 		super.remove();
-		if (this.sourcePort){
+		if (this.sourcePort) {
 			this.sourcePort.removeLink(this);
 		}
-		if (this.targetPort){
+		if (this.targetPort) {
 			this.targetPort.removeLink(this);
 		}
 	}
 
 	isLastPoint(point) {
-		var index = this.getPointIndex(point);
-		return index === this.points.length-1;
+		return this.getPointIndex(point) === this.points.length-1;
 	}
 
 	getPointIndex(point) {
@@ -154,8 +151,8 @@ export class LinkModel extends BaseModel{
 	}
 
 	getPointModel(id) {
-		for (var i = 0; i < this.points.length;i++){
-			if (this.points[i].id === id){
+		for (let i = 0; i < this.points.length; i++) {
+			if (this.points[i].id === id) {
 				return this.points[i];
 			}
 		}
@@ -167,7 +164,7 @@ export class LinkModel extends BaseModel{
 	}
 
 	getLastPoint() {
-		return this.points[this.points.length-1];
+		return this.points[this.points.length - 1];
 	}
 
 	setSourcePort(port) {
@@ -197,11 +194,11 @@ export class LinkModel extends BaseModel{
 	}
 
 	removePoint(pointModel) {
-		this.points.splice(this.getPointIndex(pointModel),1);
+		this.points.splice(this.getPointIndex(pointModel), 1);
 	}
 
 	addPoint(pointModel, index = 1) {
-		this.points.splice(index,0,pointModel);
+		this.points.splice(index, 0, pointModel);
 	}
 
 	getType() {
@@ -217,19 +214,18 @@ export class PortModel extends BaseModel {
 		this.parentNode = null;
 	}
 
-	deSerialize(ob){
+	deSerialize(ob) {
 		super.deSerialize(ob);
 		this.name = ob.name;
 	}
 
-	serialize(){
-		return _.merge(super.serialize(),{
+	serialize() {
+		return {
+		  ...super.serialize(),
 			name: this.name,
 			parentNode: this.parentNode.id,
-			links: _.map(this.links,(link) => {
-				return link.id;
-			})
-		});
+			links: _.map(this.links, link => link.id)
+		};
 	}
 
 	getName() {
@@ -276,28 +272,27 @@ export class NodeModel extends BaseModel {
 	}
 
 	serialize() {
-		return _.merge(super.serialize(),{
+		return {
+		  ...super.serialize(),
 			type: this.nodeType,
 			x: this.x,
 			y: this.y,
 			extras: this.extras,
-			ports: _.map(this.ports, (port) => port.serialize())
-		});
+			ports: _.map(this.ports, port => port.serialize())
+		};
 	}
 
 	remove() {
 		super.remove();
-		for (var i in this.ports){
-			_.forEach(this.ports[i].getLinks(),(link) => {
-				link.remove();
-			});
+		for (const key in this.ports) {
+			this.ports[key].getLinks().forEach(link => link.remove());
 		}
 	}
 
 	getPortFromID(id) {
-		for (var i in this.ports){
-			if (this.ports[i].id === id){
-				return this.ports[i];
+		for (const key in this.ports) {
+			if (this.ports[key].id === id) {
+				return this.ports[key];
 			}
 		}
 		return null;
@@ -312,8 +307,8 @@ export class NodeModel extends BaseModel {
 	}
 
 	removePort(port) {
-		//clear the parent node reference
-		if(this.ports[port.name]){
+		// Clear the parent node reference
+		if(this.ports[port.name]) {
 			this.ports[port.name].setParentNode(null);
 			delete this.ports[port.name];
 		}

@@ -1,12 +1,7 @@
-import * as React from "react";
-import {PointModel} from "../Common";
-import * as _ from "lodash";
+import React from 'react';
+import { PointModel } from '../Common';
 
-/**
- * @author Dylan Vorster
- */
 export class DefaultLinkWidget extends React.Component {
-
 	static defaultProps = {
 		color: 'black',
 		width: 3,
@@ -24,155 +19,181 @@ export class DefaultLinkWidget extends React.Component {
 	}
 
 	generatePoint(pointIndex) {
-		return React.DOM.g({key:'point-'+this.props.link.points[pointIndex].id},
-			React.DOM.circle({
-				className: 'point pointui' + (this.props.link.points[pointIndex].isSelected()?' selected':''),
-				cx:this.props.link.points[pointIndex].x,
-				cy:this.props.link.points[pointIndex].y,
-				r:5,
-			}),
-			React.DOM.circle({
-				className:'point',
-				'data-linkid':this.props.link.id,
-				'data-id':this.props.link.points[pointIndex].id,
-				cx: this.props.link.points[pointIndex].x,
-				cy:this.props.link.points[pointIndex].y,
-				r:15,
-				opacity: 0,
-				onMouseLeave:() => {
-					this.setState({selected: false});
-	//				this.props.link.setSelected(false);
-				},
-				onMouseEnter:() => {
-					this.setState({selected: true});
-	//				this.props.link.setSelected(true);
-				},
-			})
-		);
+	  const { link } = this.props;
+	  const uiCircleProps = {
+			className: `point pointui${(link.points[pointIndex].isSelected() ? ' selected' : '')}`,
+			cx: link.points[pointIndex].x,
+			cy: link.points[pointIndex].y,
+			r: 5,
+		};
+		const circleProps = {
+			className: 'point',
+			'data-linkid': link.id,
+			'data-id': link.points[pointIndex].id,
+			cx: link.points[pointIndex].x,
+			cy: link.points[pointIndex].y,
+			r: 15,
+			opacity: 0,
+			onMouseLeave: () => this.setState({selected: false}),
+			onMouseEnter: () => this.setState({selected: true}),
+		};
+
+	  return (
+	    <g key={`point-${link.points[pointIndex].id}`}>
+	      <circle {...uiCircleProps}/>
+	      <circle {...circleProps}/>
+	    </g>
+    );
 	}
 
 	generateLink(extraProps) {
-		var Bottom = React.DOM.path(_.merge({
-			className: (this.state.selected || this.props.link.isSelected())?'selected':'',
-			strokeWidth:this.props.width,
-			stroke: this.props.color
-		},extraProps));
+		const { link, width, color } = this.props;
+	  const { selected } = this.state;
+	  const bottom = (
+	    <path
+	      className={(selected || link.isSelected()) ? 'selected' : ''}
+	      strokeWidth={width}
+	      stroke={color}
+	      {...extraProps}
+	    />
+    );
 
-		var Top = React.DOM.path(_.merge({
-			strokeLinecap: 'round',
-			onMouseLeave:() => {
-				this.setState({selected: false});
-			},
-			onMouseEnter:() => {
-				this.setState({selected: true});
-			},
-			'data-linkid': this.props.link.getID(),
-			stroke: this.props.color,
-			strokeOpacity:this.state.selected?0.1:0 ,
-			strokeWidth: 20,
-			onContextMenu: (event) => {
-				event.preventDefault();
-				this.props.link.remove();
-			},
-		},extraProps));
+		const top = (
+      <path
+        strokeLinecap={'round'}
+  			data-linkid={link.getID()}
+  			stroke={color}
+  			strokeOpacity={selected ? 0.1 : 0}
+  			strokeWidth={20}
+  			onMouseLeave={() => this.setState({selected: false})}
+  			onMouseEnter={() => this.setState({selected: true})}
+  			onContextMenu={event => {
+  				event.preventDefault();
+  				this.props.link.remove();
+  			}}
+  			{...extraProps}
+      />
+    );
 
-		return React.DOM.g({key:'link-' + extraProps.id},
-			Bottom,Top
-		);
+		return (
+      <g key={`link-${extraProps.id}`}>
+        {bottom}
+        {top}
+      </g>
+    );
+	}
+
+	drawLine() {
+	  const { link, diagramEngine, pointAdded } = this.props;
+	  const { points } = link;
+	  const paths = [];
+
+    // If the points are too close, just draw a straight line
+		const margin = (Math.abs(points[0].x - points[1].x) < 50) ? 5 : 50;
+
+    let pointLeft = points[0];
+    let pointRight = points[1];
+
+    // Some defensive programming to make sure the smoothing is
+    // Always in the right direction
+    if (pointLeft.x > pointRight.x) {
+      pointLeft = points[1];
+      pointRight = points[0];
+    }
+
+		paths.push(this.generateLink({
+			id: 0,
+			onMouseDown: (event) => {
+				if (!event.shiftKey){
+					var point = new PointModel(link, diagramEngine.getRelativeMousePoint(event));
+					point.setSelected(true);
+					this.forceUpdate();
+					link.addPoint(point,1);
+					pointAdded(point,event);
+				}
+			},
+			d: ' M' + pointLeft.x + ' ' + pointLeft.y +
+				 ' C' + (pointLeft.x + margin) + ' ' + pointLeft.y +
+				 ' ' + (pointRight.x - margin) + ' ' + pointRight.y +
+				 ' ' + pointRight.x + ' ' + pointRight.y
+		}));
+
+		if (link.targetPort === null){
+			paths.push(this.generatePoint(1));
+		}
+		
+		return paths;
+	}
+
+	drawAdvancedLine() {
+	  const { link, smooth, diagramEngine, pointAdded } = this.props;
+	  const { points } = link;
+	  const ds = [];
+
+		if (smooth) {
+			ds.push(
+			  ' M' + points[0].x + ' ' + points[0].y + ' C ' + (points[0].x+50) + ' ' + points[0].y +
+			  ' ' + points[1].x + ' ' + points[1].y + ' ' + points[1].x + ' ' + points[1].y
+			);
+
+      let i;
+			for (i = 1; i < points.length - 2; i++) {
+				ds.push(' M ' + points[i].x + ' ' + points[i].y + ' L ' + points[i + 1].x + ' ' + points[i + 1].y);
+			}
+
+			ds.push(
+			  ' M' + points[i].x + ' ' + points[i].y + ' C ' + points[i].x + ' ' + points[i].y + ' ' +
+			  (points[i + 1].x - 50) + ' ' + points[i + 1].y + ' ' + points[i + 1].x + ' ' + points[i + 1].y
+			);
+		} else {
+			for (let i = 0; i < points.length - 1; i++) {
+				ds.push(' M ' + points[i].x + ' ' + points[i].y + ' L ' + points[i + 1].x + ' ' + points[i + 1].y);
+			}
+		}
+
+		const paths = ds.map((data, index) => this.generateLink({
+			id: index,
+			d: data,
+			'data-linkid': link.id,
+			'data-point': index,
+			onMouseDown: event => {
+				if (!event.shiftKey) {
+					const point = new PointModel(link, diagramEngine.getRelativeMousePoint(event));
+					point.setSelected(true);
+					this.forceUpdate();
+					link.addPoint(point, index + 1);
+					pointAdded(point, event);
+				}
+			}
+		}));
+
+		// Render the circles
+		for (let i = 1; i < points.length - 1; i++) {
+			paths.push(this.generatePoint(i));
+		}
+
+		if (link.targetPort === null) {
+			paths.push(this.generatePoint(points.length - 1));
+		}
+
+		return paths;
 	}
 
 	render() {
-		//ensure id is present for all points on the path
-		var points = this.props.link.points;
-		var paths = [];
+	  const { points } = this.props.link;
+		let paths = [];
 
-        //draw the smoothing
-		if(points.length === 2){
-
-            //if the points are too close, just draw a straight line
-			var margin = 50;
-			if(Math.abs(points[0].x-points[1].x) < 50){
-				margin = 5;
-			}
-
-            var pointLeft = points[0];
-            var pointRight = points[1];
-
-            //some defensive programming to make sure the smoothing is
-            //always in the right direction
-            if(pointLeft.x > pointRight.x){
-                pointLeft = points[1];
-                pointRight = points[0];
-            }
-
-			paths.push(this.generateLink({
-				id: 0,
-				onMouseDown: (event) => {
-					if (!event.shiftKey){
-						var point = new PointModel(this.props.link,this.props.diagramEngine.getRelativeMousePoint(event));
-						point.setSelected(true);
-						this.forceUpdate();
-						this.props.link.addPoint(point,1);
-						this.props.pointAdded(point,event);
-					}
-				},
-				d:
-					 " M"+pointLeft.x+" "+pointLeft.y
-					+" C"+(pointLeft.x+margin)+" "+pointLeft.y
-					+" " +(pointRight.x-margin)+" "+pointRight.y
-					+" " +pointRight.x+" "+pointRight.y
-			}));
-			if (this.props.link.targetPort === null){
-				paths.push(this.generatePoint(1));
-			}
-		}
-
-        //draw the multiple anchors and complex line instead
-        else{
-			var ds = [];
-			if(this.props.smooth){
-				ds.push(" M"+points[0].x+" "+points[0].y+" C "+(points[0].x+50)+" "+points[0].y+" "+points[1].x+" "+points[1].y+" "+points[1].x+" "+points[1].y);
-				for(var i = 1;i < points.length-2;i++){
-					ds.push(" M "+points[i].x+" "+points[i].y+" L "+points[i+1].x+" "+points[i+1].y);
-				}
-				ds.push(" M"+points[i].x+" "+points[i].y+" C "+points[i].x+" "+points[i].y+" "+(points[i+1].x-50)+" "+points[i+1].y+" "+points[i+1].x+" "+points[i+1].y);
-			}else{
-				var ds = [];
-				for(var i = 0;i < points.length-1;i++){
-					ds.push(" M "+points[i].x+" "+points[i].y+" L "+points[i+1].x+" "+points[i+1].y);
-				}
-			}
-
-			paths = ds.map((data,index) => {
-				return this.generateLink({
-					id:index,
-					'data-linkid':this.props.link.id,
-					'data-point':index,
-					onMouseDown: (event) => {
-						if (!event.shiftKey){
-							var point = new PointModel(this.props.link,this.props.diagramEngine.getRelativeMousePoint(event));
-							point.setSelected(true);
-							this.forceUpdate();
-							this.props.link.addPoint(point,index+1);
-							this.props.pointAdded(point,event);
-						}
-					},
-					d:data
-				});
-			});
-
-			//render the circles
-			for(var i = 1;i < points.length-1;i++){
-				paths.push(this.generatePoint(i));
-			}
-
-			if (this.props.link.targetPort === null){
-				paths.push(this.generatePoint(points.length-1));
-			}
+    // Draw the line
+		if (points.length === 2) {
+      paths = this.drawLine();
+		} else {
+			paths = this.drawAdvancedLine();
 		}
 
 		return (
-			React.DOM.g(null,paths)
+			<g>
+			  {paths}
+			</g>
 		);
 	}
 }

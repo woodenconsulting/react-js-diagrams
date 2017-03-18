@@ -1,24 +1,28 @@
-import * as React from "react";
-import {PortWidget} from "../widgets/PortWidget";
+import React from 'react';
+import { PortWidget } from '../widgets/PortWidget';
 
-/**
- * @author Dylan Vorster
- */
 export class DefaultPortLabel extends React.Component {
-
 	static defaultProps = {
 		in: true,
-		label: "port"
+		label: 'port'
 	};
 
 	render() {
-
-		var port = React.createElement(PortWidget, {name: this.props.model.name, node: this.props.model.getParent()});
-		var label = React.DOM.div({className: 'name'}, this.props.model.label);
-
-		return React.DOM.div({className: (this.props.model.in?'in':'out')+'-port'},
-			this.props.model.in?port:label,
-			this.props.model.in?label:port
-		);
+	  const { model } = this.props;
+	  const port = (
+	    <PortWidget name={model.name} node={model.getParent()} />
+    );
+	  const label = (
+	    <div className='name'>
+	      {model.label}
+	    </div>
+    );
+    
+    return (
+      <div className={(model.in ? 'in' : 'out') + '-port'}>
+        {model.in ? port : label}
+        {model.in ? label : port}
+      </div>
+    );
 	}
 }

@@ -1,19 +1,15 @@
-import {NodeWidgetFactory} from "../WidgetFactories";
-import * as React from "react";
-import {DefaultNodeWidget} from "./DefaultNodeWidget";
-/**
- * @author Dylan Vorster
- */
-export class DefaultNodeFactory extends NodeWidgetFactory{
+import 'react';
+import { NodeWidgetFactory } from '../WidgetFactories';
+import { DefaultNodeWidget } from './DefaultNodeWidget';
 
+export class DefaultNodeFactory extends NodeWidgetFactory {
 	constructor(){
-		super("default");
+		super('default');
 	}
 
 	generateReactWidget(diagramEngine, node) {
-		return React.createElement(DefaultNodeWidget,{
-			node,
-			diagramEngine
-		});
+		return (
+		  <DefaultNodeWidget node={node} diagramEngine={diagramEngine} />
+		);
 	}
 }

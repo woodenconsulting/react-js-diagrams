@@ -1,12 +1,12 @@
-import { LinkModel } from "./Common";
-import {AbstractInstanceFactory} from "./AbstractInstanceFactory";
+import { LinkModel } from './Common';
+import { AbstractInstanceFactory } from './AbstractInstanceFactory';
 
 export class LinkInstanceFactory extends AbstractInstanceFactory {
-	constructor(){
-		super("LinkModel");
+	constructor() {
+		super('LinkModel');
 	}
 	
-	getInstance(){
+	getInstance() {
 		return new LinkModel();
 	}
 }

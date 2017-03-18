@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from 'react';
 
 export class PortWidget extends React.Component {
 	constructor(props) {
@@ -9,18 +9,15 @@ export class PortWidget extends React.Component {
 	}
 
 	render() {
-		return (
-			React.DOM.div({
-				onMouseEnter: () =>{
-					this.setState({selected: true});
-				},
-				onMouseLeave: () => {
-					this.setState({selected: false});
-				},
-				className:'port'+(this.state.selected?' selected':''),
-				'data-name':this.props.name,
-				'data-nodeid': this.props.node.getID()
-			})
-		);
+	  const { name, node } = this.props;
+    return (
+      <div
+        className={'port' + (this.state.selected ? ' selected' : '')}
+        onMouseEnter={() => this.setState({ selected: true })}
+        onMouseLeave={() => this.setState({ selected: false })}
+        data-name={name}
+        data-nodeid={node.getID()}
+      />
+    );
 	}
 }

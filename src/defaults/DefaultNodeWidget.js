@@ -1,7 +1,5 @@
-import * as React from "react";
-import * as _ from "lodash";
-const div = React.DOM.div;
-import {DefaultPortLabel} from "./DefaultPortLabelWidget";
+import React from 'react';
+import { DefaultPortLabel } from './DefaultPortLabelWidget';
 
 export class DefaultNodeWidget extends React.Component {
 	static defaultProps = {
@@ -9,26 +7,40 @@ export class DefaultNodeWidget extends React.Component {
 	};
 
 	onRemove() {
-	  this.props.node.remove();
-	  this.props.diagramEngine.forceUpdate();
+	  const { node, diagramEngine } = this.props;
+	  node.remove();
+	  diagramEngine.forceUpdate();
+	}
+
+	getInPorts() {
+	  const { node } = this.props;
+	  return node.getInPorts().map((port, i) => <DefaultPortLabel model={port} key={`in-port-${i}`} />);
+	}
+
+	getOutPorts() {
+	  const { node } = this.props;
+	  return node.getOutPorts().map((port, i) => <DefaultPortLabel model={port} key={`out-port-${i}`} />);
 	}
 
 	render() {
-		return (
-			div({className: 'basic-node', key: 'basic-node', style: {background: this.props.node.color }},
-				div({className:'title', key: 'title'},
-					div({className:'name', key: 'name'},this.props.node.name),
-					div({className: 'fa fa-close', key: 'close', onClick: this.onRemove.bind(this)})
-				),
-				div({className:'ports', key: 'ports'},
-					div({className: 'in', key: 'in'}, _.map(this.props.node.getInPorts(),(port, i) => {
-						return React.createElement(DefaultPortLabel,{model: port, key: `in-port-${i}`});
-					})),
-					div({className: 'out', key: 'out'}, _.map(this.props.node.getOutPorts(),(port, i) => {
-						return React.createElement(DefaultPortLabel,{model: port, key: `out-port-${i}`});
-					}))
-				)
-			)
-		);
+	  const { node } = this.props;
+	  return (
+	    <div className='basic-node' style={{background: node.color }}>
+	      <div className='title'>
+	        <div className='name'>
+	          {node.name}
+	        </div>
+	        <div className='fa fa-close' onClick={this.onRemove.bind(this)} />
+	      </div>
+	      <div className='ports'>
+	        <div className='in'>
+	          {this.getInPorts()}
+	        </div>
+	        <div className='out'>
+	          {this.getOutPorts()}
+	        </div>
+	      </div>
+	    </div>
+    );
 	}
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import 'react';
 import { DefaultNodeWidget } from './defaults/DefaultNodeWidget';
 import { DefaultLinkWidget } from './defaults/DefaultLinkWidget';
 
@@ -14,18 +14,12 @@ export class WidgetFactory {
 
 export class NodeWidgetFactory extends WidgetFactory {
 	generateReactWidget(diagramEngine, node) {
-	  return React.createElement(DefaultNodeWidget, {
-			node,
-			diagramEngine
-		});
+	  return <DefaultNodeWidget node={node} diagramEngine={diagramEngine} />;
 	}
 }
 
 export class LinkWidgetFactory extends WidgetFactory {
 	generateReactWidget(diagramEngine, link) {
-	  return React.createElement(DefaultLinkWidget, {
-			link,
-			diagramEngine
-		});
+	  return <DefaultLinkWidget link={link} diagramEngine={diagramEngine} />;
 	}
 }

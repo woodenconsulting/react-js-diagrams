@@ -1,14 +1,12 @@
-import { BaseEntity } from "./BaseEntity";
-/**
- * @author Dylan Vorster
- */
+import { BaseEntity } from './BaseEntity';
+
 export class AbstractInstanceFactory extends BaseEntity {
 	constructor(className) {
 	  super(className);
 		this.className = className;
 	}
-	
-	getName(){
+
+	getName() {
 		return this.className;
 	}
 }

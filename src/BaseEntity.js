@@ -1,4 +1,4 @@
-import {Toolkit} from "./Toolkit";
+import { Toolkit } from './Toolkit';
 
 export class BaseEntity {
 	constructor() {
@@ -10,28 +10,28 @@ export class BaseEntity {
 		return this.id;
 	}
 
-	clearListeners(){
+	clearListeners() {
 		this.listeners = {};
 	}
 
-	deSerialize(data){
+	deSerialize(data) {
 		this.id = data.id;
 	}
 
-	serialize(){
+	serialize() {
 		return {
 			id: this.id,
 		};
 	}
 
 	itterateListeners(cb) {
-		for (var i in this.listeners){
-			cb(this.listeners[i]);
+		for (const key in this.listeners) {
+			cb(this.listeners[key]);
 		}
 	}
 
-	removeListener(listener){
-		if (this.listeners[listener]){
+	removeListener(listener) {
+		if (this.listeners[listener]) {
 			delete this.listeners[listener];
 			return true;
 		}
@@ -39,7 +39,7 @@ export class BaseEntity {
 	}
 
 	addListener(listener) {
-		var uid = Toolkit.UID();
+		const uid = Toolkit.UID();
 		this.listeners[uid] = listener;
 		return uid;
 	}

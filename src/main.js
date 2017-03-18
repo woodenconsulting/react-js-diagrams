@@ -1,8 +1,3 @@
-/**
- * @author Dylan Vorster
- */
-
- //export defaults
 export * from './defaults/DefaultLinkFactory';
 export * from './defaults/DefaultLinkWidget';
 export * from './defaults/DefaultNodeFactory';

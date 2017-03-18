@@ -1,57 +1,8 @@
-import * as React from "react";
-import * as _ from "lodash";
-import { PointModel, NodeModel, LinkModel, PortModel } from "../Common";
-import { LinkLayerWidget } from "./LinkLayerWidget";
-import { NodeLayerWidget } from "./NodeLayerWidget";
-
-export class BaseAction {
-	constructor(mouseX, mouseY) {
-		this.mouseX = mouseX;
-		this.mouseY = mouseY;
-		this.ms = (new Date()).getTime();
-	}
-}
-
-class SelectingAction extends BaseAction {
-	constructor(mouseX, mouseY) {
-		super(mouseX, mouseY);
-		this.mouseX2 = mouseX;
-		this.mouseY2 = mouseY;
-	}
-
-	containsElement(x, y, diagramModel) {
-		var z = diagramModel.getZoomLevel()/100.0;
-		return (
-			(x + diagramModel.getOffsetX())*z > this.mouseX	&&
-			(x + diagramModel.getOffsetX())*z < this.mouseX2 &&
-			(y + diagramModel.getOffsetY())*z > this.mouseY	&&
-			(y + diagramModel.getOffsetY())*z < this.mouseY2
-		);
-	}
-}
-
-class MoveCanvasAction extends BaseAction {
-	constructor(mouseX, mouseY, diagramModel) {
-		super(mouseX,mouseY);
-		this.initialOffsetX = diagramModel.getOffsetX();
-		this.initialOffsetY = diagramModel.getOffsetY();
-	}
-}
-
-class MoveItemsAction extends BaseAction {
-	constructor(mouseX, mouseY, diagramEngine) {
-		super(mouseX, mouseY);
-		this.moved = false;
-		diagramEngine.enableRepaintEntities(diagramEngine.getDiagramModel().getSelectedItems());
-		this.selectionModels = diagramEngine.getDiagramModel().getSelectedItems().map(item => {
-			return {
-				model: item,
-				initialX: item.x,
-				initialY: item.y,
-			};
-		});
-	}
-}
+import React from 'react';
+import { PointModel, NodeModel, LinkModel, PortModel } from '../Common';
+import { SelectingAction, MoveCanvasAction, MoveItemsAction } from './actions';
+import { LinkLayerWidget } from './LinkLayerWidget';
+import { NodeLayerWidget } from './NodeLayerWidget';
 
 export class DiagramWidget extends React.Component {
 	constructor(props) {
@@ -87,18 +38,18 @@ export class DiagramWidget extends React.Component {
 		}
 	}
 
-	componentDidMount(){
-		this.props.diagramEngine.setCanvas(this.refs['canvas']);
-		this.props.diagramEngine.setForceUpdate(this.forceUpdate.bind(this));
+	componentDidMount() {
+	  const { diagramEngine } = this.props;
+		diagramEngine.setCanvas(this.refs['canvas']);
+		diagramEngine.setForceUpdate(this.forceUpdate.bind(this));
 
-		//add a keyboard listener
+		// Add a keyboard listener
 		this.setState({
 			renderedNodes: true,
-			windowListener: window.addEventListener('keydown', (event) => {
-
-				//delete all selected
-				if(event.keyCode === 46 || event.keyCode === 8){
-					_.forEach(this.props.diagramEngine.getDiagramModel().getSelectedItems(),(element) => {
+			windowListener: window.addEventListener('keydown', event => {
+				// Delete all selected
+				if(event.keyCode === 46 || event.keyCode === 8) {
+					diagramEngine.getDiagramModel().getSelectedItems().forEach(element => {
 						element.remove();
 					});
 					this.forceUpdate();
@@ -112,221 +63,256 @@ export class DiagramWidget extends React.Component {
 	 * Gets a model and element under the mouse cursor
 	 */
 	getMouseElement(event) {
-		var target = event.target;
-		var diagramModel = this.props.diagramEngine.diagramModel;
+	  const { diagramModel } = this.props.diagramEngine;
+		const { target } = event;
 
-		//is it a port
-		var element = target.closest('.port[data-name]');
-		if(element){
-			var nodeElement = target.closest('.node[data-nodeid]');
+		// Look for a port
+		let element = target.closest('.port[data-name]');
+		if (element) {
+			const nodeElement = target.closest('.node[data-nodeid]');
 			return {
 				model: diagramModel.getNode(nodeElement.getAttribute('data-nodeid')).getPort(element.getAttribute('data-name')),
-				element: element
+				element
 			};
 		}
 
-		//look for a point
+		// Look for a point
 		element = target.closest('.point[data-id]');
-		if(element){
+		if (element) {
 			return {
 				model: diagramModel.getLink(element.getAttribute('data-linkid')).getPointModel(element.getAttribute('data-id')),
-				element: element
+				element
 			};
 		}
 
-		//look for a link
+		// Look for a link
 		element = target.closest('[data-linkid]');
-		if(element){
+		if (element) {
 			return {
 				model: diagramModel.getLink(element.getAttribute('data-linkid')),
-				element: element
+				element
 			};
 		}
 
-		//look for a node
+		// Look for a node
 		element = target.closest('.node[data-nodeid]');
-		if(element){
+		if (element) {
 			return {
 				model: diagramModel.getNode(element.getAttribute('data-nodeid')),
-				element: element
+				element
 			};
 		}
 
 		return null;
 	}
 
-	render() {
-		var diagramEngine = this.props.diagramEngine;
-		var diagramModel = diagramEngine.getDiagramModel();
+	onWheel(event) {
+	  const  { diagramEngine } = this.props;
+		const diagramModel = diagramEngine.getDiagramModel();
+	  event.preventDefault();
+    event.stopPropagation();
+		diagramModel.setZoomLevel(diagramModel.getZoomLevel()+(event.deltaY/60));
+		diagramEngine.enableRepaintEntities([]);
+		this.forceUpdate();
+	}
+
+	onMouseMove(event) {
+	  const  { diagramEngine } = this.props;
+	  const { action } = this.state;
+		const diagramModel = diagramEngine.getDiagramModel();
+
+	  // Select items so draw a bounding box
+		if (action instanceof SelectingAction) {
+			const relative = diagramEngine.getRelativePoint(event.pageX, event.pageY);
+
+			diagramModel.getNodes().forEach(node => {
+				if (action.containsElement(node.x, node.y, diagramModel)) {
+					node.setSelected(true);
+				}
+			});
+
+			diagramModel.getLinks().forEach(link => {
+				let allSelected = true;
+				link.points.forEach(point => {
+					if (action.containsElement(point.x, point.y, diagramModel)) {
+						point.setSelected(true);
+					} else {
+						allSelected = false;
+					}
+				});
+
+				if (allSelected) {
+					link.setSelected(true);
+				}
+			});
+
+			action.mouseX2 = relative.x;
+			action.mouseY2 = relative.y;
+			this.setState({ action });
+			return;
+		} else if (action instanceof MoveItemsAction) {
+		  // Translate the items on the canvas
+			action.selectionModels.forEach(model => {
+				if (model.model instanceof NodeModel || model.model instanceof PointModel) {
+					model.model.x = model.initialX + (
+					  (event.pageX - this.state.action.mouseX) / (diagramModel.getZoomLevel() / 100)
+					);
+					model.model.y = model.initialY + (
+					  (event.pageY - this.state.action.mouseY) / (diagramModel.getZoomLevel() / 100)
+					);
+				}
+			});
+			this.forceUpdate();
+		} else if (this.state.action instanceof MoveCanvasAction) {
+		  // Translate the actual canvas
+			diagramModel.setOffset(
+				action.initialOffsetX + (
+				  (event.pageX - this.state.action.mouseX) / (diagramModel.getZoomLevel() / 100)
+				),
+				action.initialOffsetY + (
+				  (event.pageY-this.state.action.mouseY) / (diagramModel.getZoomLevel() / 100)
+				)
+			);
+			this.forceUpdate();
+		}
+	}
+
+	onMouseDown(event) {
+	  const  { diagramEngine } = this.props;
+		const diagramModel = diagramEngine.getDiagramModel();
+		const model = this.getMouseElement(event);
+
+	  diagramEngine.clearRepaintEntities();
+
+		// Check if this is the canvas
+		if (model === null) {
+			// Check for a multiple selection
+			if (event.shiftKey) {
+				const relative = diagramEngine.getRelativePoint(event.pageX, event.pageY);
+				this.setState({
+					action: new SelectingAction(
+						relative.x, relative.y
+					)
+				});
+			} else {
+			  // This is a drag canvas event
+				const relative = diagramEngine.getRelativePoint(event.pageX, event.pageY);
+				diagramModel.clearSelection();
+				this.setState({
+					action: new MoveCanvasAction(relative.x, relative.y, diagramModel)
+				});
+			}
+		} else if (model.model instanceof PortModel) {
+		  // This is a port element, we want to drag a link
+			const relative = diagramEngine.getRelativeMousePoint(event);
+			const link = new LinkModel();
+			link.setSourcePort(model.model);
+
+			link.getFirstPoint().updateLocation(relative);
+			link.getLastPoint().updateLocation(relative);
+
+			diagramModel.clearSelection();
+			link.getLastPoint().setSelected(true);
+			diagramModel.addLink(link);
+
+			this.setState({
+				action: new MoveItemsAction(event.pageX, event.pageY, diagramEngine)
+			});
+		} else {
+      // It's some other element that needs to be moved
+			if (!event.shiftKey && !model.model.isSelected()) {
+				diagramModel.clearSelection();
+			}
+			model.model.setSelected(true);
+
+			this.setState({
+				action: new MoveItemsAction(event.pageX, event.pageY,diagramEngine)
+			});
+		}
+	}
+
+	onMouseUp(event) {
+	  const  { diagramEngine } = this.props;
+	  
+	  // Check if we going to connect a link to something
+		if (this.state.action instanceof MoveItemsAction) {
+			const element = this.getMouseElement(event);
+			if (element) {
+				this.state.action.selectionModels.forEach(model => {
+					// Only care about points connecting to things
+					if (!(model.model instanceof PointModel)) {
+						return;
+					}
+
+					if (element.model instanceof PortModel) {
+						model.model.getLink().setTargetPort(element.model);
+					}
+				});
+			}
+		}
+
+		diagramEngine.clearRepaintEntities();
+		this.setState({ action: null });
+	}
+
+	renderLinkLayerWidget() {
+	  const  { diagramEngine } = this.props;
+		const diagramModel = diagramEngine.getDiagramModel();
+
+		if (!this.state.renderedNodes) {
+		  return null;
+		}
 
 		return (
-			React.DOM.div({
-					ref:'canvas',
-					className:'react-js-diagrams-canvas',
-					onWheel: (event) => {
-                        event.preventDefault();
-                        event.stopPropagation();
-						diagramModel.setZoomLevel(diagramModel.getZoomLevel()+(event.deltaY/60));
-						diagramEngine.enableRepaintEntities([]);
-						this.forceUpdate();
-					},
-					onMouseMove: (event) => {
+  	  <LinkLayerWidget
+  			diagramEngine={diagramEngine}
+  			pointAdded={(point, event) => {
+  				event.stopPropagation();
+  				diagramModel.clearSelection(point);
+  				this.setState({
+  					action: new MoveItemsAction(event.pageX, event.pageY, diagramEngine)
+  				});
+  			}}
+      />
+    );
+	}
 
+	renderSelector() {
+	  const { action } = this.state;
 
-						//select items so draw a bounding box
-						if (this.state.action instanceof SelectingAction){
-							var relative = diagramEngine.getRelativePoint(event.pageX, event.pageY);
+	  if (!(action instanceof SelectingAction)) {
+	    return null;
+	  }
 
-							_.forEach(diagramModel.getNodes(), (node) => {
-								if ((this.state.action).containsElement(node.x, node.y, diagramModel)){
-									node.setSelected(true);
-								}
-							});
+	  return (
+	    <div
+				className='selector'
+				style={{
+					top: action.mouseY,
+					left: action.mouseX,
+					width: action.mouseX2 - action.mouseX,
+					height: action.mouseY2 - action.mouseY,
+				}}
+	    />
+    );
+	}
 
-							_.forEach(diagramModel.getLinks(),(link) => {
-								var allSelected = true;
-								_.forEach(link.points,(point) => {
-									if ((this.state.action).containsElement(point.x, point.y, diagramModel)){
-										point.setSelected(true);
-									}else{
-										allSelected = false;
-									}
-								});
+	render() {
+		const  { diagramEngine } = this.props;
 
-								if (allSelected){
-									link.setSelected(true);
-								}
-							});
-
-							this.state.action.mouseX2 = relative.x;
-							this.state.action.mouseY2 = relative.y;
-							this.setState({action: this.state.action});
-							return;
-						}
-
-						//translate the items on the canvas
-						else if (this.state.action instanceof MoveItemsAction){
-							_.forEach(this.state.action.selectionModels,(model) => {
-								if (model.model instanceof NodeModel || model.model instanceof PointModel){
-									model.model.x = model.initialX + ((event.pageX - this.state.action.mouseX) / (diagramModel.getZoomLevel()/100));
-									model.model.y = model.initialY + ((event.pageY - this.state.action.mouseY) / (diagramModel.getZoomLevel()/100));
-								}
-							});
-							this.forceUpdate();
-						}
-
-						//translate the actual canvas
-						else if (this.state.action instanceof MoveCanvasAction){
-							diagramModel.setOffset(
-								this.state.action.initialOffsetX + ((event.pageX - this.state.action.mouseX) / (diagramModel.getZoomLevel()/100)),
-								this.state.action.initialOffsetY+((event.pageY-this.state.action.mouseY)/(diagramModel.getZoomLevel()/100))
-							);
-							this.forceUpdate();
-						}
-					},
-					onMouseDown: (event) => {
-						diagramEngine.clearRepaintEntities();
-
-						var model = this.getMouseElement(event);
-						//its the canvas
-						if(model === null){
-							//is it a multiple selection
-							if (event.shiftKey){
-								var relative = diagramEngine.getRelativePoint(event.pageX, event.pageY);
-								this.setState({
-									action: new SelectingAction(
-										relative.x, relative.y
-									)
-								});
-							}
-
-							//its a drag the canvas event
-							else{
-								relative = diagramEngine.getRelativePoint(event.pageX, event.pageY);
-								diagramModel.clearSelection();
-								this.setState({
-									action: new MoveCanvasAction(relative.x, relative.y, diagramModel)
-								});
-							}
-						}
-
-						//its a port element, we want to drag a link
-						else if (model.model instanceof PortModel){
-							relative = diagramEngine.getRelativeMousePoint(event);
-							var link = new LinkModel();
-							link.setSourcePort(model.model);
-
-							link.getFirstPoint().updateLocation(relative);
-							link.getLastPoint().updateLocation(relative);
-
-							diagramModel.clearSelection();
-							link.getLastPoint().setSelected(true);
-							diagramModel.addLink(link);
-
-							this.setState({
-								action: new MoveItemsAction(event.pageX, event.pageY, diagramEngine)
-							});
-						}
-						//its some or other element, probably want to move it
-						else{
-
-							if (!event.shiftKey && !model.model.isSelected()){
-								diagramModel.clearSelection();
-							}
-							model.model.setSelected(true);
-
-							this.setState({
-								action: new MoveItemsAction(event.pageX, event.pageY,diagramEngine)
-							});
-						}
-					},
-					onMouseUp: (event) => {
-						//are we going to connect a link to something?
-						if (this.state.action instanceof MoveItemsAction){
-							var element = this.getMouseElement(event);
-							if(element){
-								_.forEach(this.state.action.selectionModels,(model) => {
-
-									//only care about points connecting to things
-									if (!(model.model instanceof PointModel)){
-										return;
-									}
-
-									if (element.model instanceof PortModel){
-										model.model.getLink().setTargetPort(element.model);
-									}
-								});
-							}
-						}
-
-						diagramEngine.clearRepaintEntities();
-						this.setState({ action: null });
-					}
-				},
-				this.state.renderedNodes ?
-					React.createElement(LinkLayerWidget, {
-					  key: 'diagram-engine',
-						diagramEngine: diagramEngine, pointAdded: (point, event) => {
-							event.stopPropagation();
-							diagramModel.clearSelection(point);
-							this.setState({
-								action: new MoveItemsAction(event.pageX, event.pageY, diagramEngine)
-							});
-						}
-					}) : null,
-					React.createElement(NodeLayerWidget, { diagramEngine, updateDiagram: this.forceUpdate }),
-					this.state.action instanceof SelectingAction ?
-						React.DOM.div({
-							className: 'selector',
-							key: 'selector',
-							style: {
-								top: this.state.action.mouseY,
-								left: this.state.action.mouseX,
-								width: this.state.action.mouseX2 - this.state.action.mouseX,
-								height: this.state.action.mouseY2 - this.state.action.mouseY,
-							}
-						}) : null
-			)
+		return (
+		  <div
+		    ref='canvas'
+		    className='react-js-diagrams-canvas'
+		    onWheel={this.onWheel.bind(this)}
+				onMouseMove={this.onMouseMove.bind(this)}
+				onMouseDown={this.onMouseDown.bind(this)}
+				onMouseUp={this.onMouseUp.bind(this)}
+		  >
+		    {this.renderLinkLayerWidget()}
+		    <NodeLayerWidget diagramEngine={diagramEngine} />
+		    {this.renderSelector()}
+		  </div>
 		);
 	}
 }

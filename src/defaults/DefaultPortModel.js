@@ -1,37 +1,34 @@
-import {PortModel} from "../Common";
-import * as _ from "lodash";
-import {AbstractInstanceFactory} from "../AbstractInstanceFactory";
+import { PortModel } from '../Common';
+import { AbstractInstanceFactory } from '../AbstractInstanceFactory';
 
 export class DefaultPortInstanceFactory extends AbstractInstanceFactory {
 	constructor(){
-		super("DefaultPortModel");
+		super('DefaultPortModel');
 	}
-	
+
 	getInstance(){
-		return new DefaultPortModel(true,"unknown");
+		return new DefaultPortModel(true, 'unknown');
 	}
 }
 
-/**
- * @author Dylan Vorster
- */
 export class DefaultPortModel extends PortModel {
-	constructor(isInput ,name, label = null) {
+	constructor(isInput, name, label = null) {
 		super(name);
 		this.in = isInput;
 		this.label = label || name;
 	}
-	
-	deSerialize(object){
+
+	deSerialize(object) {
 		super.deSerialize(object);
 		this.in = object.in;
 		this.label = object.label;
 	}
-	
-	serialize(){
-		return _.merge(super.serialize(),{
+
+	serialize() {
+		return {
+		  ...super.serialize(),
 			in: this.in,
-			label: this.label,
-		});
+			label: this.label
+		};
 	}
 }

@@ -1,6 +1,3 @@
-/**
- * @author Dylan Vorster
- */
 export class Toolkit {
 	/**
    * Generats a unique ID (thanks Stack overflow :3)
