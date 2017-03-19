@@ -1,15 +1,15 @@
 import React from 'react';
 
 export class PortWidget extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			selected: false
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: false
+    };
+  }
 
-	render() {
-	  const { name, node } = this.props;
+  render() {
+    const { name, node } = this.props;
     return (
       <div
         className={'port' + (this.state.selected ? ' selected' : '')}
@@ -19,5 +19,5 @@ export class PortWidget extends React.Component {
         data-nodeid={node.getID()}
       />
     );
-	}
+  }
 }
