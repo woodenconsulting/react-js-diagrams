@@ -1,14 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("React"), require("lodash"), require("ReactDOM"));
-	else if(typeof define === 'function' && define.amd)
-		define(["React", "_", "ReactDOM"], factory);
-	else if(typeof exports === 'object')
-		exports["react-js-diagrams"] = factory(require("React"), require("lodash"), require("ReactDOM"));
-	else
-		root["react-js-diagrams"] = factory(root["React"], root["_"], root["ReactDOM"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_19__) {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -70,17 +60,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 41);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
+module.exports = React;
 
 /***/ }),
 /* 1 */
@@ -541,7 +531,7 @@ var NodeModel = function (_BaseModel4) {
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+module.exports = undefined;
 
 /***/ }),
 /* 3 */
@@ -1900,7 +1890,7 @@ if(false) {
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_19__;
+module.exports = ReactDOM;
 
 /***/ }),
 /* 20 */
@@ -3222,13 +3212,257 @@ function updateLink(linkElement, obj) {
 
 
 /***/ }),
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
+/* 34 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_main__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DiamondPortModel__ = __webpack_require__(35);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DiamondNodeModel; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var DiamondNodeModel = function (_SRD$NodeModel) {
+	_inherits(DiamondNodeModel, _SRD$NodeModel);
+
+	function DiamondNodeModel() {
+		_classCallCheck(this, DiamondNodeModel);
+
+		var _this = _possibleConstructorReturn(this, (DiamondNodeModel.__proto__ || Object.getPrototypeOf(DiamondNodeModel)).call(this, 'diamond'));
+
+		_this.addPort(new __WEBPACK_IMPORTED_MODULE_1__DiamondPortModel__["a" /* DiamondPortModel */]('top'));
+		_this.addPort(new __WEBPACK_IMPORTED_MODULE_1__DiamondPortModel__["a" /* DiamondPortModel */]('left'));
+		_this.addPort(new __WEBPACK_IMPORTED_MODULE_1__DiamondPortModel__["a" /* DiamondPortModel */]('bottom'));
+		_this.addPort(new __WEBPACK_IMPORTED_MODULE_1__DiamondPortModel__["a" /* DiamondPortModel */]('right'));
+		return _this;
+	}
+
+	return DiamondNodeModel;
+}(__WEBPACK_IMPORTED_MODULE_0__src_main__["n" /* NodeModel */]);
+
+/***/ }),
+/* 35 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_main__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DiamondPortModel; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var DiamondPortModel = function (_SRD$PortModel) {
+	_inherits(DiamondPortModel, _SRD$PortModel);
+
+	function DiamondPortModel() {
+		var pos = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'top';
+
+		_classCallCheck(this, DiamondPortModel);
+
+		var _this = _possibleConstructorReturn(this, (DiamondPortModel.__proto__ || Object.getPrototypeOf(DiamondPortModel)).call(this, pos));
+
+		_this.position = pos;
+		return _this;
+	}
+
+	_createClass(DiamondPortModel, [{
+		key: "serialize",
+		value: function serialize() {
+			return __WEBPACK_IMPORTED_MODULE_1_lodash__["merge"](_get(DiamondPortModel.prototype.__proto__ || Object.getPrototypeOf(DiamondPortModel.prototype), "serialize", this).call(this), {
+				position: this.position
+			});
+		}
+	}, {
+		key: "deSerialize",
+		value: function deSerialize(data) {
+			_get(DiamondPortModel.prototype.__proto__ || Object.getPrototypeOf(DiamondPortModel.prototype), "deSerialize", this).call(this, data);
+			this.position = data.position;
+		}
+	}]);
+
+	return DiamondPortModel;
+}(__WEBPACK_IMPORTED_MODULE_0__src_main__["m" /* PortModel */]);
+
+/***/ }),
+/* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_main__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DiamondNodeModel__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DiamondPortModel__ = __webpack_require__(35);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DiamondNodeFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DiamondPortFactory; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var DiamondNodeFactory = function (_SRD$AbstractInstance) {
+	_inherits(DiamondNodeFactory, _SRD$AbstractInstance);
+
+	function DiamondNodeFactory() {
+		_classCallCheck(this, DiamondNodeFactory);
+
+		return _possibleConstructorReturn(this, (DiamondNodeFactory.__proto__ || Object.getPrototypeOf(DiamondNodeFactory)).call(this, "DiamondNodeModel"));
+	}
+
+	_createClass(DiamondNodeFactory, [{
+		key: "getInstance",
+		value: function getInstance() {
+			return new __WEBPACK_IMPORTED_MODULE_1__DiamondNodeModel__["a" /* DiamondNodeModel */]();
+		}
+	}]);
+
+	return DiamondNodeFactory;
+}(__WEBPACK_IMPORTED_MODULE_0__src_main__["l" /* AbstractInstanceFactory */]);
+
+var DiamondPortFactory = function (_SRD$AbstractInstance2) {
+	_inherits(DiamondPortFactory, _SRD$AbstractInstance2);
+
+	function DiamondPortFactory() {
+		_classCallCheck(this, DiamondPortFactory);
+
+		return _possibleConstructorReturn(this, (DiamondPortFactory.__proto__ || Object.getPrototypeOf(DiamondPortFactory)).call(this, "DiamondPortModel"));
+	}
+
+	_createClass(DiamondPortFactory, [{
+		key: "getInstance",
+		value: function getInstance() {
+			return new __WEBPACK_IMPORTED_MODULE_2__DiamondPortModel__["a" /* DiamondPortModel */]();
+		}
+	}]);
+
+	return DiamondPortFactory;
+}(__WEBPACK_IMPORTED_MODULE_0__src_main__["l" /* AbstractInstanceFactory */]);
+
+/***/ }),
+/* 37 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_main__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DiamondNodeWidget__ = __webpack_require__(38);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DiamondWidgetFactory; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var DiamondWidgetFactory = function (_SRD$NodeWidgetFactor) {
+	_inherits(DiamondWidgetFactory, _SRD$NodeWidgetFactor);
+
+	function DiamondWidgetFactory() {
+		_classCallCheck(this, DiamondWidgetFactory);
+
+		return _possibleConstructorReturn(this, (DiamondWidgetFactory.__proto__ || Object.getPrototypeOf(DiamondWidgetFactory)).call(this, 'diamond'));
+	}
+
+	_createClass(DiamondWidgetFactory, [{
+		key: "generateReactWidget",
+		value: function generateReactWidget(diagramEngine, node) {
+			return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__DiamondNodeWidget__["a" /* DiamonNodeWidgetFactory */])({ node: node });
+		}
+	}]);
+
+	return DiamondWidgetFactory;
+}(__WEBPACK_IMPORTED_MODULE_0__src_main__["o" /* NodeWidgetFactory */]);
+
+/***/ }),
+/* 38 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DiamondNodeModel__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_main__ = __webpack_require__(5);
+/* unused harmony export DiamonNodeWidget */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DiamonNodeWidgetFactory; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var DiamonNodeWidget = function (_React$Component) {
+	_inherits(DiamonNodeWidget, _React$Component);
+
+	function DiamonNodeWidget() {
+		_classCallCheck(this, DiamonNodeWidget);
+
+		return _possibleConstructorReturn(this, (DiamonNodeWidget.__proto__ || Object.getPrototypeOf(DiamonNodeWidget)).apply(this, arguments));
+	}
+
+	_createClass(DiamonNodeWidget, [{
+		key: "render",
+		value: function render() {
+			return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].div({ className: "diamond-node", style: { position: 'relative', width: this.props.size, height: this.props.size } }, __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].svg({
+				width: this.props.size, height: this.props.size, dangerouslySetInnerHTML: { __html: "\n\t\t\t\t\t\t<g id=\"Layer_1\">\n\t\t\t\t\t\t</g>\n\t\t\t\t\t\t<g id=\"Layer_2\">\n\t\t\t\t\t\t\t<polygon fill=\"cyan\" stroke=\"#000000\" stroke-width=\"3\" stroke-miterlimit=\"10\" points=\"10," + this.props.size / 2 + " " + this.props.size / 2 + ",10 " + (this.props.size - 10) + "," + this.props.size / 2 + " " + this.props.size / 2 + "," + (this.props.size - 10) + " \"/>\n\t\t\t\t\t\t</g>\n\t\t\t\t" } }),
+
+			//left node
+			__WEBPACK_IMPORTED_MODULE_0_react__["DOM"].div({ style: { position: 'absolute', zIndex: 10, top: this.props.size / 2 - 5 } }, __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_2__src_main__["p" /* PortWidget */], { name: 'left', node: this.props.node })),
+
+			//top node
+			__WEBPACK_IMPORTED_MODULE_0_react__["DOM"].div({ style: { position: 'absolute', zIndex: 10, left: this.props.size / 2 - 8 } }, __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_2__src_main__["p" /* PortWidget */], { name: 'top', node: this.props.node })),
+
+			//right
+			__WEBPACK_IMPORTED_MODULE_0_react__["DOM"].div({ style: { position: 'absolute', zIndex: 10, left: this.props.size - 10, top: this.props.size / 2 } }, __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_2__src_main__["p" /* PortWidget */], { name: 'right', node: this.props.node })),
+
+			//bottom
+			__WEBPACK_IMPORTED_MODULE_0_react__["DOM"].div({ style: { position: 'absolute', zIndex: 10, left: this.props.size / 2 - 8, top: this.props.size - 10 } }, __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_2__src_main__["p" /* PortWidget */], { name: 'bottom', node: this.props.node })));
+		}
+	}]);
+
+	return DiamonNodeWidget;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+DiamonNodeWidget.defaultProps = {
+	size: 150,
+	node: null
+};
+var DiamonNodeWidgetFactory = __WEBPACK_IMPORTED_MODULE_0_react__["createFactory"](DiamonNodeWidget);
+
+/***/ }),
 /* 39 */,
-/* 40 */
+/* 40 */,
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3238,6 +3472,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__DiamondNodeModel__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__DiamondWidgetFactory__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DiamondInstanceFactories__ = __webpack_require__(36);
+
+
+
 
 
 
@@ -3246,8 +3486,9 @@ __webpack_require__(18);
 
 /**
  *
- * Simple stress test of the system, shows that it can handle many nodes, and
- * retain good performance
+ * Shows a much more complex way on how to use this library, by creating custom
+ * node elements
+ *
  *
  * @Author Dylan Vorster
  */
@@ -3257,48 +3498,74 @@ window.onload = function () {
 	var engine = new __WEBPACK_IMPORTED_MODULE_0__src_main__["a" /* DiagramEngine */]();
 	engine.registerNodeFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["b" /* DefaultNodeFactory */]());
 	engine.registerLinkFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["c" /* DefaultLinkFactory */]());
-
-	function generateNodes(model, offsetX, offsetY) {
-		//3-A) create a default node
-		var node1 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["e" /* DefaultNodeModel */]("Node 1", "rgb(0,192,255)");
-		var port1 = node1.addPort(new __WEBPACK_IMPORTED_MODULE_0__src_main__["f" /* DefaultPortModel */](false, "out-1", "Out"));
-		node1.x = 100 + offsetX;
-		node1.y = 100 + offsetY;
-
-		//3-B) create another default node
-		var node2 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["e" /* DefaultNodeModel */]("Node 2", "rgb(192,255,0)");
-		var port2 = node2.addPort(new __WEBPACK_IMPORTED_MODULE_0__src_main__["f" /* DefaultPortModel */](true, "in-1", "IN"));
-		node2.x = 200 + offsetX;
-		node2.y = 100 + offsetY;
-
-		//3-C) link the 2 nodes together
-		var link1 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["g" /* LinkModel */]();
-		link1.setSourcePort(port1);
-		link1.setTargetPort(port2);
-
-		//4) add the models to the root graph
-		model.addNode(node1);
-		model.addNode(node2);
-		model.addLink(link1);
-	}
+	engine.registerNodeFactory(new __WEBPACK_IMPORTED_MODULE_4__DiamondWidgetFactory__["a" /* DiamondWidgetFactory */]());
 
 	//2) setup the diagram model
 	var model = new __WEBPACK_IMPORTED_MODULE_0__src_main__["d" /* DiagramModel */]();
 
-	for (var i = 0; i < 8; i++) {
-		for (var j = 0; j < 8; j++) {
-			generateNodes(model, i * 200, j * 100);
-		}
-	}
+	//3-A) create a default node
+	var node1 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["e" /* DefaultNodeModel */]("Node 1", "rgb(0,192,255)");
+	var port1 = node1.addPort(new __WEBPACK_IMPORTED_MODULE_0__src_main__["f" /* DefaultPortModel */](false, "out-1", "Out"));
+	node1.x = 100;
+	node1.y = 150;
+
+	//3-B) create our new custom node
+	var node2 = new __WEBPACK_IMPORTED_MODULE_3__DiamondNodeModel__["a" /* DiamondNodeModel */]();
+	node2.x = 400;
+	node2.y = 100;
+
+	var node3 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["e" /* DefaultNodeModel */]("Node 3", "red");
+	var port3 = node3.addPort(new __WEBPACK_IMPORTED_MODULE_0__src_main__["f" /* DefaultPortModel */](true, "in-1", "In"));
+	node3.x = 800;
+	node3.y = 150;
+
+	//3-C) link the 2 nodes together
+	var link1 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["g" /* LinkModel */]();
+	link1.setSourcePort(port1);
+	link1.setTargetPort(node2.ports['left']);
+
+	var link2 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["g" /* LinkModel */]();
+	link2.setSourcePort(node2.ports['right']);
+	link2.setTargetPort(port3);
+
+	//4) add the models to the root graph
+	model.addNode(node1);
+	model.addNode(node2);
+	model.addNode(node3);
+	model.addLink(link1);
+	model.addLink(link2);
 
 	//5) load model into engine
 	engine.setDiagramModel(model);
 
 	//6) render the diagram!
+
+
+	__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"](__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_0__src_main__["h" /* DiagramWidget */], { diagramEngine: engine }), document.getElementById('root'));
+
+	//!------------- SERIALIZING / DESERIALIZING ------------
+
+	//we need this to help the system know what models to create form the JSON
+	engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["i" /* DefaultNodeInstanceFactory */]());
+	engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["j" /* DefaultPortInstanceFactory */]());
+	engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["k" /* LinkInstanceFactory */]());
+	engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_5__DiamondInstanceFactories__["a" /* DiamondNodeFactory */]());
+	engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_5__DiamondInstanceFactories__["b" /* DiamondPortFactory */]());
+
+	//serialize the model
+	var str = JSON.stringify(model.serializeDiagram());
+	console.log(str);
+
+	//deserialize the model
+	var model2 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["d" /* DiagramModel */]();
+	model2.deSerializeDiagram(JSON.parse(str), engine);
+	engine.setDiagramModel(model2);
+	console.log(model2);
+
+	//re-render the model
 	__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"](__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_0__src_main__["h" /* DiagramWidget */], { diagramEngine: engine }), document.getElementById('root'));
 };
 
 /***/ })
 /******/ ]);
-});
 //# sourceMappingURL=bundle.js.map

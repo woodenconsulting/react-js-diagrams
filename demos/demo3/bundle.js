@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["React", "_", "ReactDOM"], factory);
 	else if(typeof exports === 'object')
-		exports["storm-react-diagrams"] = factory(require("React"), require("lodash"), require("ReactDOM"));
+		exports["react-js-diagrams"] = factory(require("React"), require("lodash"), require("ReactDOM"));
 	else
-		root["storm-react-diagrams"] = factory(root["React"], root["_"], root["ReactDOM"]);
+		root["react-js-diagrams"] = factory(root["React"], root["_"], root["ReactDOM"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_19__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -782,7 +782,7 @@ var NodeWidgetFactory = function (_WidgetFactory) {
 	_createClass(NodeWidgetFactory, [{
 		key: 'generateReactWidget',
 		value: function generateReactWidget(diagramEngine, node) {
-			return React.createElement(__WEBPACK_IMPORTED_MODULE_1__defaults_DefaultNodeWidget__["a" /* DefaultNodeWidget */], { node: node, diagramEngine: diagramEngine });
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__defaults_DefaultNodeWidget__["a" /* DefaultNodeWidget */], { node: node, diagramEngine: diagramEngine });
 		}
 	}]);
 
@@ -801,7 +801,7 @@ var LinkWidgetFactory = function (_WidgetFactory2) {
 	_createClass(LinkWidgetFactory, [{
 		key: 'generateReactWidget',
 		value: function generateReactWidget(diagramEngine, link) {
-			return React.createElement(__WEBPACK_IMPORTED_MODULE_2__defaults_DefaultLinkWidget__["a" /* DefaultLinkWidget */], { link: link, diagramEngine: diagramEngine });
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__defaults_DefaultLinkWidget__["a" /* DefaultLinkWidget */], { link: link, diagramEngine: diagramEngine });
 		}
 	}]);
 
@@ -2193,7 +2193,7 @@ var DefaultLinkFactory = function (_LinkWidgetFactory) {
 	_createClass(DefaultLinkFactory, [{
 		key: 'generateReactWidget',
 		value: function generateReactWidget(diagramEngine, link) {
-			return React.createElement(__WEBPACK_IMPORTED_MODULE_2__DefaultLinkWidget__["a" /* DefaultLinkWidget */], { link: link, diagramEngine: diagramEngine });
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__DefaultLinkWidget__["a" /* DefaultLinkWidget */], { link: link, diagramEngine: diagramEngine });
 		}
 	}]);
 
@@ -2234,7 +2234,7 @@ var DefaultNodeFactory = function (_NodeWidgetFactory) {
 	_createClass(DefaultNodeFactory, [{
 		key: 'generateReactWidget',
 		value: function generateReactWidget(diagramEngine, node) {
-			return React.createElement(__WEBPACK_IMPORTED_MODULE_2__DefaultNodeWidget__["a" /* DefaultNodeWidget */], { node: node, diagramEngine: diagramEngine });
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__DefaultNodeWidget__["a" /* DefaultNodeWidget */], { node: node, diagramEngine: diagramEngine });
 		}
 	}]);
 
@@ -2908,7 +2908,7 @@ exports = module.exports = __webpack_require__(32)();
 
 
 // module
-exports.push([module.i, "* {\n  margin: 0;\n  padding: 0; }\n\nhtml, body {\n  width: 100%;\n  height: 100%;\n  background: #3c3c3c;\n  display: flex; }\n\n.react-js-diagrams-canvas {\n  position: relative;\n  flex-grow: 1;\n  display: flex;\n  cursor: move;\n  overflow: hidden; }\n  .react-js-diagrams-canvas .point {\n    fill: rgba(255, 255, 255, 0.5); }\n    .react-js-diagrams-canvas .point.selected {\n      fill: #00c0ff; }\n  .react-js-diagrams-canvas .selector {\n    position: absolute;\n    background-color: rgba(0, 192, 255, 0.2);\n    border: solid 2px #00c0ff; }\n  .react-js-diagrams-canvas svg {\n    position: absolute;\n    height: 100%;\n    width: 100%;\n    transform-origin: 0 0;\n    overflow: visible; }\n  .react-js-diagrams-canvas .node-view {\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    position: absolute;\n    pointer-events: none;\n    transform-origin: 0 0; }\n  .react-js-diagrams-canvas .node {\n    position: absolute;\n    -webkit-touch-callout: none;\n    /* iOS Safari */\n    -webkit-user-select: none;\n    /* Chrome/Safari/Opera */\n    user-select: none;\n    cursor: move;\n    pointer-events: all; }\n    .react-js-diagrams-canvas .node.selected > * {\n      border-color: #00c0ff !important;\n      -webkit-filter: drop-shadow(0 0 20px rgba(0, 192, 255, 0.5)); }\n\n@keyframes dash {\n  from {\n    stroke-dashoffset: 24; }\n  to {\n    stroke-dashoffset: 0; } }\n  .react-js-diagrams-canvas path {\n    fill: none;\n    pointer-events: all; }\n    .react-js-diagrams-canvas path.selected {\n      stroke: #00c0ff !important;\n      stroke-dasharray: 10,2;\n      animation: dash 1s linear infinite; }\n  .react-js-diagrams-canvas .port {\n    width: 15px;\n    height: 15px;\n    background: rgba(255, 255, 255, 0.1); }\n    .react-js-diagrams-canvas .port:hover, .react-js-diagrams-canvas .port.selected {\n      background: #c0ff00; }\n  .react-js-diagrams-canvas .basic-node {\n    background-color: #1e1e1e;\n    border-radius: 5px;\n    font-family: Arial;\n    color: white;\n    border: solid 2px black;\n    overflow: visible;\n    font-size: 11px;\n    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }\n    .react-js-diagrams-canvas .basic-node .title {\n      /*\t\t\tbackground-image: linear-gradient(rgba(black,0.1),rgba(black,0.2));*/\n      background: rgba(0, 0, 0, 0.3);\n      display: flex;\n      white-space: nowrap; }\n      .react-js-diagrams-canvas .basic-node .title > * {\n        align-self: center; }\n      .react-js-diagrams-canvas .basic-node .title .fa {\n        padding: 5px;\n        opacity: 0.2;\n        cursor: pointer; }\n        .react-js-diagrams-canvas .basic-node .title .fa:hover {\n          opacity: 1.0; }\n      .react-js-diagrams-canvas .basic-node .title .name {\n        flex-grow: 1;\n        padding: 5px 5px; }\n    .react-js-diagrams-canvas .basic-node .ports {\n      display: flex;\n      background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)); }\n      .react-js-diagrams-canvas .basic-node .ports .in, .react-js-diagrams-canvas .basic-node .ports .out {\n        flex-grow: 1;\n        display: flex;\n        flex-direction: column; }\n      .react-js-diagrams-canvas .basic-node .ports .in-port, .react-js-diagrams-canvas .basic-node .ports .out-port {\n        display: flex;\n        margin-top: 1px; }\n        .react-js-diagrams-canvas .basic-node .ports .in-port > *, .react-js-diagrams-canvas .basic-node .ports .out-port > * {\n          align-self: center; }\n        .react-js-diagrams-canvas .basic-node .ports .in-port .name, .react-js-diagrams-canvas .basic-node .ports .out-port .name {\n          padding: 0 5px; }\n      .react-js-diagrams-canvas .basic-node .ports .out-port {\n        justify-content: flex-end; }\n        .react-js-diagrams-canvas .basic-node .ports .out-port .name {\n          justify-content: flex-end;\n          text-align: right; }\n", ""]);
+exports.push([module.i, "* {\n  margin: 0;\n  padding: 0; }\n\nhtml, body, #root {\n  width: 100%;\n  height: 100%;\n  background: #3c3c3c;\n  display: flex; }\n\n.demo-link {\n  padding: 0.5rem 1rem; }\n  .demo-link a {\n    color: white;\n    text-decoration: underline;\n    cursor: pointer; }\n\n.react-js-diagrams-canvas {\n  position: relative;\n  flex-grow: 1;\n  display: flex;\n  cursor: move;\n  overflow: hidden; }\n  .react-js-diagrams-canvas .point {\n    fill: rgba(255, 255, 255, 0.5); }\n    .react-js-diagrams-canvas .point.selected {\n      fill: #00c0ff; }\n  .react-js-diagrams-canvas .selector {\n    position: absolute;\n    background-color: rgba(0, 192, 255, 0.2);\n    border: solid 2px #00c0ff; }\n  .react-js-diagrams-canvas svg {\n    position: absolute;\n    height: 100%;\n    width: 100%;\n    transform-origin: 0 0;\n    overflow: visible; }\n  .react-js-diagrams-canvas .node-view {\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    position: absolute;\n    pointer-events: none;\n    transform-origin: 0 0; }\n  .react-js-diagrams-canvas .node {\n    position: absolute;\n    -webkit-touch-callout: none;\n    /* iOS Safari */\n    -webkit-user-select: none;\n    /* Chrome/Safari/Opera */\n    user-select: none;\n    cursor: move;\n    pointer-events: all; }\n    .react-js-diagrams-canvas .node.selected > * {\n      border-color: #00c0ff !important;\n      -webkit-filter: drop-shadow(0 0 20px rgba(0, 192, 255, 0.5)); }\n\n@keyframes dash {\n  from {\n    stroke-dashoffset: 24; }\n  to {\n    stroke-dashoffset: 0; } }\n  .react-js-diagrams-canvas path {\n    fill: none;\n    pointer-events: all; }\n    .react-js-diagrams-canvas path.selected {\n      stroke: #00c0ff !important;\n      stroke-dasharray: 10,2;\n      animation: dash 1s linear infinite; }\n  .react-js-diagrams-canvas .port {\n    width: 15px;\n    height: 15px;\n    background: rgba(255, 255, 255, 0.1); }\n    .react-js-diagrams-canvas .port:hover, .react-js-diagrams-canvas .port.selected {\n      background: #c0ff00; }\n  .react-js-diagrams-canvas .basic-node {\n    background-color: #1e1e1e;\n    border-radius: 5px;\n    font-family: Arial;\n    color: white;\n    border: solid 2px black;\n    overflow: visible;\n    font-size: 11px;\n    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }\n    .react-js-diagrams-canvas .basic-node .title {\n      /*\t\t\tbackground-image: linear-gradient(rgba(black,0.1),rgba(black,0.2));*/\n      background: rgba(0, 0, 0, 0.3);\n      display: flex;\n      white-space: nowrap; }\n      .react-js-diagrams-canvas .basic-node .title > * {\n        align-self: center; }\n      .react-js-diagrams-canvas .basic-node .title .fa {\n        padding: 5px;\n        opacity: 0.2;\n        cursor: pointer; }\n        .react-js-diagrams-canvas .basic-node .title .fa:hover {\n          opacity: 1.0; }\n      .react-js-diagrams-canvas .basic-node .title .name {\n        flex-grow: 1;\n        padding: 5px 5px; }\n    .react-js-diagrams-canvas .basic-node .ports {\n      display: flex;\n      background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)); }\n      .react-js-diagrams-canvas .basic-node .ports .in, .react-js-diagrams-canvas .basic-node .ports .out {\n        flex-grow: 1;\n        display: flex;\n        flex-direction: column; }\n      .react-js-diagrams-canvas .basic-node .ports .in-port, .react-js-diagrams-canvas .basic-node .ports .out-port {\n        display: flex;\n        margin-top: 1px; }\n        .react-js-diagrams-canvas .basic-node .ports .in-port > *, .react-js-diagrams-canvas .basic-node .ports .out-port > * {\n          align-self: center; }\n        .react-js-diagrams-canvas .basic-node .ports .in-port .name, .react-js-diagrams-canvas .basic-node .ports .out-port .name {\n          padding: 0 5px; }\n      .react-js-diagrams-canvas .basic-node .ports .out-port {\n        justify-content: flex-end; }\n        .react-js-diagrams-canvas .basic-node .ports .out-port .name {\n          justify-content: flex-end;\n          text-align: right; }\n", ""]);
 
 // exports
 
@@ -3551,7 +3551,7 @@ window.onload = function () {
 	//6) render the diagram!
 
 
-	__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"](__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_0__src_main__["h" /* DiagramWidget */], { diagramEngine: engine }), document.body);
+	__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"](__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_0__src_main__["h" /* DiagramWidget */], { diagramEngine: engine }), document.getElementById('root'));
 
 	//!------------- SERIALIZING / DESERIALIZING ------------
 
@@ -3573,7 +3573,7 @@ window.onload = function () {
 	console.log(model2);
 
 	//re-render the model
-	__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"](__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_0__src_main__["h" /* DiagramWidget */], { diagramEngine: engine }), document.body);
+	__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"](__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_0__src_main__["h" /* DiagramWidget */], { diagramEngine: engine }), document.getElementById('root'));
 };
 
 /***/ })

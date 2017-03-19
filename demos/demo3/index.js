@@ -65,7 +65,7 @@ window.onload = () => {
 	//6) render the diagram!
 
 
-	ReactDOM.render(React.createElement(SRD.DiagramWidget,{diagramEngine: engine}), document.body);
+	ReactDOM.render(React.createElement(SRD.DiagramWidget,{diagramEngine: engine}), document.getElementById('root'));
 
 
 	//!------------- SERIALIZING / DESERIALIZING ------------
@@ -88,5 +88,5 @@ window.onload = () => {
 	console.log(model2);
 
 	//re-render the model
-	ReactDOM.render(React.createElement(SRD.DiagramWidget,{diagramEngine: engine}), document.body);
+	ReactDOM.render(React.createElement(SRD.DiagramWidget,{diagramEngine: engine}), document.getElementById('root'));
 };

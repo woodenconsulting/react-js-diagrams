@@ -1,4 +1,4 @@
-import 'react';
+import React from 'react';
 import { LinkWidgetFactory } from '../WidgetFactories';
 import { DefaultLinkWidget } from './DefaultLinkWidget';
 

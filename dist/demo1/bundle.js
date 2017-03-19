@@ -1,14 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("React"), require("lodash"), require("ReactDOM"));
-	else if(typeof define === 'function' && define.amd)
-		define(["React", "_", "ReactDOM"], factory);
-	else if(typeof exports === 'object')
-		exports["react-js-diagrams"] = factory(require("React"), require("lodash"), require("ReactDOM"));
-	else
-		root["react-js-diagrams"] = factory(root["React"], root["_"], root["ReactDOM"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_19__) {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -70,17 +60,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 39);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
+module.exports = React;
 
 /***/ }),
 /* 1 */
@@ -541,7 +531,7 @@ var NodeModel = function (_BaseModel4) {
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+module.exports = undefined;
 
 /***/ }),
 /* 3 */
@@ -1900,7 +1890,7 @@ if(false) {
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_19__;
+module.exports = ReactDOM;
 
 /***/ }),
 /* 20 */
@@ -3227,8 +3217,7 @@ function updateLink(linkElement, obj) {
 /* 36 */,
 /* 37 */,
 /* 38 */,
-/* 39 */,
-/* 40 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3246,8 +3235,8 @@ __webpack_require__(18);
 
 /**
  *
- * Simple stress test of the system, shows that it can handle many nodes, and
- * retain good performance
+ * Simple test showing the Object oriented way of using this library.
+ * It creates 2 nodes and links them together with a single link
  *
  * @Author Dylan Vorster
  */
@@ -3258,47 +3247,60 @@ window.onload = function () {
 	engine.registerNodeFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["b" /* DefaultNodeFactory */]());
 	engine.registerLinkFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["c" /* DefaultLinkFactory */]());
 
-	function generateNodes(model, offsetX, offsetY) {
-		//3-A) create a default node
-		var node1 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["e" /* DefaultNodeModel */]("Node 1", "rgb(0,192,255)");
-		var port1 = node1.addPort(new __WEBPACK_IMPORTED_MODULE_0__src_main__["f" /* DefaultPortModel */](false, "out-1", "Out"));
-		node1.x = 100 + offsetX;
-		node1.y = 100 + offsetY;
-
-		//3-B) create another default node
-		var node2 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["e" /* DefaultNodeModel */]("Node 2", "rgb(192,255,0)");
-		var port2 = node2.addPort(new __WEBPACK_IMPORTED_MODULE_0__src_main__["f" /* DefaultPortModel */](true, "in-1", "IN"));
-		node2.x = 200 + offsetX;
-		node2.y = 100 + offsetY;
-
-		//3-C) link the 2 nodes together
-		var link1 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["g" /* LinkModel */]();
-		link1.setSourcePort(port1);
-		link1.setTargetPort(port2);
-
-		//4) add the models to the root graph
-		model.addNode(node1);
-		model.addNode(node2);
-		model.addLink(link1);
-	}
-
 	//2) setup the diagram model
 	var model = new __WEBPACK_IMPORTED_MODULE_0__src_main__["d" /* DiagramModel */]();
 
-	for (var i = 0; i < 8; i++) {
-		for (var j = 0; j < 8; j++) {
-			generateNodes(model, i * 200, j * 100);
-		}
-	}
+	//3-A) create a default node
+	var node1 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["e" /* DefaultNodeModel */]("Node 1", "rgb(0,192,255)");
+	var port1 = node1.addPort(new __WEBPACK_IMPORTED_MODULE_0__src_main__["f" /* DefaultPortModel */](false, "out-1", "Out"));
+	node1.x = 100;
+	node1.y = 100;
+
+	//3-B) create another default node
+	var node2 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["e" /* DefaultNodeModel */]("Node 2", "rgb(192,255,0)");
+	var port2 = node2.addPort(new __WEBPACK_IMPORTED_MODULE_0__src_main__["f" /* DefaultPortModel */](true, "in-1", "IN"));
+	node2.x = 400;
+	node2.y = 100;
+
+	//3-C) link the 2 nodes together
+	var link1 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["g" /* LinkModel */]();
+	link1.setSourcePort(port1);
+	link1.setTargetPort(port2);
+
+	//4) add the models to the root graph
+	model.addNode(node1);
+	model.addNode(node2);
+	model.addLink(link1);
 
 	//5) load model into engine
 	engine.setDiagramModel(model);
 
 	//6) render the diagram!
-	__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"](__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_0__src_main__["h" /* DiagramWidget */], { diagramEngine: engine }), document.getElementById('root'));
+
+
+	__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__src_main__["h" /* DiagramWidget */], { diagramEngine: engine }), document.getElementById('root'));
+
+	//!------------- SERIALIZING / DESERIALIZING ------------
+
+	//we need this to help the system know what models to create form the JSON
+	engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["i" /* DefaultNodeInstanceFactory */]());
+	engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["j" /* DefaultPortInstanceFactory */]());
+	engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["k" /* LinkInstanceFactory */]());
+
+	//serialize the model
+	var str = JSON.stringify(model.serializeDiagram());
+	console.log(str);
+
+	//deserialize the model
+	var model2 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["d" /* DiagramModel */]();
+	model2.deSerializeDiagram(JSON.parse(str), engine);
+	engine.setDiagramModel(model2);
+	console.log(model2);
+
+	//re-render the model
+	__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__src_main__["h" /* DiagramWidget */], { diagramEngine: engine }), document.getElementById('root'));
 };
 
 /***/ })
 /******/ ]);
-});
 //# sourceMappingURL=bundle.js.map

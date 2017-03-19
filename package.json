@@ -5,6 +5,9 @@
     "type": "git",
     "url": "https://github.com/woodenconsulting/react-js-diagrams.git"
   },
+  "scripts": {
+    "start": "node server.js"
+  },
   "keywords": [
     "web",
     "diagram",
@@ -16,7 +19,7 @@
   ],
   "main": "./dist/main.js",
   "typings": "./dist/src/main",
-  "author": "rocana",
+  "author": "Jeff Wooden <woodenconsulting@gmail.com>",
   "dependencies": {
     "lodash": "4.17.4"
   },
@@ -32,12 +35,16 @@
     "babel-preset-stage-0": "6.22.0",
     "babel-runtime": "6.23.0",
     "css-loader": "0.26.1",
+    "express": "^4.15.2",
     "node-sass": "4.5.0",
     "react": "^15.1.0",
-    "react-dom": "15.1.0",
+    "react-dom": "^15.4.2",
+    "react-hot-loader": "^3.0.0-beta.6",
     "sass-loader": "6.0.0",
     "source-map-loader": "0.1.6",
     "style-loader": "0.13.1",
-    "webpack": "2.2.1"
+    "webpack": "2.2.1",
+    "webpack-dev-middleware": "^1.10.1",
+    "webpack-hot-middleware": "^2.17.1"
   }
 }

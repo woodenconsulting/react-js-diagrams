@@ -28,18 +28,18 @@ yarn add react-js-diagrams
 
 #### How to see the examples
 
-simply navigate to the __demos__ directory and load up the corresponding index.html
+Simply navigate to the __demos__ directory and load up the corresponding index.html. Alternatively, you can
+start the development server with `npm start` and navigate to `http://localhost:3000`.
 
 To see how to create your own nodes like the one below, take a look at __demo3__:
 
 ![Demo2](./custom-nodes.png)
 
 
-#### How to build
+#### How to build / develop
 
 Simply run ```webpack``` in the root directory and it will spit out the transpiled code and typescript definitions
-into the dist directory as a single file. We use webpack for this because TSC cannot compile a single UMD file (TSC can currently
-only output multiple UMD files).
+into the dist directory as a single file. Run `npm start` to spin up the development server complete with HMR.
 
 
 ## How does it work
@@ -62,16 +62,6 @@ a link can be connected to it.
 Because its vastly better to render nodes as standard HTML so that we can embed input controls and not have
 to deal with the complexities of trying to get SVG to work like we want it to. I also created this primarily to embed into
 enterprise applications where the nodes themselves are highly interactive with buttons and other controls that cave when I try to use SVG.
-
-#### Why Typescript?
-
-Because it can transpile into any level of ECMA Script, and the library got really complicated, so I ported it to Typescript
-to accommodate the heavy architectural changes I was starting to make. <3 Type Script
-
-#### Why is there no JSX?
-
-Because most of the library is 95% all logic anyway, and I construct very complex DOM elements with many dynamic properties. JSX
-Would just get in the way, and I personally hate JSX for a multitude of reasons anyway.
 
 #### How do I make my own elements?
 

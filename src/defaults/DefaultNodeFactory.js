@@ -1,4 +1,4 @@
-import 'react';
+import React from 'react';
 import { NodeWidgetFactory } from '../WidgetFactories';
 import { DefaultNodeWidget } from './DefaultNodeWidget';
 

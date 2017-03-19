@@ -1,14 +1,5 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("lodash"));
-	else if(typeof define === 'function' && define.amd)
-		define(["react", "_"], factory);
-	else if(typeof exports === 'object')
-		exports["react-js-diagrams"] = factory(require("react"), require("lodash"));
-	else
-		root["react-js-diagrams"] = factory(root["react"], root["_"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_2__) {
-return /******/ (function(modules) { // webpackBootstrap
+var react-js-diagrams =
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -70,7 +61,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 28);
@@ -80,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
+module.exports = react;
 
 /***/ }),
 /* 1 */
@@ -541,7 +532,7 @@ var NodeModel = function (_BaseModel4) {
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+module.exports = undefined;
 
 /***/ }),
 /* 3 */
@@ -706,7 +697,7 @@ var NodeWidgetFactory = function (_WidgetFactory) {
 	_createClass(NodeWidgetFactory, [{
 		key: 'generateReactWidget',
 		value: function generateReactWidget(diagramEngine, node) {
-			return React.createElement(__WEBPACK_IMPORTED_MODULE_1__defaults_DefaultNodeWidget__["a" /* DefaultNodeWidget */], { node: node, diagramEngine: diagramEngine });
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__defaults_DefaultNodeWidget__["a" /* DefaultNodeWidget */], { node: node, diagramEngine: diagramEngine });
 		}
 	}]);
 
@@ -725,7 +716,7 @@ var LinkWidgetFactory = function (_WidgetFactory2) {
 	_createClass(LinkWidgetFactory, [{
 		key: 'generateReactWidget',
 		value: function generateReactWidget(diagramEngine, link) {
-			return React.createElement(__WEBPACK_IMPORTED_MODULE_2__defaults_DefaultLinkWidget__["a" /* DefaultLinkWidget */], { link: link, diagramEngine: diagramEngine });
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__defaults_DefaultLinkWidget__["a" /* DefaultLinkWidget */], { link: link, diagramEngine: diagramEngine });
 		}
 	}]);
 
@@ -2085,7 +2076,7 @@ var DefaultLinkFactory = function (_LinkWidgetFactory) {
 	_createClass(DefaultLinkFactory, [{
 		key: 'generateReactWidget',
 		value: function generateReactWidget(diagramEngine, link) {
-			return React.createElement(__WEBPACK_IMPORTED_MODULE_2__DefaultLinkWidget__["a" /* DefaultLinkWidget */], { link: link, diagramEngine: diagramEngine });
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__DefaultLinkWidget__["a" /* DefaultLinkWidget */], { link: link, diagramEngine: diagramEngine });
 		}
 	}]);
 
@@ -2126,7 +2117,7 @@ var DefaultNodeFactory = function (_NodeWidgetFactory) {
 	_createClass(DefaultNodeFactory, [{
 		key: 'generateReactWidget',
 		value: function generateReactWidget(diagramEngine, node) {
-			return React.createElement(__WEBPACK_IMPORTED_MODULE_2__DefaultNodeWidget__["a" /* DefaultNodeWidget */], { node: node, diagramEngine: diagramEngine });
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__DefaultNodeWidget__["a" /* DefaultNodeWidget */], { node: node, diagramEngine: diagramEngine });
 		}
 	}]);
 
@@ -2874,5 +2865,4 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ })
 /******/ ]);
-});
 //# sourceMappingURL=main.js.map

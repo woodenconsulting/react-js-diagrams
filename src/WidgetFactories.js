@@ -1,4 +1,4 @@
-import 'react';
+import React from 'react';
 import { DefaultNodeWidget } from './defaults/DefaultNodeWidget';
 import { DefaultLinkWidget } from './defaults/DefaultLinkWidget';
 
