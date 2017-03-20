@@ -187,4 +187,10 @@ jspm_packages
 
 # Distribution directories
 dist/
+demos/demo1/bundle.js
+demos/demo1/bundle.js.map
+demos/demo2/bundle.js
+demos/demo2/bundle.js.map
+demos/demo3/bundle.js
+demos/demo3/bundle.js.map
 

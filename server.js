@@ -33,6 +33,8 @@ config[1].entry = {
   ]
 };
 config[1].output.filename = '[name].js';
+config[1].output.path = path.join(__dirname, 'demos');
+config[1].output.publicPath = '/dist/';
 delete config[1].externals;
 delete config[1].module.rules[1].loader;
 

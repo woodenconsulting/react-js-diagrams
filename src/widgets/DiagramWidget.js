@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { PointModel, NodeModel, LinkModel, PortModel } from '../Common';
 import { SelectingAction, MoveCanvasAction, MoveItemsAction } from './actions';
 import { LinkLayerWidget } from './LinkLayerWidget';
@@ -111,7 +112,7 @@ export class DiagramWidget extends React.Component {
     const diagramModel = diagramEngine.getDiagramModel();
     event.preventDefault();
     event.stopPropagation();
-    diagramModel.setZoomLevel(diagramModel.getZoomLevel()+(event.deltaY/60));
+    diagramModel.setZoomLevel(diagramModel.getZoomLevel() + (event.deltaY / 60));
     diagramEngine.enableRepaintEntities([]);
     this.forceUpdate();
   }
@@ -125,13 +126,13 @@ export class DiagramWidget extends React.Component {
     if (action instanceof SelectingAction) {
       const relative = diagramEngine.getRelativePoint(event.pageX, event.pageY);
 
-      diagramModel.getNodes().forEach(node => {
+      _.forEach(diagramModel.getNodes(), node => {
         if (action.containsElement(node.x, node.y, diagramModel)) {
           node.setSelected(true);
         }
       });
 
-      diagramModel.getLinks().forEach(link => {
+      _.forEach(diagramModel.getLinks(), link => {
         let allSelected = true;
         link.points.forEach(point => {
           if (action.containsElement(point.x, point.y, diagramModel)) {
@@ -233,7 +234,7 @@ export class DiagramWidget extends React.Component {
 
   onMouseUp(event) {
     const  { diagramEngine } = this.props;
-    
+
     // Check if we going to connect a link to something
     if (this.state.action instanceof MoveItemsAction) {
       const element = this.getMouseElement(event);

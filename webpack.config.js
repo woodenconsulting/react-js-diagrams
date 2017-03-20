@@ -45,18 +45,12 @@ module.exports = [{
   },
   output: {
     filename: '[name]',
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/dist/'
+    path: path.join(__dirname, 'demos')
   },
   externals: {
-    "react-dom": "ReactDOM",
-    "react": 'React',
-    "lodash": {
-      commonjs: 'lodash',
-      commonjs2: 'lodash',
-      amd: '_',
-      root: '_'
-    }
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'lodash': '_'
   },
   module: {
     rules: [
