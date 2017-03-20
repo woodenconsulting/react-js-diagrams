@@ -3227,78 +3227,159 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__test_scss__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__test_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__test_scss__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
 
-__webpack_require__(18);
+
+
+var Demo1 = function (_React$Component) {
+  _inherits(Demo1, _React$Component);
+
+  function Demo1(props) {
+    _classCallCheck(this, Demo1);
+
+    // Setup the diagram engine
+    var _this = _possibleConstructorReturn(this, (Demo1.__proto__ || Object.getPrototypeOf(Demo1)).call(this, props));
+
+    _this.engine = new __WEBPACK_IMPORTED_MODULE_0__src_main__["a" /* DiagramEngine */]();
+    _this.engine.registerNodeFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["b" /* DefaultNodeFactory */]());
+    _this.engine.registerLinkFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["c" /* DefaultLinkFactory */]());
+
+    // Setup the diagram model
+    _this.model = new __WEBPACK_IMPORTED_MODULE_0__src_main__["d" /* DiagramModel */]();
+    return _this;
+  }
+
+  _createClass(Demo1, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      setTimeout(function () {
+        _this2.testSerialization();
+      }, 1000);
+    }
+  }, {
+    key: 'createNode',
+    value: function createNode(options) {
+      var name = options.name,
+          color = options.color,
+          x = options.x,
+          y = options.y;
+
+      var node = new __WEBPACK_IMPORTED_MODULE_0__src_main__["e" /* DefaultNodeModel */](name, color);
+      node.x = x;
+      node.y = y;
+      return node;
+    }
+  }, {
+    key: 'createPort',
+    value: function createPort(node, options) {
+      var isInput = options.isInput,
+          id = options.id,
+          name = options.name;
+
+      return node.addPort(new __WEBPACK_IMPORTED_MODULE_0__src_main__["f" /* DefaultPortModel */](isInput, id, name));
+    }
+  }, {
+    key: 'linkNodes',
+    value: function linkNodes(port1, port2) {
+      var link = new __WEBPACK_IMPORTED_MODULE_0__src_main__["g" /* LinkModel */]();
+      link.setSourcePort(port1);
+      link.setTargetPort(port2);
+      return link;
+    }
+  }, {
+    key: 'testSerialization',
+    value: function testSerialization() {
+      var engine = this.engine,
+          model = this.model;
+
+      //we need this to help the system know what models to create form the JSON
+
+      engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["i" /* DefaultNodeInstanceFactory */]());
+      engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["j" /* DefaultPortInstanceFactory */]());
+      engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["k" /* LinkInstanceFactory */]());
+
+      //serialize the model
+      var str = JSON.stringify(model.serializeDiagram());
+      console.log(str);
+
+      //deserialize the model
+      var model2 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["d" /* DiagramModel */]();
+      model2.deSerializeDiagram(JSON.parse(str), engine);
+      engine.setDiagramModel(model2);
+      console.log(model2);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var engine = this.engine,
+          model = this.model;
+
+      // Create first node and port
+
+      var node1 = this.createNode({
+        name: 'Node 1',
+        color: 'rgb(0, 192, 255)',
+        x: 100,
+        y: 100
+      });
+      var port1 = this.createPort(node1, {
+        isInput: false,
+        id: 'out-1',
+        name: 'Out'
+      });
+
+      // Create second node and port
+      var node2 = this.createNode({
+        name: 'Node 2',
+        color: 'rgb(192, 255, 0)',
+        x: 400,
+        y: 100
+      });
+      var port2 = this.createPort(node2, {
+        isInput: true,
+        id: 'in-1',
+        name: 'In'
+      });
+
+      // Add the nodes and link to the model
+      model.addNode(node1);
+      model.addNode(node2);
+      model.addLink(this.linkNodes(port1, port2));
+
+      // Load the model into the diagram engine
+      engine.setDiagramModel(model);
+
+      // Render the canvas
+      return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__src_main__["h" /* DiagramWidget */], { diagramEngine: engine });
+    }
+  }]);
+
+  return Demo1;
+}(__WEBPACK_IMPORTED_MODULE_1_react___default.a.Component);
 
 /**
  *
  * Simple test showing the Object oriented way of using this library.
  * It creates 2 nodes and links them together with a single link
  *
- * @Author Dylan Vorster
  */
+
+
 window.onload = function () {
-
-	//1) setup the diagram engine
-	var engine = new __WEBPACK_IMPORTED_MODULE_0__src_main__["a" /* DiagramEngine */]();
-	engine.registerNodeFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["b" /* DefaultNodeFactory */]());
-	engine.registerLinkFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["c" /* DefaultLinkFactory */]());
-
-	//2) setup the diagram model
-	var model = new __WEBPACK_IMPORTED_MODULE_0__src_main__["d" /* DiagramModel */]();
-
-	//3-A) create a default node
-	var node1 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["e" /* DefaultNodeModel */]("Node 1", "rgb(0,192,255)");
-	var port1 = node1.addPort(new __WEBPACK_IMPORTED_MODULE_0__src_main__["f" /* DefaultPortModel */](false, "out-1", "Out"));
-	node1.x = 100;
-	node1.y = 100;
-
-	//3-B) create another default node
-	var node2 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["e" /* DefaultNodeModel */]("Node 2", "rgb(192,255,0)");
-	var port2 = node2.addPort(new __WEBPACK_IMPORTED_MODULE_0__src_main__["f" /* DefaultPortModel */](true, "in-1", "IN"));
-	node2.x = 400;
-	node2.y = 100;
-
-	//3-C) link the 2 nodes together
-	var link1 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["g" /* LinkModel */]();
-	link1.setSourcePort(port1);
-	link1.setTargetPort(port2);
-
-	//4) add the models to the root graph
-	model.addNode(node1);
-	model.addNode(node2);
-	model.addLink(link1);
-
-	//5) load model into engine
-	engine.setDiagramModel(model);
-
-	//6) render the diagram!
-
-
-	__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__src_main__["h" /* DiagramWidget */], { diagramEngine: engine }), document.getElementById('root'));
-
-	//!------------- SERIALIZING / DESERIALIZING ------------
-
-	//we need this to help the system know what models to create form the JSON
-	engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["i" /* DefaultNodeInstanceFactory */]());
-	engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["j" /* DefaultPortInstanceFactory */]());
-	engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["k" /* LinkInstanceFactory */]());
-
-	//serialize the model
-	var str = JSON.stringify(model.serializeDiagram());
-	console.log(str);
-
-	//deserialize the model
-	var model2 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["d" /* DiagramModel */]();
-	model2.deSerializeDiagram(JSON.parse(str), engine);
-	engine.setDiagramModel(model2);
-	console.log(model2);
-
-	//re-render the model
-	__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__src_main__["h" /* DiagramWidget */], { diagramEngine: engine }), document.getElementById('root'));
+  __WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(Demo1, null), document.getElementById('root'));
 };
 
 /***/ })

@@ -1,75 +1,114 @@
-import * as SRD from "../../src/main";
+import * as RJD from '../../src/main';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import '../test.scss';
 
-require("../test.scss");
+class Demo1 extends React.Component {
+  constructor(props) {
+    super(props);
+
+    // Setup the diagram engine
+    this.engine = new RJD.DiagramEngine();
+    this.engine.registerNodeFactory(new RJD.DefaultNodeFactory());
+  	this.engine.registerLinkFactory(new RJD.DefaultLinkFactory());
+
+  	// Setup the diagram model
+  	this.model = new RJD.DiagramModel();
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.testSerialization();
+    }, 1000);
+  }
+
+  createNode(options) {
+    const { name, color, x, y } = options;
+    var node = new RJD.DefaultNodeModel(name, color);
+  	node.x = x;
+  	node.y = y;
+  	return node;
+  }
+
+  createPort(node, options) {
+    const { isInput, id, name } = options;
+    return node.addPort(new RJD.DefaultPortModel(isInput, id, name));
+  }
+
+  linkNodes(port1, port2) {
+    const link = new RJD.LinkModel();
+  	link.setSourcePort(port1);
+  	link.setTargetPort(port2);
+  	return link;
+  }
+
+  testSerialization() {
+    const { engine, model } = this;
+
+    //we need this to help the system know what models to create form the JSON
+  	engine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
+  	engine.registerInstanceFactory(new RJD.DefaultPortInstanceFactory());
+  	engine.registerInstanceFactory(new RJD.LinkInstanceFactory());
+
+  	//serialize the model
+  	const str = JSON.stringify(model.serializeDiagram());
+  	console.log(str);
+
+  	//deserialize the model
+  	const model2 = new RJD.DiagramModel();
+  	model2.deSerializeDiagram(JSON.parse(str),engine);
+  	engine.setDiagramModel(model2);
+  	console.log(model2);
+  }
+
+  render() {
+    const { engine, model } = this;
+
+    // Create first node and port
+    const node1 = this.createNode({
+      name: 'Node 1',
+      color: 'rgb(0, 192, 255)',
+      x: 100,
+      y: 100
+    });
+    const port1 = this.createPort(node1, {
+      isInput: false,
+      id: 'out-1',
+      name: 'Out'
+    });
+
+    // Create second node and port
+    const node2 = this.createNode({
+      name: 'Node 2',
+      color: 'rgb(192, 255, 0)',
+      x: 400,
+      y: 100
+    });
+    const port2 = this.createPort(node2, {
+      isInput: true,
+      id: 'in-1',
+      name: 'In'
+    });
+
+  	// Add the nodes and link to the model
+  	model.addNode(node1);
+  	model.addNode(node2);
+  	model.addLink(this.linkNodes(port1, port2));
+
+  	// Load the model into the diagram engine
+  	engine.setDiagramModel(model);
+
+    // Render the canvas
+  	return <RJD.DiagramWidget diagramEngine={engine} />;
+  }
+}
 
 /**
  *
  * Simple test showing the Object oriented way of using this library.
  * It creates 2 nodes and links them together with a single link
  *
- * @Author Dylan Vorster
  */
 window.onload = () => {
-
-	//1) setup the diagram engine
-	var engine = new SRD.DiagramEngine();
-	engine.registerNodeFactory(new SRD.DefaultNodeFactory());
-	engine.registerLinkFactory(new SRD.DefaultLinkFactory());
-
-
-	//2) setup the diagram model
-	var model = new SRD.DiagramModel();
-
-	//3-A) create a default node
-	var node1 = new SRD.DefaultNodeModel("Node 1","rgb(0,192,255)");
-	var port1 = node1.addPort(new SRD.DefaultPortModel(false,"out-1","Out"));
-	node1.x = 100;
-	node1.y = 100;
-
-	//3-B) create another default node
-	var node2 = new SRD.DefaultNodeModel("Node 2","rgb(192,255,0)");
-	var port2 = node2.addPort(new SRD.DefaultPortModel(true,"in-1","IN"));
-	node2.x = 400;
-	node2.y = 100;
-
-	//3-C) link the 2 nodes together
-	var link1 = new SRD.LinkModel();
-	link1.setSourcePort(port1);
-	link1.setTargetPort(port2);
-
-	//4) add the models to the root graph
-	model.addNode(node1);
-	model.addNode(node2);
-	model.addLink(link1);
-
-	//5) load model into engine
-	engine.setDiagramModel(model);
-
-	//6) render the diagram!
-
-
-	ReactDOM.render(React.createElement(SRD.DiagramWidget,{diagramEngine: engine}), document.getElementById('root'));
-
-
-	//!------------- SERIALIZING / DESERIALIZING ------------
-
-	//we need this to help the system know what models to create form the JSON
-	engine.registerInstanceFactory(new SRD.DefaultNodeInstanceFactory());
-	engine.registerInstanceFactory(new SRD.DefaultPortInstanceFactory());
-	engine.registerInstanceFactory(new SRD.LinkInstanceFactory());
-
-	//serialize the model
-	var str = JSON.stringify(model.serializeDiagram());
-	console.log(str);
-
-	//deserialize the model
-	var model2 = new SRD.DiagramModel();
-	model2.deSerializeDiagram(JSON.parse(str),engine);
-	engine.setDiagramModel(model2);
-	console.log(model2);
-
-	//re-render the model
-	ReactDOM.render(React.createElement(SRD.DiagramWidget,{diagramEngine: engine}), document.getElementById('root'));
-}
+  ReactDOM.render(<Demo1 />, document.getElementById('root'));
+};
