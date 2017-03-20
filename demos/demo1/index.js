@@ -1,8 +1,14 @@
-import * as RJD from '../../src/main';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import * as RJD from '../../src/main';
 import '../test.scss';
 
+/**
+ *
+ * Simple test showing the Object oriented way of using this library.
+ * It creates 2 nodes and links them together with a single link
+ *
+ */
 class Demo1 extends React.Component {
   constructor(props) {
     super(props);
@@ -45,16 +51,16 @@ class Demo1 extends React.Component {
   testSerialization() {
     const { engine, model } = this;
 
-    //we need this to help the system know what models to create form the JSON
+    // We need this to help the system know what models to create form the JSON
   	engine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
   	engine.registerInstanceFactory(new RJD.DefaultPortInstanceFactory());
   	engine.registerInstanceFactory(new RJD.LinkInstanceFactory());
 
-  	//serialize the model
+  	// Serialize the model
   	const str = JSON.stringify(model.serializeDiagram());
   	console.log(str);
 
-  	//deserialize the model
+  	// Deserialize the model
   	const model2 = new RJD.DiagramModel();
   	model2.deSerializeDiagram(JSON.parse(str),engine);
   	engine.setDiagramModel(model2);
@@ -103,12 +109,6 @@ class Demo1 extends React.Component {
   }
 }
 
-/**
- *
- * Simple test showing the Object oriented way of using this library.
- * It creates 2 nodes and links them together with a single link
- *
- */
 window.onload = () => {
   ReactDOM.render(<Demo1 />, document.getElementById('root'));
 };
