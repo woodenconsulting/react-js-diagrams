@@ -81,10 +81,10 @@ module.exports = React;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BaseEntity__ = __webpack_require__(3);
 /* unused harmony export BaseModel */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return PointModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PointModel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LinkModel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PortModel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return NodeModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return PortModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return NodeModel; });
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -658,10 +658,10 @@ var AbstractInstanceFactory = function (_BaseEntity) {
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__defaults_DefaultNodeModel__ = __webpack_require__(24);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_4__defaults_DefaultNodeModel__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_4__defaults_DefaultNodeModel__["b"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_4__defaults_DefaultNodeModel__["b"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__defaults_DefaultPortModel__ = __webpack_require__(25);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_5__defaults_DefaultPortModel__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_5__defaults_DefaultPortModel__["b"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_5__defaults_DefaultPortModel__["b"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__defaults_DefaultPortLabelWidget__ = __webpack_require__(12);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__WidgetFactories__ = __webpack_require__(6);
@@ -676,14 +676,14 @@ var AbstractInstanceFactory = function (_BaseEntity) {
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__Common__ = __webpack_require__(1);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_12__Common__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_12__Common__["b"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "n", function() { return __WEBPACK_IMPORTED_MODULE_12__Common__["c"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_12__Common__["b"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_12__Common__["d"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__AbstractInstanceFactory__ = __webpack_require__(4);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_13__AbstractInstanceFactory__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "n", function() { return __WEBPACK_IMPORTED_MODULE_13__AbstractInstanceFactory__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__LinkInstanceFactory__ = __webpack_require__(21);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_14__LinkInstanceFactory__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_14__LinkInstanceFactory__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__widgets_DiagramWidget__ = __webpack_require__(26);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_15__widgets_DiagramWidget__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_15__widgets_DiagramWidget__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__widgets_LinkLayerWidget__ = __webpack_require__(13);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__widgets_LinkWidget__ = __webpack_require__(14);
@@ -942,7 +942,7 @@ var DefaultLinkWidget = function (_React$Component) {
         id: 0,
         onMouseDown: function onMouseDown(event) {
           if (!event.shiftKey) {
-            var point = new __WEBPACK_IMPORTED_MODULE_1__Common__["d" /* PointModel */](link, diagramEngine.getRelativeMousePoint(event));
+            var point = new __WEBPACK_IMPORTED_MODULE_1__Common__["c" /* PointModel */](link, diagramEngine.getRelativeMousePoint(event));
             point.setSelected(true);
             _this4.forceUpdate();
             link.addPoint(point, 1);
@@ -995,7 +995,7 @@ var DefaultLinkWidget = function (_React$Component) {
           'data-point': index,
           onMouseDown: function onMouseDown(event) {
             if (!event.shiftKey) {
-              var point = new __WEBPACK_IMPORTED_MODULE_1__Common__["d" /* PointModel */](link, diagramEngine.getRelativeMousePoint(event));
+              var point = new __WEBPACK_IMPORTED_MODULE_1__Common__["c" /* PointModel */](link, diagramEngine.getRelativeMousePoint(event));
               point.setSelected(true);
               _this5.forceUpdate();
               link.addPoint(point, index + 1);
@@ -1337,7 +1337,7 @@ var DiagramModel = function (_BaseEntity) {
   }, {
     key: 'getNode',
     value: function getNode(node) {
-      if (node instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["c" /* NodeModel */]) {
+      if (node instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["b" /* NodeModel */]) {
         return node;
       }
       if (!this.nodes[node]) {
@@ -1406,7 +1406,7 @@ var DiagramModel = function (_BaseEntity) {
   }, {
     key: 'removeNode',
     value: function removeNode(node) {
-      if (node instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["c" /* NodeModel */]) {
+      if (node instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["b" /* NodeModel */]) {
         delete this.nodes[node.getID()];
         this.itterateListeners(function (listener) {
           listener.nodesUpdated();
@@ -1951,7 +1951,7 @@ var DiagramEngine = function (_BaseEntity) {
       entities.forEach(function (entity) {
 
         // If a node is requested to repaint, add all of its links
-        if (entity instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["c" /* NodeModel */]) {
+        if (entity instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["b" /* NodeModel */]) {
           __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.forEach(entity.getPorts(), function (port) {
             __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.forEach(port.getLinks(), function (link) {
               _this2.paintableWidgets[link.getID()] = true;
@@ -1959,7 +1959,7 @@ var DiagramEngine = function (_BaseEntity) {
           });
         }
 
-        if (entity instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["d" /* PointModel */]) {
+        if (entity instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["c" /* PointModel */]) {
           _this2.paintableWidgets[entity.getLink().getID()] = true;
         }
 
@@ -2323,7 +2323,7 @@ var DefaultNodeModel = function (_NodeModel) {
   }]);
 
   return DefaultNodeModel;
-}(__WEBPACK_IMPORTED_MODULE_1__Common__["c" /* NodeModel */]);
+}(__WEBPACK_IMPORTED_MODULE_1__Common__["b" /* NodeModel */]);
 
 /***/ }),
 /* 25 */
@@ -2401,7 +2401,7 @@ var DefaultPortModel = function (_PortModel) {
   }]);
 
   return DefaultPortModel;
-}(__WEBPACK_IMPORTED_MODULE_0__Common__["b" /* PortModel */]);
+}(__WEBPACK_IMPORTED_MODULE_0__Common__["d" /* PortModel */]);
 
 /***/ }),
 /* 26 */
@@ -2602,7 +2602,7 @@ var DiagramWidget = function (_React$Component) {
       } else if (action instanceof __WEBPACK_IMPORTED_MODULE_2__actions__["b" /* MoveItemsAction */]) {
         // Translate the items on the canvas
         action.selectionModels.forEach(function (model) {
-          if (model.model instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["c" /* NodeModel */] || model.model instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["d" /* PointModel */]) {
+          if (model.model instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["b" /* NodeModel */] || model.model instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["c" /* PointModel */]) {
             model.model.x = model.initialX + (event.pageX - _this3.state.action.mouseX) / (diagramModel.getZoomLevel() / 100);
             model.model.y = model.initialY + (event.pageY - _this3.state.action.mouseY) / (diagramModel.getZoomLevel() / 100);
           }
@@ -2640,7 +2640,7 @@ var DiagramWidget = function (_React$Component) {
             action: new __WEBPACK_IMPORTED_MODULE_2__actions__["c" /* MoveCanvasAction */](_relative.x, _relative.y, diagramModel)
           });
         }
-      } else if (model.model instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["b" /* PortModel */]) {
+      } else if (model.model instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["d" /* PortModel */]) {
         // This is a port element, we want to drag a link
         var _relative2 = diagramEngine.getRelativeMousePoint(event);
         var link = new __WEBPACK_IMPORTED_MODULE_1__Common__["a" /* LinkModel */]();
@@ -2680,11 +2680,11 @@ var DiagramWidget = function (_React$Component) {
         if (element) {
           this.state.action.selectionModels.forEach(function (model) {
             // Only care about points connecting to things
-            if (!(model.model instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["d" /* PointModel */])) {
+            if (!(model.model instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["c" /* PointModel */])) {
               return;
             }
 
-            if (element.model instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["b" /* PortModel */]) {
+            if (element.model instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["d" /* PortModel */]) {
               model.model.getLink().setTargetPort(element.model);
             }
           });
@@ -3223,16 +3223,25 @@ function updateLink(linkElement, obj) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_main__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_main__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__test_scss__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__test_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__test_scss__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
 
-__webpack_require__(18);
+
 
 /**
  *
@@ -3241,51 +3250,149 @@ __webpack_require__(18);
  *
  * @Author Dylan Vorster
  */
+
+var Demo2 = function (_React$Component) {
+  _inherits(Demo2, _React$Component);
+
+  function Demo2(props) {
+    _classCallCheck(this, Demo2);
+
+    // Setup the diagram engine
+    var _this = _possibleConstructorReturn(this, (Demo2.__proto__ || Object.getPrototypeOf(Demo2)).call(this, props));
+
+    _this.engine = new __WEBPACK_IMPORTED_MODULE_2__src_main__["a" /* DiagramEngine */]();
+    _this.engine.registerNodeFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["b" /* DefaultNodeFactory */]());
+    _this.engine.registerLinkFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["c" /* DefaultLinkFactory */]());
+
+    // Setup the diagram model
+    _this.model = new __WEBPACK_IMPORTED_MODULE_2__src_main__["d" /* DiagramModel */]();
+    return _this;
+  }
+
+  _createClass(Demo2, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      setTimeout(function () {
+        _this2.testSerialization();
+      }, 1000);
+    }
+  }, {
+    key: 'createNode',
+    value: function createNode(options) {
+      var name = options.name,
+          color = options.color,
+          x = options.x,
+          y = options.y;
+
+      var node = new __WEBPACK_IMPORTED_MODULE_2__src_main__["e" /* DefaultNodeModel */](name, color);
+      node.x = x;
+      node.y = y;
+      return node;
+    }
+  }, {
+    key: 'createPort',
+    value: function createPort(node, options) {
+      var isInput = options.isInput,
+          id = options.id,
+          name = options.name;
+
+      return node.addPort(new __WEBPACK_IMPORTED_MODULE_2__src_main__["f" /* DefaultPortModel */](isInput, id, name));
+    }
+  }, {
+    key: 'linkNodes',
+    value: function linkNodes(port1, port2) {
+      var link = new __WEBPACK_IMPORTED_MODULE_2__src_main__["g" /* LinkModel */]();
+      link.setSourcePort(port1);
+      link.setTargetPort(port2);
+      return link;
+    }
+  }, {
+    key: 'generateNodes',
+    value: function generateNodes(model) {
+      var offsetX = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var offsetY = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+      // Create first node and port
+      var node1 = this.createNode({
+        name: 'Node 1',
+        color: 'rgb(0, 192, 255)',
+        x: 20 + offsetX,
+        y: 20 + offsetY
+      });
+      var port1 = this.createPort(node1, {
+        isInput: false,
+        id: 'out-1',
+        name: 'Out'
+      });
+
+      // Create second node and port
+      var node2 = this.createNode({
+        name: 'Node 2',
+        color: 'rgb(192, 255, 0)',
+        x: 120 + offsetX,
+        y: 20 + offsetY
+      });
+      var port2 = this.createPort(node2, {
+        isInput: true,
+        id: 'in-1',
+        name: 'In'
+      });
+
+      // Add the nodes and link to the model
+      model.addNode(node1);
+      model.addNode(node2);
+      model.addLink(this.linkNodes(port1, port2));
+    }
+  }, {
+    key: 'testSerialization',
+    value: function testSerialization() {
+      var engine = this.engine,
+          model = this.model;
+
+      // We need this to help the system know what models to create form the JSON
+
+      engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["h" /* DefaultNodeInstanceFactory */]());
+      engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["i" /* DefaultPortInstanceFactory */]());
+      engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["j" /* LinkInstanceFactory */]());
+
+      // Serialize the model
+      var str = JSON.stringify(model.serializeDiagram());
+      console.log(str);
+
+      // Deserialize the model
+      var model2 = new __WEBPACK_IMPORTED_MODULE_2__src_main__["d" /* DiagramModel */]();
+      model2.deSerializeDiagram(JSON.parse(str), engine);
+      engine.setDiagramModel(model2);
+      console.log(model2);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var engine = this.engine,
+          model = this.model;
+
+
+      for (var i = 0; i < 8; i++) {
+        for (var j = 0; j < 8; j++) {
+          this.generateNodes(model, i * 200, j * 100);
+        }
+      }
+
+      // Load the model into the diagram engine
+      engine.setDiagramModel(model);
+
+      // Render the canvas
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__src_main__["k" /* DiagramWidget */], { diagramEngine: engine });
+    }
+  }]);
+
+  return Demo2;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
 window.onload = function () {
-
-	//1) setup the diagram engine
-	var engine = new __WEBPACK_IMPORTED_MODULE_0__src_main__["a" /* DiagramEngine */]();
-	engine.registerNodeFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["b" /* DefaultNodeFactory */]());
-	engine.registerLinkFactory(new __WEBPACK_IMPORTED_MODULE_0__src_main__["c" /* DefaultLinkFactory */]());
-
-	function generateNodes(model, offsetX, offsetY) {
-		//3-A) create a default node
-		var node1 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["e" /* DefaultNodeModel */]("Node 1", "rgb(0,192,255)");
-		var port1 = node1.addPort(new __WEBPACK_IMPORTED_MODULE_0__src_main__["f" /* DefaultPortModel */](false, "out-1", "Out"));
-		node1.x = 100 + offsetX;
-		node1.y = 100 + offsetY;
-
-		//3-B) create another default node
-		var node2 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["e" /* DefaultNodeModel */]("Node 2", "rgb(192,255,0)");
-		var port2 = node2.addPort(new __WEBPACK_IMPORTED_MODULE_0__src_main__["f" /* DefaultPortModel */](true, "in-1", "IN"));
-		node2.x = 200 + offsetX;
-		node2.y = 100 + offsetY;
-
-		//3-C) link the 2 nodes together
-		var link1 = new __WEBPACK_IMPORTED_MODULE_0__src_main__["g" /* LinkModel */]();
-		link1.setSourcePort(port1);
-		link1.setTargetPort(port2);
-
-		//4) add the models to the root graph
-		model.addNode(node1);
-		model.addNode(node2);
-		model.addLink(link1);
-	}
-
-	//2) setup the diagram model
-	var model = new __WEBPACK_IMPORTED_MODULE_0__src_main__["d" /* DiagramModel */]();
-
-	for (var i = 0; i < 8; i++) {
-		for (var j = 0; j < 8; j++) {
-			generateNodes(model, i * 200, j * 100);
-		}
-	}
-
-	//5) load model into engine
-	engine.setDiagramModel(model);
-
-	//6) render the diagram!
-	__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"](__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_0__src_main__["h" /* DiagramWidget */], { diagramEngine: engine }), document.getElementById('root'));
+  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Demo2, null), document.getElementById('root'));
 };
 
 /***/ })
