@@ -8,12 +8,16 @@ export class SelectingAction extends BaseAction {
   }
 
   containsElement(x, y, diagramModel) {
-    const z = diagramModel.getZoomLevel() / 100.0;
+    const { mouseX, mouseX2, mouseY, mouseY2 } = this;
+    const z = diagramModel.getZoomLevel() / 100;
+    const elX = (x + diagramModel.getOffsetX()) * z;
+    const elY = (y + diagramModel.getOffsetY()) * z;
+
     return (
-      (x + diagramModel.getOffsetX()) * z > this.mouseX  &&
-      (x + diagramModel.getOffsetX()) * z < this.mouseX2 &&
-      (y + diagramModel.getOffsetY()) * z > this.mouseY  &&
-      (y + diagramModel.getOffsetY()) * z < this.mouseY2
+      ((mouseX2 < mouseX) ? elX < mouseX : elX > mouseX) &&
+      ((mouseX2 < mouseX) ? elX > mouseX2 : elX < mouseX2) &&
+      ((mouseY2 < mouseY) ? elY < mouseY : elY > mouseY) &&
+      ((mouseY2 < mouseY) ? elY > mouseY2 : elY < mouseY2)
     );
   }
 }

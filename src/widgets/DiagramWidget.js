@@ -285,15 +285,27 @@ export class DiagramWidget extends React.Component {
       return null;
     }
 
+    const style = {
+      width: Math.abs(action.mouseX2 - action.mouseX),
+      height: Math.abs(action.mouseY2 - action.mouseY),
+    };
+
+    if ((action.mouseX2 - action.mouseX) < 0) {
+      style.right = window.innerWidth - action.mouseX;
+    } else {
+      style.left = action.mouseX;
+    }
+
+    if ((action.mouseY2 - action.mouseY) < 0) {
+      style.bottom = window.innerHeight - action.mouseY;
+    } else {
+      style.top = action.mouseY;
+    }
+
     return (
       <div
         className='selector'
-        style={{
-          top: action.mouseY,
-          left: action.mouseX,
-          width: action.mouseX2 - action.mouseX,
-          height: action.mouseY2 - action.mouseY,
-        }}
+        style={style}
       />
     );
   }
