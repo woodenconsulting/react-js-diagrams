@@ -1,12 +1,14 @@
 {
   "name": "react-js-diagrams",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/woodenconsulting/react-js-diagrams.git"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "prepublish": "npm run build",
+    "build": "babel src --out-dir lib --presets es2015,es2016,es2017,stage-0"
   },
   "keywords": [
     "web",
@@ -17,7 +19,7 @@
     "links",
     "nodes"
   ],
-  "main": "./src/main.js",
+  "main": "./lib/main.js",
   "author": "Jeff Wooden <woodenconsulting@gmail.com>",
   "dependencies": {
     "lodash": "4.17.4"
