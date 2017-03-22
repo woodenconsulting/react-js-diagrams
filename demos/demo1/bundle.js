@@ -2731,14 +2731,26 @@ var DiagramWidget = function (_React$Component) {
         return null;
       }
 
+      var style = {
+        width: Math.abs(action.mouseX2 - action.mouseX),
+        height: Math.abs(action.mouseY2 - action.mouseY)
+      };
+
+      if (action.mouseX2 - action.mouseX < 0) {
+        style.right = window.innerWidth - action.mouseX;
+      } else {
+        style.left = action.mouseX;
+      }
+
+      if (action.mouseY2 - action.mouseY < 0) {
+        style.bottom = window.innerHeight - action.mouseY;
+      } else {
+        style.top = action.mouseY;
+      }
+
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', {
         className: 'selector',
-        style: {
-          top: action.mouseY,
-          left: action.mouseX,
-          width: action.mouseX2 - action.mouseX,
-          height: action.mouseY2 - action.mouseY
-        }
+        style: style
       });
     }
   }, {
@@ -2869,8 +2881,16 @@ var SelectingAction = function (_BaseAction) {
   _createClass(SelectingAction, [{
     key: 'containsElement',
     value: function containsElement(x, y, diagramModel) {
-      var z = diagramModel.getZoomLevel() / 100.0;
-      return (x + diagramModel.getOffsetX()) * z > this.mouseX && (x + diagramModel.getOffsetX()) * z < this.mouseX2 && (y + diagramModel.getOffsetY()) * z > this.mouseY && (y + diagramModel.getOffsetY()) * z < this.mouseY2;
+      var mouseX = this.mouseX,
+          mouseX2 = this.mouseX2,
+          mouseY = this.mouseY,
+          mouseY2 = this.mouseY2;
+
+      var z = diagramModel.getZoomLevel() / 100;
+      var elX = (x + diagramModel.getOffsetX()) * z;
+      var elY = (y + diagramModel.getOffsetY()) * z;
+
+      return (mouseX2 < mouseX ? elX < mouseX : elX > mouseX) && (mouseX2 < mouseX ? elX > mouseX2 : elX < mouseX2) && (mouseY2 < mouseY ? elY < mouseY : elY > mouseY) && (mouseY2 < mouseY ? elY > mouseY2 : elY < mouseY2);
     }
   }]);
 
