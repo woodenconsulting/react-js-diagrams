@@ -1,0 +1,42 @@
+@import "../../src/sass.scss";
+
+html, body, #root {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.parent-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .nodes-panel {
+    flex: 0 0 4rem;
+  }
+
+  .canvas-controls-container {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    
+    .diagram-drop-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      .react-js-diagrams-canvas {
+        flex: 1;
+        background: rgb(60,60,60);
+      }
+    }
+
+    .controls {
+      flex: 0 0 20rem;
+    }
+  }
+}
+

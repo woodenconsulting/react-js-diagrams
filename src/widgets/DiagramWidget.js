@@ -280,6 +280,8 @@ export class DiagramWidget extends React.Component {
 
   renderSelector() {
     const { action } = this.state;
+    const offsetWidth = this.refs.canvas && this.refs.canvas.offsetWidth || window.innerWidth;
+    const offsetHeight = this.refs.canvas && this.refs.canvas.offsetHeight || window.innerHeight;
 
     if (!(action instanceof SelectingAction)) {
       return null;
@@ -291,13 +293,13 @@ export class DiagramWidget extends React.Component {
     };
 
     if ((action.mouseX2 - action.mouseX) < 0) {
-      style.right = window.innerWidth - action.mouseX;
+      style.right = offsetWidth - action.mouseX;
     } else {
       style.left = action.mouseX;
     }
 
     if ((action.mouseY2 - action.mouseY) < 0) {
-      style.bottom = window.innerHeight - action.mouseY;
+      style.bottom = offsetHeight - action.mouseY;
     } else {
       style.top = action.mouseY;
     }

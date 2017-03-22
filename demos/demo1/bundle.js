@@ -63,17 +63,19 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 39);
+/******/ 	return __webpack_require__(__webpack_require__.s = 224);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ (function(module, exports) {
 
 module.exports = React;
 
 /***/ }),
-/* 1 */
+
+/***/ 1:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -81,10 +83,10 @@ module.exports = React;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BaseEntity__ = __webpack_require__(3);
 /* unused harmony export BaseModel */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PointModel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LinkModel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return PortModel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return NodeModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PointModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LinkModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PortModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NodeModel; });
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -528,644 +530,8 @@ var NodeModel = function (_BaseModel4) {
 }(BaseModel);
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports) {
 
-module.exports = _;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Toolkit__ = __webpack_require__(11);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseEntity; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-var BaseEntity = function () {
-  function BaseEntity() {
-    _classCallCheck(this, BaseEntity);
-
-    this.listeners = {};
-    this.id = __WEBPACK_IMPORTED_MODULE_0__Toolkit__["a" /* Toolkit */].UID();
-  }
-
-  _createClass(BaseEntity, [{
-    key: 'getID',
-    value: function getID() {
-      return this.id;
-    }
-  }, {
-    key: 'clearListeners',
-    value: function clearListeners() {
-      this.listeners = {};
-    }
-  }, {
-    key: 'deSerialize',
-    value: function deSerialize(data) {
-      this.id = data.id;
-    }
-  }, {
-    key: 'serialize',
-    value: function serialize() {
-      return {
-        id: this.id
-      };
-    }
-  }, {
-    key: 'itterateListeners',
-    value: function itterateListeners(cb) {
-      for (var key in this.listeners) {
-        cb(this.listeners[key]);
-      }
-    }
-  }, {
-    key: 'removeListener',
-    value: function removeListener(listener) {
-      if (this.listeners[listener]) {
-        delete this.listeners[listener];
-        return true;
-      }
-      return false;
-    }
-  }, {
-    key: 'addListener',
-    value: function addListener(listener) {
-      var uid = __WEBPACK_IMPORTED_MODULE_0__Toolkit__["a" /* Toolkit */].UID();
-      this.listeners[uid] = listener;
-      return uid;
-    }
-  }]);
-
-  return BaseEntity;
-}();
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseEntity__ = __webpack_require__(3);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AbstractInstanceFactory; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-var AbstractInstanceFactory = function (_BaseEntity) {
-  _inherits(AbstractInstanceFactory, _BaseEntity);
-
-  function AbstractInstanceFactory(className) {
-    _classCallCheck(this, AbstractInstanceFactory);
-
-    var _this = _possibleConstructorReturn(this, (AbstractInstanceFactory.__proto__ || Object.getPrototypeOf(AbstractInstanceFactory)).call(this, className));
-
-    _this.className = className;
-    return _this;
-  }
-
-  _createClass(AbstractInstanceFactory, [{
-    key: 'getName',
-    value: function getName() {
-      return this.className;
-    }
-  }]);
-
-  return AbstractInstanceFactory;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseEntity__["a" /* BaseEntity */]);
-
-/***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__defaults_DefaultLinkFactory__ = __webpack_require__(22);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__defaults_DefaultLinkFactory__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defaults_DefaultLinkWidget__ = __webpack_require__(7);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__defaults_DefaultNodeFactory__ = __webpack_require__(23);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__defaults_DefaultNodeFactory__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__defaults_DefaultNodeWidget__ = __webpack_require__(8);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__defaults_DefaultNodeModel__ = __webpack_require__(24);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_4__defaults_DefaultNodeModel__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_4__defaults_DefaultNodeModel__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__defaults_DefaultPortModel__ = __webpack_require__(25);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_5__defaults_DefaultPortModel__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_5__defaults_DefaultPortModel__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__defaults_DefaultPortLabelWidget__ = __webpack_require__(12);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__WidgetFactories__ = __webpack_require__(6);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "o", function() { return __WEBPACK_IMPORTED_MODULE_7__WidgetFactories__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Toolkit__ = __webpack_require__(11);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__DiagramEngine__ = __webpack_require__(20);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_9__DiagramEngine__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__DiagramModel__ = __webpack_require__(10);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_10__DiagramModel__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__BaseEntity__ = __webpack_require__(3);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__Common__ = __webpack_require__(1);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_12__Common__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_12__Common__["b"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_12__Common__["d"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__AbstractInstanceFactory__ = __webpack_require__(4);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "n", function() { return __WEBPACK_IMPORTED_MODULE_13__AbstractInstanceFactory__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__LinkInstanceFactory__ = __webpack_require__(21);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_14__LinkInstanceFactory__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__widgets_DiagramWidget__ = __webpack_require__(26);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_15__widgets_DiagramWidget__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__widgets_LinkLayerWidget__ = __webpack_require__(13);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__widgets_LinkWidget__ = __webpack_require__(14);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__widgets_NodeLayerWidget__ = __webpack_require__(15);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__widgets_NodeWidget__ = __webpack_require__(16);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__widgets_PortWidget__ = __webpack_require__(17);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "p", function() { return __WEBPACK_IMPORTED_MODULE_20__widgets_PortWidget__["a"]; });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defaults_DefaultNodeWidget__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__defaults_DefaultLinkWidget__ = __webpack_require__(7);
-/* unused harmony export WidgetFactory */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NodeWidgetFactory; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LinkWidgetFactory; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-
-
-var WidgetFactory = function () {
-  function WidgetFactory(name) {
-    _classCallCheck(this, WidgetFactory);
-
-    this.type = name;
-  }
-
-  _createClass(WidgetFactory, [{
-    key: 'getType',
-    value: function getType() {
-      return this.type;
-    }
-  }]);
-
-  return WidgetFactory;
-}();
-
-var NodeWidgetFactory = function (_WidgetFactory) {
-  _inherits(NodeWidgetFactory, _WidgetFactory);
-
-  function NodeWidgetFactory() {
-    _classCallCheck(this, NodeWidgetFactory);
-
-    return _possibleConstructorReturn(this, (NodeWidgetFactory.__proto__ || Object.getPrototypeOf(NodeWidgetFactory)).apply(this, arguments));
-  }
-
-  _createClass(NodeWidgetFactory, [{
-    key: 'generateReactWidget',
-    value: function generateReactWidget(diagramEngine, node) {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__defaults_DefaultNodeWidget__["a" /* DefaultNodeWidget */], { node: node, diagramEngine: diagramEngine });
-    }
-  }]);
-
-  return NodeWidgetFactory;
-}(WidgetFactory);
-
-var LinkWidgetFactory = function (_WidgetFactory2) {
-  _inherits(LinkWidgetFactory, _WidgetFactory2);
-
-  function LinkWidgetFactory() {
-    _classCallCheck(this, LinkWidgetFactory);
-
-    return _possibleConstructorReturn(this, (LinkWidgetFactory.__proto__ || Object.getPrototypeOf(LinkWidgetFactory)).apply(this, arguments));
-  }
-
-  _createClass(LinkWidgetFactory, [{
-    key: 'generateReactWidget',
-    value: function generateReactWidget(diagramEngine, link) {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__defaults_DefaultLinkWidget__["a" /* DefaultLinkWidget */], { link: link, diagramEngine: diagramEngine });
-    }
-  }]);
-
-  return LinkWidgetFactory;
-}(WidgetFactory);
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(1);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DefaultLinkWidget; });
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-var DefaultLinkWidget = function (_React$Component) {
-  _inherits(DefaultLinkWidget, _React$Component);
-
-  function DefaultLinkWidget(props) {
-    _classCallCheck(this, DefaultLinkWidget);
-
-    var _this = _possibleConstructorReturn(this, (DefaultLinkWidget.__proto__ || Object.getPrototypeOf(DefaultLinkWidget)).call(this, props));
-
-    _this.state = {
-      selected: false
-    };
-    return _this;
-  }
-
-  _createClass(DefaultLinkWidget, [{
-    key: 'generatePoint',
-    value: function generatePoint(pointIndex) {
-      var _this2 = this;
-
-      var link = this.props.link;
-
-      var uiCircleProps = {
-        className: 'point pointui' + (link.points[pointIndex].isSelected() ? ' selected' : ''),
-        cx: link.points[pointIndex].x,
-        cy: link.points[pointIndex].y,
-        r: 5
-      };
-      var circleProps = {
-        className: 'point',
-        'data-linkid': link.id,
-        'data-id': link.points[pointIndex].id,
-        cx: link.points[pointIndex].x,
-        cy: link.points[pointIndex].y,
-        r: 15,
-        opacity: 0,
-        onMouseLeave: function onMouseLeave() {
-          return _this2.setState({ selected: false });
-        },
-        onMouseEnter: function onMouseEnter() {
-          return _this2.setState({ selected: true });
-        }
-      };
-
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'g',
-        { key: 'point-' + link.points[pointIndex].id },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('circle', uiCircleProps),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('circle', circleProps)
-      );
-    }
-  }, {
-    key: 'generateLink',
-    value: function generateLink(extraProps) {
-      var _this3 = this;
-
-      var _props = this.props,
-          link = _props.link,
-          width = _props.width,
-          color = _props.color;
-      var selected = this.state.selected;
-
-      var bottom = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', _extends({
-        className: selected || link.isSelected() ? 'selected' : '',
-        strokeWidth: width,
-        stroke: color
-      }, extraProps));
-
-      var top = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', _extends({
-        strokeLinecap: 'round',
-        'data-linkid': link.getID(),
-        stroke: color,
-        strokeOpacity: selected ? 0.1 : 0,
-        strokeWidth: 20,
-        onMouseLeave: function onMouseLeave() {
-          return _this3.setState({ selected: false });
-        },
-        onMouseEnter: function onMouseEnter() {
-          return _this3.setState({ selected: true });
-        },
-        onContextMenu: function onContextMenu(event) {
-          event.preventDefault();
-          _this3.props.link.remove();
-        }
-      }, extraProps));
-
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'g',
-        { key: 'link-' + extraProps.id },
-        bottom,
-        top
-      );
-    }
-  }, {
-    key: 'drawLine',
-    value: function drawLine() {
-      var _this4 = this;
-
-      var _props2 = this.props,
-          link = _props2.link,
-          diagramEngine = _props2.diagramEngine,
-          pointAdded = _props2.pointAdded;
-      var points = link.points;
-
-      var paths = [];
-
-      // If the points are too close, just draw a straight line
-      var margin = Math.abs(points[0].x - points[1].x) < 50 ? 5 : 50;
-
-      var pointLeft = points[0];
-      var pointRight = points[1];
-
-      // Some defensive programming to make sure the smoothing is
-      // Always in the right direction
-      if (pointLeft.x > pointRight.x) {
-        pointLeft = points[1];
-        pointRight = points[0];
-      }
-
-      paths.push(this.generateLink({
-        id: 0,
-        onMouseDown: function onMouseDown(event) {
-          if (!event.shiftKey) {
-            var point = new __WEBPACK_IMPORTED_MODULE_1__Common__["c" /* PointModel */](link, diagramEngine.getRelativeMousePoint(event));
-            point.setSelected(true);
-            _this4.forceUpdate();
-            link.addPoint(point, 1);
-            pointAdded(point, event);
-          }
-        },
-        d: ' M' + pointLeft.x + ' ' + pointLeft.y + ' C' + (pointLeft.x + margin) + ' ' + pointLeft.y + ' ' + (pointRight.x - margin) + ' ' + pointRight.y + ' ' + pointRight.x + ' ' + pointRight.y
-      }));
-
-      if (link.targetPort === null) {
-        paths.push(this.generatePoint(1));
-      }
-
-      return paths;
-    }
-  }, {
-    key: 'drawAdvancedLine',
-    value: function drawAdvancedLine() {
-      var _this5 = this;
-
-      var _props3 = this.props,
-          link = _props3.link,
-          smooth = _props3.smooth,
-          diagramEngine = _props3.diagramEngine,
-          pointAdded = _props3.pointAdded;
-      var points = link.points;
-
-      var ds = [];
-
-      if (smooth) {
-        ds.push(' M' + points[0].x + ' ' + points[0].y + ' C ' + (points[0].x + 50) + ' ' + points[0].y + ' ' + points[1].x + ' ' + points[1].y + ' ' + points[1].x + ' ' + points[1].y);
-
-        var i = void 0;
-        for (i = 1; i < points.length - 2; i++) {
-          ds.push(' M ' + points[i].x + ' ' + points[i].y + ' L ' + points[i + 1].x + ' ' + points[i + 1].y);
-        }
-
-        ds.push(' M' + points[i].x + ' ' + points[i].y + ' C ' + points[i].x + ' ' + points[i].y + ' ' + (points[i + 1].x - 50) + ' ' + points[i + 1].y + ' ' + points[i + 1].x + ' ' + points[i + 1].y);
-      } else {
-        for (var _i = 0; _i < points.length - 1; _i++) {
-          ds.push(' M ' + points[_i].x + ' ' + points[_i].y + ' L ' + points[_i + 1].x + ' ' + points[_i + 1].y);
-        }
-      }
-
-      var paths = ds.map(function (data, index) {
-        return _this5.generateLink({
-          id: index,
-          d: data,
-          'data-linkid': link.id,
-          'data-point': index,
-          onMouseDown: function onMouseDown(event) {
-            if (!event.shiftKey) {
-              var point = new __WEBPACK_IMPORTED_MODULE_1__Common__["c" /* PointModel */](link, diagramEngine.getRelativeMousePoint(event));
-              point.setSelected(true);
-              _this5.forceUpdate();
-              link.addPoint(point, index + 1);
-              pointAdded(point, event);
-            }
-          }
-        });
-      });
-
-      // Render the circles
-      for (var _i2 = 1; _i2 < points.length - 1; _i2++) {
-        paths.push(this.generatePoint(_i2));
-      }
-
-      if (link.targetPort === null) {
-        paths.push(this.generatePoint(points.length - 1));
-      }
-
-      return paths;
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var points = this.props.link.points;
-
-      var paths = [];
-
-      // Draw the line
-      if (points.length === 2) {
-        paths = this.drawLine();
-      } else {
-        paths = this.drawAdvancedLine();
-      }
-
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'g',
-        null,
-        paths
-      );
-    }
-  }]);
-
-  return DefaultLinkWidget;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
-DefaultLinkWidget.defaultProps = {
-  color: 'black',
-  width: 3,
-  link: null,
-  engine: null,
-  smooth: false,
-  diagramEngine: null
-};
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DefaultPortLabelWidget__ = __webpack_require__(12);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DefaultNodeWidget; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-var DefaultNodeWidget = function (_React$Component) {
-  _inherits(DefaultNodeWidget, _React$Component);
-
-  function DefaultNodeWidget() {
-    _classCallCheck(this, DefaultNodeWidget);
-
-    return _possibleConstructorReturn(this, (DefaultNodeWidget.__proto__ || Object.getPrototypeOf(DefaultNodeWidget)).apply(this, arguments));
-  }
-
-  _createClass(DefaultNodeWidget, [{
-    key: 'onRemove',
-    value: function onRemove() {
-      var _props = this.props,
-          node = _props.node,
-          diagramEngine = _props.diagramEngine;
-
-      node.remove();
-      diagramEngine.forceUpdate();
-    }
-  }, {
-    key: 'getInPorts',
-    value: function getInPorts() {
-      var node = this.props.node;
-
-      return node.getInPorts().map(function (port, i) {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__DefaultPortLabelWidget__["a" /* DefaultPortLabel */], { model: port, key: 'in-port-' + i });
-      });
-    }
-  }, {
-    key: 'getOutPorts',
-    value: function getOutPorts() {
-      var node = this.props.node;
-
-      return node.getOutPorts().map(function (port, i) {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__DefaultPortLabelWidget__["a" /* DefaultPortLabel */], { model: port, key: 'out-port-' + i });
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var node = this.props.node;
-
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { className: 'basic-node', style: { background: node.color } },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'title' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'name' },
-            node.name
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'fa fa-close', onClick: this.onRemove.bind(this) })
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'ports' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'in' },
-            this.getInPorts()
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'out' },
-            this.getOutPorts()
-          )
-        )
-      );
-    }
-  }]);
-
-  return DefaultNodeWidget;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
-DefaultNodeWidget.defaultProps = {
-  node: null
-};
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseAction; });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var BaseAction = function BaseAction(mouseX, mouseY) {
-  _classCallCheck(this, BaseAction);
-
-  this.mouseX = mouseX;
-  this.mouseY = mouseY;
-  this.ms = new Date().getTime();
-};
-
-/***/ }),
-/* 10 */
+/***/ 11:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1337,7 +703,7 @@ var DiagramModel = function (_BaseEntity) {
   }, {
     key: 'getNode',
     value: function getNode(node) {
-      if (node instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["b" /* NodeModel */]) {
+      if (node instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["a" /* NodeModel */]) {
         return node;
       }
       if (!this.nodes[node]) {
@@ -1348,7 +714,7 @@ var DiagramModel = function (_BaseEntity) {
   }, {
     key: 'getLink',
     value: function getLink(link) {
-      if (link instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["a" /* LinkModel */]) {
+      if (link instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["d" /* LinkModel */]) {
         return link;
       }
       if (!this.links[link]) {
@@ -1391,7 +757,7 @@ var DiagramModel = function (_BaseEntity) {
   }, {
     key: 'removeLink',
     value: function removeLink(link) {
-      if (link instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["a" /* LinkModel */]) {
+      if (link instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["d" /* LinkModel */]) {
         delete this.links[link.getID()];
         this.itterateListeners(function (listener) {
           listener.linksUpdated();
@@ -1406,7 +772,7 @@ var DiagramModel = function (_BaseEntity) {
   }, {
     key: 'removeNode',
     value: function removeNode(node) {
-      if (node instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["b" /* NodeModel */]) {
+      if (node instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["a" /* NodeModel */]) {
         delete this.nodes[node.getID()];
         this.itterateListeners(function (listener) {
           listener.nodesUpdated();
@@ -1435,7 +801,8 @@ var DiagramModel = function (_BaseEntity) {
 }(__WEBPACK_IMPORTED_MODULE_2__BaseEntity__["a" /* BaseEntity */]);
 
 /***/ }),
-/* 11 */
+
+/***/ 12:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1469,15 +836,18 @@ var Toolkit = function () {
 }();
 
 /***/ }),
-/* 12 */
+
+/***/ 13:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__widgets_PortWidget__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__widgets_PortWidget__ = __webpack_require__(18);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DefaultPortLabel; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _temp;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1488,7 +858,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var DefaultPortLabel = function (_React$Component) {
+var DefaultPortLabel = (_temp = _class = function (_React$Component) {
   _inherits(DefaultPortLabel, _React$Component);
 
   function DefaultPortLabel() {
@@ -1519,14 +889,14 @@ var DefaultPortLabel = function (_React$Component) {
   }]);
 
   return DefaultPortLabel;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
-DefaultPortLabel.defaultProps = {
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component), _class.defaultProps = {
   in: true,
   label: 'port'
-};
+}, _temp);
 
 /***/ }),
-/* 13 */
+
+/***/ 14:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1534,7 +904,7 @@ DefaultPortLabel.defaultProps = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LinkWidget__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LinkWidget__ = __webpack_require__(15);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LinkLayerWidget; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1633,7 +1003,8 @@ var LinkLayerWidget = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 /***/ }),
-/* 14 */
+
+/***/ 15:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1675,7 +1046,8 @@ var LinkWidget = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 /***/ }),
-/* 15 */
+
+/***/ 16:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1683,7 +1055,7 @@ var LinkWidget = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NodeWidget__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NodeWidget__ = __webpack_require__(17);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NodeLayerWidget; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1744,7 +1116,8 @@ var NodeLayerWidget = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 /***/ }),
-/* 16 */
+
+/***/ 17:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1803,7 +1176,8 @@ var NodeWidget = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 /***/ }),
-/* 17 */
+
+/***/ 18:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1861,16 +1235,31 @@ var PortWidget = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 /***/ }),
-/* 18 */
+
+/***/ 19:
+/***/ (function(module, exports) {
+
+module.exports = ReactDOM;
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports) {
+
+module.exports = _;
+
+/***/ }),
+
+/***/ 20:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(31);
+var content = __webpack_require__(37);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(33)(content, {});
+var update = __webpack_require__(35)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -1887,13 +1276,8 @@ if(false) {
 }
 
 /***/ }),
-/* 19 */
-/***/ (function(module, exports) {
 
-module.exports = ReactDOM;
-
-/***/ }),
-/* 20 */
+/***/ 21:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1901,7 +1285,7 @@ module.exports = ReactDOM;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BaseEntity__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__DiagramModel__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__DiagramModel__ = __webpack_require__(11);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DiagramEngine; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1951,7 +1335,7 @@ var DiagramEngine = function (_BaseEntity) {
       entities.forEach(function (entity) {
 
         // If a node is requested to repaint, add all of its links
-        if (entity instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["b" /* NodeModel */]) {
+        if (entity instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["a" /* NodeModel */]) {
           __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.forEach(entity.getPorts(), function (port) {
             __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.forEach(port.getLinks(), function (link) {
               _this2.paintableWidgets[link.getID()] = true;
@@ -1959,7 +1343,7 @@ var DiagramEngine = function (_BaseEntity) {
           });
         }
 
-        if (entity instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["c" /* PointModel */]) {
+        if (entity instanceof __WEBPACK_IMPORTED_MODULE_1__Common__["b" /* PointModel */]) {
           _this2.paintableWidgets[entity.getLink().getID()] = true;
         }
 
@@ -2112,7 +1496,8 @@ var DiagramEngine = function (_BaseEntity) {
 }(__WEBPACK_IMPORTED_MODULE_2__BaseEntity__["a" /* BaseEntity */]);
 
 /***/ }),
-/* 21 */
+
+/***/ 22:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2142,7 +1527,7 @@ var LinkInstanceFactory = function (_AbstractInstanceFact) {
   _createClass(LinkInstanceFactory, [{
     key: 'getInstance',
     value: function getInstance() {
-      return new __WEBPACK_IMPORTED_MODULE_0__Common__["a" /* LinkModel */]();
+      return new __WEBPACK_IMPORTED_MODULE_0__Common__["d" /* LinkModel */]();
     }
   }]);
 
@@ -2150,7 +1535,174 @@ var LinkInstanceFactory = function (_AbstractInstanceFact) {
 }(__WEBPACK_IMPORTED_MODULE_1__AbstractInstanceFactory__["a" /* AbstractInstanceFactory */]);
 
 /***/ }),
-/* 22 */
+
+/***/ 224:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_main__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__test_scss__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__test_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__test_scss__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+/**
+ *
+ * Simple test showing the Object oriented way of using this library.
+ * It creates 2 nodes and links them together with a single link
+ *
+ */
+
+var Demo1 = function (_React$Component) {
+  _inherits(Demo1, _React$Component);
+
+  function Demo1(props) {
+    _classCallCheck(this, Demo1);
+
+    // Setup the diagram engine
+    var _this = _possibleConstructorReturn(this, (Demo1.__proto__ || Object.getPrototypeOf(Demo1)).call(this, props));
+
+    _this.engine = new __WEBPACK_IMPORTED_MODULE_2__src_main__["a" /* DiagramEngine */]();
+    _this.engine.registerNodeFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["b" /* DefaultNodeFactory */]());
+    _this.engine.registerLinkFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["c" /* DefaultLinkFactory */]());
+
+    // Setup the diagram model
+    _this.model = new __WEBPACK_IMPORTED_MODULE_2__src_main__["d" /* DiagramModel */]();
+    return _this;
+  }
+
+  _createClass(Demo1, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      setTimeout(function () {
+        _this2.testSerialization();
+      }, 1000);
+    }
+  }, {
+    key: 'createNode',
+    value: function createNode(options) {
+      var name = options.name,
+          color = options.color,
+          x = options.x,
+          y = options.y;
+
+      var node = new __WEBPACK_IMPORTED_MODULE_2__src_main__["j" /* DefaultNodeModel */](name, color);
+      node.x = x;
+      node.y = y;
+      return node;
+    }
+  }, {
+    key: 'createPort',
+    value: function createPort(node, options) {
+      var isInput = options.isInput,
+          id = options.id,
+          name = options.name;
+
+      return node.addPort(new __WEBPACK_IMPORTED_MODULE_2__src_main__["f" /* DefaultPortModel */](isInput, id, name));
+    }
+  }, {
+    key: 'linkNodes',
+    value: function linkNodes(port1, port2) {
+      var link = new __WEBPACK_IMPORTED_MODULE_2__src_main__["k" /* LinkModel */]();
+      link.setSourcePort(port1);
+      link.setTargetPort(port2);
+      return link;
+    }
+  }, {
+    key: 'testSerialization',
+    value: function testSerialization() {
+      var engine = this.engine,
+          model = this.model;
+
+      // We need this to help the system know what models to create form the JSON
+
+      engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["l" /* DefaultNodeInstanceFactory */]());
+      engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["m" /* DefaultPortInstanceFactory */]());
+      engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["n" /* LinkInstanceFactory */]());
+
+      // Serialize the model
+      var str = JSON.stringify(model.serializeDiagram());
+      console.log(str);
+
+      // Deserialize the model
+      var model2 = new __WEBPACK_IMPORTED_MODULE_2__src_main__["d" /* DiagramModel */]();
+      model2.deSerializeDiagram(JSON.parse(str), engine);
+      engine.setDiagramModel(model2);
+      console.log(model2);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var engine = this.engine,
+          model = this.model;
+
+      // Create first node and port
+
+      var node1 = this.createNode({
+        name: 'Node 1',
+        color: 'rgb(0, 192, 255)',
+        x: 100,
+        y: 100
+      });
+      var port1 = this.createPort(node1, {
+        isInput: false,
+        id: 'out-1',
+        name: 'Out'
+      });
+
+      // Create second node and port
+      var node2 = this.createNode({
+        name: 'Node 2',
+        color: 'rgb(192, 255, 0)',
+        x: 400,
+        y: 100
+      });
+      var port2 = this.createPort(node2, {
+        isInput: true,
+        id: 'in-1',
+        name: 'In'
+      });
+
+      // Add the nodes and link to the model
+      model.addNode(node1);
+      model.addNode(node2);
+      model.addLink(this.linkNodes(port1, port2));
+
+      // Load the model into the diagram engine
+      engine.setDiagramModel(model);
+
+      // Render the canvas
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__src_main__["e" /* DiagramWidget */], { diagramEngine: engine });
+    }
+  }]);
+
+  return Demo1;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+window.onload = function () {
+  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Demo1, null), document.getElementById('root'));
+};
+
+/***/ }),
+
+/***/ 23:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2191,7 +1743,8 @@ var DefaultLinkFactory = function (_LinkWidgetFactory) {
 }(__WEBPACK_IMPORTED_MODULE_1__WidgetFactories__["b" /* LinkWidgetFactory */]);
 
 /***/ }),
-/* 23 */
+
+/***/ 24:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2232,7 +1785,8 @@ var DefaultNodeFactory = function (_NodeWidgetFactory) {
 }(__WEBPACK_IMPORTED_MODULE_1__WidgetFactories__["a" /* NodeWidgetFactory */]);
 
 /***/ }),
-/* 24 */
+
+/***/ 25:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2323,10 +1877,11 @@ var DefaultNodeModel = function (_NodeModel) {
   }]);
 
   return DefaultNodeModel;
-}(__WEBPACK_IMPORTED_MODULE_1__Common__["b" /* NodeModel */]);
+}(__WEBPACK_IMPORTED_MODULE_1__Common__["a" /* NodeModel */]);
 
 /***/ }),
-/* 25 */
+
+/***/ 26:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2401,10 +1956,11 @@ var DefaultPortModel = function (_PortModel) {
   }]);
 
   return DefaultPortModel;
-}(__WEBPACK_IMPORTED_MODULE_0__Common__["d" /* PortModel */]);
+}(__WEBPACK_IMPORTED_MODULE_0__Common__["c" /* PortModel */]);
 
 /***/ }),
-/* 26 */
+
+/***/ 27:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2413,9 +1969,9 @@ var DefaultPortModel = function (_PortModel) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Common__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__LinkLayerWidget__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__NodeLayerWidget__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__LinkLayerWidget__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__NodeLayerWidget__ = __webpack_require__(16);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DiagramWidget; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -2605,7 +2161,7 @@ var DiagramWidget = function (_React$Component) {
       } else if (action instanceof __WEBPACK_IMPORTED_MODULE_3__actions__["b" /* MoveItemsAction */]) {
         // Translate the items on the canvas
         action.selectionModels.forEach(function (model) {
-          if (model.model instanceof __WEBPACK_IMPORTED_MODULE_2__Common__["b" /* NodeModel */] || model.model instanceof __WEBPACK_IMPORTED_MODULE_2__Common__["c" /* PointModel */]) {
+          if (model.model instanceof __WEBPACK_IMPORTED_MODULE_2__Common__["a" /* NodeModel */] || model.model instanceof __WEBPACK_IMPORTED_MODULE_2__Common__["b" /* PointModel */]) {
             model.model.x = model.initialX + (event.pageX - _this3.state.action.mouseX) / (diagramModel.getZoomLevel() / 100);
             model.model.y = model.initialY + (event.pageY - _this3.state.action.mouseY) / (diagramModel.getZoomLevel() / 100);
           }
@@ -2643,10 +2199,10 @@ var DiagramWidget = function (_React$Component) {
             action: new __WEBPACK_IMPORTED_MODULE_3__actions__["c" /* MoveCanvasAction */](_relative.x, _relative.y, diagramModel)
           });
         }
-      } else if (model.model instanceof __WEBPACK_IMPORTED_MODULE_2__Common__["d" /* PortModel */]) {
+      } else if (model.model instanceof __WEBPACK_IMPORTED_MODULE_2__Common__["c" /* PortModel */]) {
         // This is a port element, we want to drag a link
         var _relative2 = diagramEngine.getRelativeMousePoint(event);
-        var link = new __WEBPACK_IMPORTED_MODULE_2__Common__["a" /* LinkModel */]();
+        var link = new __WEBPACK_IMPORTED_MODULE_2__Common__["d" /* LinkModel */]();
         link.setSourcePort(model.model);
 
         link.getFirstPoint().updateLocation(_relative2);
@@ -2683,11 +2239,11 @@ var DiagramWidget = function (_React$Component) {
         if (element) {
           this.state.action.selectionModels.forEach(function (model) {
             // Only care about points connecting to things
-            if (!(model.model instanceof __WEBPACK_IMPORTED_MODULE_2__Common__["c" /* PointModel */])) {
+            if (!(model.model instanceof __WEBPACK_IMPORTED_MODULE_2__Common__["b" /* PointModel */])) {
               return;
             }
 
-            if (element.model instanceof __WEBPACK_IMPORTED_MODULE_2__Common__["d" /* PortModel */]) {
+            if (element.model instanceof __WEBPACK_IMPORTED_MODULE_2__Common__["c" /* PortModel */]) {
               model.model.getLink().setTargetPort(element.model);
             }
           });
@@ -2726,6 +2282,8 @@ var DiagramWidget = function (_React$Component) {
     value: function renderSelector() {
       var action = this.state.action;
 
+      var offsetWidth = this.refs.canvas && this.refs.canvas.offsetWidth || window.innerWidth;
+      var offsetHeight = this.refs.canvas && this.refs.canvas.offsetHeight || window.innerHeight;
 
       if (!(action instanceof __WEBPACK_IMPORTED_MODULE_3__actions__["a" /* SelectingAction */])) {
         return null;
@@ -2737,13 +2295,13 @@ var DiagramWidget = function (_React$Component) {
       };
 
       if (action.mouseX2 - action.mouseX < 0) {
-        style.right = window.innerWidth - action.mouseX;
+        style.right = offsetWidth - action.mouseX;
       } else {
         style.left = action.mouseX;
       }
 
       if (action.mouseY2 - action.mouseY < 0) {
-        style.bottom = window.innerHeight - action.mouseY;
+        style.bottom = offsetHeight - action.mouseY;
       } else {
         style.top = action.mouseY;
       }
@@ -2780,7 +2338,8 @@ var DiagramWidget = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 /***/ }),
-/* 27 */
+
+/***/ 28:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2811,7 +2370,8 @@ var MoveCanvasAction = function (_BaseAction) {
 }(__WEBPACK_IMPORTED_MODULE_0__BaseAction__["a" /* BaseAction */]);
 
 /***/ }),
-/* 28 */
+
+/***/ 29:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2849,7 +2409,80 @@ var MoveItemsAction = function (_BaseAction) {
 }(__WEBPACK_IMPORTED_MODULE_0__BaseAction__["a" /* BaseAction */]);
 
 /***/ }),
-/* 29 */
+
+/***/ 3:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Toolkit__ = __webpack_require__(12);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseEntity; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var BaseEntity = function () {
+  function BaseEntity() {
+    _classCallCheck(this, BaseEntity);
+
+    this.listeners = {};
+    this.id = __WEBPACK_IMPORTED_MODULE_0__Toolkit__["a" /* Toolkit */].UID();
+  }
+
+  _createClass(BaseEntity, [{
+    key: 'getID',
+    value: function getID() {
+      return this.id;
+    }
+  }, {
+    key: 'clearListeners',
+    value: function clearListeners() {
+      this.listeners = {};
+    }
+  }, {
+    key: 'deSerialize',
+    value: function deSerialize(data) {
+      this.id = data.id;
+    }
+  }, {
+    key: 'serialize',
+    value: function serialize() {
+      return {
+        id: this.id
+      };
+    }
+  }, {
+    key: 'itterateListeners',
+    value: function itterateListeners(cb) {
+      for (var key in this.listeners) {
+        cb(this.listeners[key]);
+      }
+    }
+  }, {
+    key: 'removeListener',
+    value: function removeListener(listener) {
+      if (this.listeners[listener]) {
+        delete this.listeners[listener];
+        return true;
+      }
+      return false;
+    }
+  }, {
+    key: 'addListener',
+    value: function addListener(listener) {
+      var uid = __WEBPACK_IMPORTED_MODULE_0__Toolkit__["a" /* Toolkit */].UID();
+      this.listeners[uid] = listener;
+      return uid;
+    }
+  }]);
+
+  return BaseEntity;
+}();
+
+/***/ }),
+
+/***/ 30:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2898,36 +2531,24 @@ var SelectingAction = function (_BaseAction) {
 }(__WEBPACK_IMPORTED_MODULE_0__BaseAction__["a" /* BaseAction */]);
 
 /***/ }),
-/* 30 */
+
+/***/ 31:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SelectingAction__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SelectingAction__ = __webpack_require__(30);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__SelectingAction__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MoveCanvasAction__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MoveCanvasAction__ = __webpack_require__(28);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__MoveCanvasAction__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MoveItemsAction__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MoveItemsAction__ = __webpack_require__(29);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__MoveItemsAction__["a"]; });
 
 
 
 
 /***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(32)();
-// imports
-
-
-// module
-exports.push([module.i, "* {\n  margin: 0;\n  padding: 0; }\n\nhtml, body, #root {\n  width: 100%;\n  height: 100%;\n  background: #3c3c3c;\n  display: flex; }\n\n.demo-link {\n  padding: 0.5rem 1rem; }\n  .demo-link a {\n    color: white;\n    text-decoration: underline;\n    cursor: pointer; }\n\n.react-js-diagrams-canvas {\n  position: relative;\n  flex-grow: 1;\n  display: flex;\n  cursor: move;\n  overflow: hidden; }\n  .react-js-diagrams-canvas .point {\n    fill: rgba(255, 255, 255, 0.5); }\n    .react-js-diagrams-canvas .point.selected {\n      fill: #00c0ff; }\n  .react-js-diagrams-canvas .selector {\n    position: absolute;\n    background-color: rgba(0, 192, 255, 0.2);\n    border: solid 2px #00c0ff; }\n  .react-js-diagrams-canvas svg {\n    position: absolute;\n    height: 100%;\n    width: 100%;\n    transform-origin: 0 0;\n    overflow: visible; }\n  .react-js-diagrams-canvas .node-view {\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    position: absolute;\n    pointer-events: none;\n    transform-origin: 0 0; }\n  .react-js-diagrams-canvas .node {\n    position: absolute;\n    -webkit-touch-callout: none;\n    /* iOS Safari */\n    -webkit-user-select: none;\n    /* Chrome/Safari/Opera */\n    user-select: none;\n    cursor: move;\n    pointer-events: all; }\n    .react-js-diagrams-canvas .node.selected > * {\n      border-color: #00c0ff !important;\n      -webkit-filter: drop-shadow(0 0 20px rgba(0, 192, 255, 0.5)); }\n\n@keyframes dash {\n  from {\n    stroke-dashoffset: 24; }\n  to {\n    stroke-dashoffset: 0; } }\n  .react-js-diagrams-canvas path {\n    fill: none;\n    pointer-events: all; }\n    .react-js-diagrams-canvas path.selected {\n      stroke: #00c0ff !important;\n      stroke-dasharray: 10,2;\n      animation: dash 1s linear infinite; }\n  .react-js-diagrams-canvas .port {\n    width: 15px;\n    height: 15px;\n    background: rgba(255, 255, 255, 0.1); }\n    .react-js-diagrams-canvas .port:hover, .react-js-diagrams-canvas .port.selected {\n      background: #c0ff00; }\n  .react-js-diagrams-canvas .basic-node {\n    background-color: #1e1e1e;\n    border-radius: 5px;\n    font-family: Arial;\n    color: white;\n    border: solid 2px black;\n    overflow: visible;\n    font-size: 11px;\n    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }\n    .react-js-diagrams-canvas .basic-node .title {\n      /*      background-image: linear-gradient(rgba(black,0.1),rgba(black,0.2));*/\n      background: rgba(0, 0, 0, 0.3);\n      display: flex;\n      white-space: nowrap; }\n      .react-js-diagrams-canvas .basic-node .title > * {\n        align-self: center; }\n      .react-js-diagrams-canvas .basic-node .title .fa {\n        padding: 5px;\n        opacity: 0.2;\n        cursor: pointer; }\n        .react-js-diagrams-canvas .basic-node .title .fa:hover {\n          opacity: 1.0; }\n      .react-js-diagrams-canvas .basic-node .title .name {\n        flex-grow: 1;\n        padding: 5px 5px; }\n    .react-js-diagrams-canvas .basic-node .ports {\n      display: flex;\n      background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)); }\n      .react-js-diagrams-canvas .basic-node .ports .in, .react-js-diagrams-canvas .basic-node .ports .out {\n        flex-grow: 1;\n        display: flex;\n        flex-direction: column; }\n      .react-js-diagrams-canvas .basic-node .ports .in-port, .react-js-diagrams-canvas .basic-node .ports .out-port {\n        display: flex;\n        margin-top: 1px; }\n        .react-js-diagrams-canvas .basic-node .ports .in-port > *, .react-js-diagrams-canvas .basic-node .ports .out-port > * {\n          align-self: center; }\n        .react-js-diagrams-canvas .basic-node .ports .in-port .name, .react-js-diagrams-canvas .basic-node .ports .out-port .name {\n          padding: 0 5px; }\n      .react-js-diagrams-canvas .basic-node .ports .out-port {\n        justify-content: flex-end; }\n        .react-js-diagrams-canvas .basic-node .ports .out-port .name {\n          justify-content: flex-end;\n          text-align: right; }\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 32 */
+/***/ 32:
 /***/ (function(module, exports) {
 
 /*
@@ -2983,7 +2604,8 @@ module.exports = function() {
 
 
 /***/ }),
-/* 33 */
+
+/***/ 35:
 /***/ (function(module, exports) {
 
 /*
@@ -3235,23 +2857,28 @@ function updateLink(linkElement, obj) {
 
 
 /***/ }),
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */
+
+/***/ 37:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(32)();
+// imports
+
+
+// module
+exports.push([module.i, "* {\n  margin: 0;\n  padding: 0; }\n\nhtml, body, #root {\n  width: 100%;\n  height: 100%;\n  background: #3c3c3c;\n  display: flex; }\n\n.demo-link {\n  padding: 0.5rem 1rem; }\n  .demo-link a {\n    color: white;\n    text-decoration: underline;\n    cursor: pointer; }\n\n.react-js-diagrams-canvas {\n  position: relative;\n  flex-grow: 1;\n  display: flex;\n  cursor: move;\n  overflow: hidden; }\n  .react-js-diagrams-canvas .point {\n    fill: rgba(255, 255, 255, 0.5); }\n    .react-js-diagrams-canvas .point.selected {\n      fill: #00c0ff; }\n  .react-js-diagrams-canvas .selector {\n    position: absolute;\n    background-color: rgba(0, 192, 255, 0.2);\n    border: solid 2px #00c0ff; }\n  .react-js-diagrams-canvas svg {\n    position: absolute;\n    height: 100%;\n    width: 100%;\n    transform-origin: 0 0;\n    overflow: visible; }\n  .react-js-diagrams-canvas .node-view {\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    position: absolute;\n    pointer-events: none;\n    transform-origin: 0 0; }\n  .react-js-diagrams-canvas .node {\n    position: absolute;\n    -webkit-touch-callout: none;\n    /* iOS Safari */\n    -webkit-user-select: none;\n    /* Chrome/Safari/Opera */\n    user-select: none;\n    cursor: move;\n    pointer-events: all; }\n    .react-js-diagrams-canvas .node.selected > * {\n      border-color: #00c0ff !important;\n      -webkit-filter: drop-shadow(0 0 20px rgba(0, 192, 255, 0.5)); }\n\n@keyframes dash {\n  from {\n    stroke-dashoffset: 24; }\n  to {\n    stroke-dashoffset: 0; } }\n  .react-js-diagrams-canvas path {\n    fill: none;\n    pointer-events: all; }\n    .react-js-diagrams-canvas path.selected {\n      stroke: #00c0ff !important;\n      stroke-dasharray: 10,2;\n      animation: dash 1s linear infinite; }\n  .react-js-diagrams-canvas .port {\n    width: 15px;\n    height: 15px;\n    background: rgba(255, 255, 255, 0.1); }\n    .react-js-diagrams-canvas .port:hover, .react-js-diagrams-canvas .port.selected {\n      background: #c0ff00; }\n\n.basic-node {\n  background-color: #1e1e1e;\n  border-radius: 5px;\n  font-family: Arial;\n  color: white;\n  border: solid 2px black;\n  overflow: visible;\n  font-size: 11px;\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }\n  .basic-node .title {\n    /*      background-image: linear-gradient(rgba(black,0.1),rgba(black,0.2));*/\n    background: rgba(0, 0, 0, 0.3);\n    display: flex;\n    white-space: nowrap; }\n    .basic-node .title > * {\n      align-self: center; }\n    .basic-node .title .fa {\n      padding: 5px;\n      opacity: 0.2;\n      cursor: pointer; }\n      .basic-node .title .fa:hover {\n        opacity: 1.0; }\n    .basic-node .title .name {\n      flex-grow: 1;\n      padding: 5px 5px; }\n  .basic-node .ports {\n    display: flex;\n    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)); }\n    .basic-node .ports .in, .basic-node .ports .out {\n      flex-grow: 1;\n      display: flex;\n      flex-direction: column; }\n    .basic-node .ports .in-port, .basic-node .ports .out-port {\n      display: flex;\n      margin-top: 1px; }\n      .basic-node .ports .in-port > *, .basic-node .ports .out-port > * {\n        align-self: center; }\n      .basic-node .ports .in-port .name, .basic-node .ports .out-port .name {\n        padding: 0 5px; }\n    .basic-node .ports .out-port {\n      justify-content: flex-end; }\n      .basic-node .ports .out-port .name {\n        justify-content: flex-end;\n        text-align: right; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 4:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_main__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__test_scss__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__test_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__test_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseEntity__ = __webpack_require__(3);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AbstractInstanceFactory; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3262,148 +2889,557 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+var AbstractInstanceFactory = function (_BaseEntity) {
+  _inherits(AbstractInstanceFactory, _BaseEntity);
 
+  function AbstractInstanceFactory(className) {
+    _classCallCheck(this, AbstractInstanceFactory);
 
+    var _this = _possibleConstructorReturn(this, (AbstractInstanceFactory.__proto__ || Object.getPrototypeOf(AbstractInstanceFactory)).call(this, className));
 
-/**
- *
- * Simple test showing the Object oriented way of using this library.
- * It creates 2 nodes and links them together with a single link
- *
- */
-
-var Demo1 = function (_React$Component) {
-  _inherits(Demo1, _React$Component);
-
-  function Demo1(props) {
-    _classCallCheck(this, Demo1);
-
-    // Setup the diagram engine
-    var _this = _possibleConstructorReturn(this, (Demo1.__proto__ || Object.getPrototypeOf(Demo1)).call(this, props));
-
-    _this.engine = new __WEBPACK_IMPORTED_MODULE_2__src_main__["a" /* DiagramEngine */]();
-    _this.engine.registerNodeFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["b" /* DefaultNodeFactory */]());
-    _this.engine.registerLinkFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["c" /* DefaultLinkFactory */]());
-
-    // Setup the diagram model
-    _this.model = new __WEBPACK_IMPORTED_MODULE_2__src_main__["d" /* DiagramModel */]();
+    _this.className = className;
     return _this;
   }
 
-  _createClass(Demo1, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+  _createClass(AbstractInstanceFactory, [{
+    key: 'getName',
+    value: function getName() {
+      return this.className;
+    }
+  }]);
+
+  return AbstractInstanceFactory;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseEntity__["a" /* BaseEntity */]);
+
+/***/ }),
+
+/***/ 5:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__defaults_DefaultLinkFactory__ = __webpack_require__(23);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__defaults_DefaultLinkFactory__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defaults_DefaultLinkWidget__ = __webpack_require__(7);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__defaults_DefaultNodeFactory__ = __webpack_require__(24);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__defaults_DefaultNodeFactory__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__defaults_DefaultNodeWidget__ = __webpack_require__(8);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__defaults_DefaultNodeModel__ = __webpack_require__(25);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_4__defaults_DefaultNodeModel__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_4__defaults_DefaultNodeModel__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__defaults_DefaultPortModel__ = __webpack_require__(26);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_5__defaults_DefaultPortModel__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_5__defaults_DefaultPortModel__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__defaults_DefaultPortLabelWidget__ = __webpack_require__(13);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_6__defaults_DefaultPortLabelWidget__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__WidgetFactories__ = __webpack_require__(6);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_7__WidgetFactories__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Toolkit__ = __webpack_require__(12);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__DiagramEngine__ = __webpack_require__(21);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_9__DiagramEngine__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__DiagramModel__ = __webpack_require__(11);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_10__DiagramModel__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__BaseEntity__ = __webpack_require__(3);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__Common__ = __webpack_require__(1);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_12__Common__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_12__Common__["d"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "o", function() { return __WEBPACK_IMPORTED_MODULE_12__Common__["c"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__AbstractInstanceFactory__ = __webpack_require__(4);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "p", function() { return __WEBPACK_IMPORTED_MODULE_13__AbstractInstanceFactory__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__LinkInstanceFactory__ = __webpack_require__(22);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "n", function() { return __WEBPACK_IMPORTED_MODULE_14__LinkInstanceFactory__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__widgets_DiagramWidget__ = __webpack_require__(27);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_15__widgets_DiagramWidget__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__widgets_LinkLayerWidget__ = __webpack_require__(14);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__widgets_LinkWidget__ = __webpack_require__(15);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__widgets_NodeLayerWidget__ = __webpack_require__(16);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__widgets_NodeWidget__ = __webpack_require__(17);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__widgets_PortWidget__ = __webpack_require__(18);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "q", function() { return __WEBPACK_IMPORTED_MODULE_20__widgets_PortWidget__["a"]; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ 6:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defaults_DefaultNodeWidget__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__defaults_DefaultLinkWidget__ = __webpack_require__(7);
+/* unused harmony export WidgetFactory */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NodeWidgetFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LinkWidgetFactory; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+
+var WidgetFactory = function () {
+  function WidgetFactory(name) {
+    _classCallCheck(this, WidgetFactory);
+
+    this.type = name;
+  }
+
+  _createClass(WidgetFactory, [{
+    key: 'getType',
+    value: function getType() {
+      return this.type;
+    }
+  }]);
+
+  return WidgetFactory;
+}();
+
+var NodeWidgetFactory = function (_WidgetFactory) {
+  _inherits(NodeWidgetFactory, _WidgetFactory);
+
+  function NodeWidgetFactory() {
+    _classCallCheck(this, NodeWidgetFactory);
+
+    return _possibleConstructorReturn(this, (NodeWidgetFactory.__proto__ || Object.getPrototypeOf(NodeWidgetFactory)).apply(this, arguments));
+  }
+
+  _createClass(NodeWidgetFactory, [{
+    key: 'generateReactWidget',
+    value: function generateReactWidget(diagramEngine, node) {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__defaults_DefaultNodeWidget__["a" /* DefaultNodeWidget */], { node: node, diagramEngine: diagramEngine });
+    }
+  }]);
+
+  return NodeWidgetFactory;
+}(WidgetFactory);
+
+var LinkWidgetFactory = function (_WidgetFactory2) {
+  _inherits(LinkWidgetFactory, _WidgetFactory2);
+
+  function LinkWidgetFactory() {
+    _classCallCheck(this, LinkWidgetFactory);
+
+    return _possibleConstructorReturn(this, (LinkWidgetFactory.__proto__ || Object.getPrototypeOf(LinkWidgetFactory)).apply(this, arguments));
+  }
+
+  _createClass(LinkWidgetFactory, [{
+    key: 'generateReactWidget',
+    value: function generateReactWidget(diagramEngine, link) {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__defaults_DefaultLinkWidget__["a" /* DefaultLinkWidget */], { link: link, diagramEngine: diagramEngine });
+    }
+  }]);
+
+  return LinkWidgetFactory;
+}(WidgetFactory);
+
+/***/ }),
+
+/***/ 7:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common__ = __webpack_require__(1);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DefaultLinkWidget; });
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _temp;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var DefaultLinkWidget = (_temp = _class = function (_React$Component) {
+  _inherits(DefaultLinkWidget, _React$Component);
+
+  function DefaultLinkWidget(props) {
+    _classCallCheck(this, DefaultLinkWidget);
+
+    var _this = _possibleConstructorReturn(this, (DefaultLinkWidget.__proto__ || Object.getPrototypeOf(DefaultLinkWidget)).call(this, props));
+
+    _this.state = {
+      selected: false
+    };
+    return _this;
+  }
+
+  _createClass(DefaultLinkWidget, [{
+    key: 'generatePoint',
+    value: function generatePoint(pointIndex) {
       var _this2 = this;
 
-      setTimeout(function () {
-        _this2.testSerialization();
-      }, 1000);
+      var link = this.props.link;
+
+      var uiCircleProps = {
+        className: 'point pointui' + (link.points[pointIndex].isSelected() ? ' selected' : ''),
+        cx: link.points[pointIndex].x,
+        cy: link.points[pointIndex].y,
+        r: 5
+      };
+      var circleProps = {
+        className: 'point',
+        'data-linkid': link.id,
+        'data-id': link.points[pointIndex].id,
+        cx: link.points[pointIndex].x,
+        cy: link.points[pointIndex].y,
+        r: 15,
+        opacity: 0,
+        onMouseLeave: function onMouseLeave() {
+          return _this2.setState({ selected: false });
+        },
+        onMouseEnter: function onMouseEnter() {
+          return _this2.setState({ selected: true });
+        }
+      };
+
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'g',
+        { key: 'point-' + link.points[pointIndex].id },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('circle', uiCircleProps),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('circle', circleProps)
+      );
     }
   }, {
-    key: 'createNode',
-    value: function createNode(options) {
-      var name = options.name,
-          color = options.color,
-          x = options.x,
-          y = options.y;
+    key: 'generateLink',
+    value: function generateLink(extraProps) {
+      var _this3 = this;
 
-      var node = new __WEBPACK_IMPORTED_MODULE_2__src_main__["e" /* DefaultNodeModel */](name, color);
-      node.x = x;
-      node.y = y;
-      return node;
+      var _props = this.props,
+          link = _props.link,
+          width = _props.width,
+          color = _props.color;
+      var selected = this.state.selected;
+
+      var bottom = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', _extends({
+        className: selected || link.isSelected() ? 'selected' : '',
+        strokeWidth: width,
+        stroke: color
+      }, extraProps));
+
+      var top = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', _extends({
+        strokeLinecap: 'round',
+        'data-linkid': link.getID(),
+        stroke: color,
+        strokeOpacity: selected ? 0.1 : 0,
+        strokeWidth: 20,
+        onMouseLeave: function onMouseLeave() {
+          return _this3.setState({ selected: false });
+        },
+        onMouseEnter: function onMouseEnter() {
+          return _this3.setState({ selected: true });
+        },
+        onContextMenu: function onContextMenu(event) {
+          event.preventDefault();
+          _this3.props.link.remove();
+        }
+      }, extraProps));
+
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'g',
+        { key: 'link-' + extraProps.id },
+        bottom,
+        top
+      );
     }
   }, {
-    key: 'createPort',
-    value: function createPort(node, options) {
-      var isInput = options.isInput,
-          id = options.id,
-          name = options.name;
+    key: 'drawLine',
+    value: function drawLine() {
+      var _this4 = this;
 
-      return node.addPort(new __WEBPACK_IMPORTED_MODULE_2__src_main__["f" /* DefaultPortModel */](isInput, id, name));
+      var _props2 = this.props,
+          link = _props2.link,
+          diagramEngine = _props2.diagramEngine,
+          pointAdded = _props2.pointAdded;
+      var points = link.points;
+
+      var paths = [];
+
+      // If the points are too close, just draw a straight line
+      var margin = Math.abs(points[0].x - points[1].x) < 50 ? 5 : 50;
+
+      var pointLeft = points[0];
+      var pointRight = points[1];
+
+      // Some defensive programming to make sure the smoothing is
+      // Always in the right direction
+      if (pointLeft.x > pointRight.x) {
+        pointLeft = points[1];
+        pointRight = points[0];
+      }
+
+      paths.push(this.generateLink({
+        id: 0,
+        onMouseDown: function onMouseDown(event) {
+          if (!event.shiftKey) {
+            var point = new __WEBPACK_IMPORTED_MODULE_1__Common__["b" /* PointModel */](link, diagramEngine.getRelativeMousePoint(event));
+            point.setSelected(true);
+            _this4.forceUpdate();
+            link.addPoint(point, 1);
+            pointAdded(point, event);
+          }
+        },
+        d: ' M' + pointLeft.x + ' ' + pointLeft.y + ' C' + (pointLeft.x + margin) + ' ' + pointLeft.y + ' ' + (pointRight.x - margin) + ' ' + pointRight.y + ' ' + pointRight.x + ' ' + pointRight.y
+      }));
+
+      if (link.targetPort === null) {
+        paths.push(this.generatePoint(1));
+      }
+
+      return paths;
     }
   }, {
-    key: 'linkNodes',
-    value: function linkNodes(port1, port2) {
-      var link = new __WEBPACK_IMPORTED_MODULE_2__src_main__["g" /* LinkModel */]();
-      link.setSourcePort(port1);
-      link.setTargetPort(port2);
-      return link;
-    }
-  }, {
-    key: 'testSerialization',
-    value: function testSerialization() {
-      var engine = this.engine,
-          model = this.model;
+    key: 'drawAdvancedLine',
+    value: function drawAdvancedLine() {
+      var _this5 = this;
 
-      // We need this to help the system know what models to create form the JSON
+      var _props3 = this.props,
+          link = _props3.link,
+          smooth = _props3.smooth,
+          diagramEngine = _props3.diagramEngine,
+          pointAdded = _props3.pointAdded;
+      var points = link.points;
 
-      engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["h" /* DefaultNodeInstanceFactory */]());
-      engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["i" /* DefaultPortInstanceFactory */]());
-      engine.registerInstanceFactory(new __WEBPACK_IMPORTED_MODULE_2__src_main__["j" /* LinkInstanceFactory */]());
+      var ds = [];
 
-      // Serialize the model
-      var str = JSON.stringify(model.serializeDiagram());
-      console.log(str);
+      if (smooth) {
+        ds.push(' M' + points[0].x + ' ' + points[0].y + ' C ' + (points[0].x + 50) + ' ' + points[0].y + ' ' + points[1].x + ' ' + points[1].y + ' ' + points[1].x + ' ' + points[1].y);
 
-      // Deserialize the model
-      var model2 = new __WEBPACK_IMPORTED_MODULE_2__src_main__["d" /* DiagramModel */]();
-      model2.deSerializeDiagram(JSON.parse(str), engine);
-      engine.setDiagramModel(model2);
-      console.log(model2);
+        var i = void 0;
+        for (i = 1; i < points.length - 2; i++) {
+          ds.push(' M ' + points[i].x + ' ' + points[i].y + ' L ' + points[i + 1].x + ' ' + points[i + 1].y);
+        }
+
+        ds.push(' M' + points[i].x + ' ' + points[i].y + ' C ' + points[i].x + ' ' + points[i].y + ' ' + (points[i + 1].x - 50) + ' ' + points[i + 1].y + ' ' + points[i + 1].x + ' ' + points[i + 1].y);
+      } else {
+        for (var _i = 0; _i < points.length - 1; _i++) {
+          ds.push(' M ' + points[_i].x + ' ' + points[_i].y + ' L ' + points[_i + 1].x + ' ' + points[_i + 1].y);
+        }
+      }
+
+      var paths = ds.map(function (data, index) {
+        return _this5.generateLink({
+          id: index,
+          d: data,
+          'data-linkid': link.id,
+          'data-point': index,
+          onMouseDown: function onMouseDown(event) {
+            if (!event.shiftKey) {
+              var point = new __WEBPACK_IMPORTED_MODULE_1__Common__["b" /* PointModel */](link, diagramEngine.getRelativeMousePoint(event));
+              point.setSelected(true);
+              _this5.forceUpdate();
+              link.addPoint(point, index + 1);
+              pointAdded(point, event);
+            }
+          }
+        });
+      });
+
+      // Render the circles
+      for (var _i2 = 1; _i2 < points.length - 1; _i2++) {
+        paths.push(this.generatePoint(_i2));
+      }
+
+      if (link.targetPort === null) {
+        paths.push(this.generatePoint(points.length - 1));
+      }
+
+      return paths;
     }
   }, {
     key: 'render',
     value: function render() {
-      var engine = this.engine,
-          model = this.model;
+      var points = this.props.link.points;
 
-      // Create first node and port
+      var paths = [];
 
-      var node1 = this.createNode({
-        name: 'Node 1',
-        color: 'rgb(0, 192, 255)',
-        x: 100,
-        y: 100
-      });
-      var port1 = this.createPort(node1, {
-        isInput: false,
-        id: 'out-1',
-        name: 'Out'
-      });
+      // Draw the line
+      if (points.length === 2) {
+        paths = this.drawLine();
+      } else {
+        paths = this.drawAdvancedLine();
+      }
 
-      // Create second node and port
-      var node2 = this.createNode({
-        name: 'Node 2',
-        color: 'rgb(192, 255, 0)',
-        x: 400,
-        y: 100
-      });
-      var port2 = this.createPort(node2, {
-        isInput: true,
-        id: 'in-1',
-        name: 'In'
-      });
-
-      // Add the nodes and link to the model
-      model.addNode(node1);
-      model.addNode(node2);
-      model.addLink(this.linkNodes(port1, port2));
-
-      // Load the model into the diagram engine
-      engine.setDiagramModel(model);
-
-      // Render the canvas
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__src_main__["k" /* DiagramWidget */], { diagramEngine: engine });
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'g',
+        null,
+        paths
+      );
     }
   }]);
 
-  return Demo1;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+  return DefaultLinkWidget;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component), _class.defaultProps = {
+  color: 'black',
+  width: 3,
+  link: null,
+  engine: null,
+  smooth: false,
+  diagramEngine: null
+}, _temp);
 
-window.onload = function () {
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Demo1, null), document.getElementById('root'));
+/***/ }),
+
+/***/ 8:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DefaultPortLabelWidget__ = __webpack_require__(13);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DefaultNodeWidget; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _temp;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var DefaultNodeWidget = (_temp = _class = function (_React$Component) {
+  _inherits(DefaultNodeWidget, _React$Component);
+
+  function DefaultNodeWidget() {
+    _classCallCheck(this, DefaultNodeWidget);
+
+    return _possibleConstructorReturn(this, (DefaultNodeWidget.__proto__ || Object.getPrototypeOf(DefaultNodeWidget)).apply(this, arguments));
+  }
+
+  _createClass(DefaultNodeWidget, [{
+    key: 'onRemove',
+    value: function onRemove() {
+      var _props = this.props,
+          node = _props.node,
+          diagramEngine = _props.diagramEngine;
+
+      node.remove();
+      diagramEngine.forceUpdate();
+    }
+  }, {
+    key: 'getInPorts',
+    value: function getInPorts() {
+      var node = this.props.node;
+
+      return node.getInPorts().map(function (port, i) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__DefaultPortLabelWidget__["a" /* DefaultPortLabel */], { model: port, key: 'in-port-' + i });
+      });
+    }
+  }, {
+    key: 'getOutPorts',
+    value: function getOutPorts() {
+      var node = this.props.node;
+
+      return node.getOutPorts().map(function (port, i) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__DefaultPortLabelWidget__["a" /* DefaultPortLabel */], { model: port, key: 'out-port-' + i });
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var node = this.props.node;
+
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'basic-node', style: { background: node.color } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'title' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'name' },
+            node.name
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'fa fa-close', onClick: this.onRemove.bind(this) })
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'ports' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'in' },
+            this.getInPorts()
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'out' },
+            this.getOutPorts()
+          )
+        )
+      );
+    }
+  }]);
+
+  return DefaultNodeWidget;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component), _class.defaultProps = {
+  node: null
+}, _temp);
+
+/***/ }),
+
+/***/ 9:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseAction; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var BaseAction = function BaseAction(mouseX, mouseY) {
+  _classCallCheck(this, BaseAction);
+
+  this.mouseX = mouseX;
+  this.mouseY = mouseY;
+  this.ms = new Date().getTime();
 };
 
 /***/ })
-/******/ ]);
+
+/******/ });
 //# sourceMappingURL=bundle.js.map
