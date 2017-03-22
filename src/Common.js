@@ -30,18 +30,17 @@ export class BaseModel extends BaseEntity {
 
   setSelected(selected) {
     this.selected = selected;
-
     this.itterateListeners(listener => {
-      if(listener.selectionChanged) {
-        listener.selectionChanged();
+      if (listener.selectionChanged) {
+        listener.selectionChanged(this, selected);
       }
     });
   }
 
   remove() {
     this.itterateListeners(listener => {
-      if(listener.entityRemoved) {
-        listener.entityRemoved();
+      if (listener.entityRemoved) {
+        listener.entityRemoved(this);
       }
     });
   }

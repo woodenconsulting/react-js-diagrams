@@ -62,12 +62,20 @@ export class DiagramModel extends BaseEntity {
     };
   }
 
-  clearSelection(ignore) {
+  clearSelection(ignore, supressListener) {
     _.forEach(this.getSelectedItems(), element => {
       if (ignore && ignore.getID() === element.getID()) {
         return;
       }
       element.setSelected(false); //TODO dont fire the listener
+    });
+    if (supressListener) {
+      return;
+    }
+    this.itterateListeners(listener => {
+      if (listener.selectionCleared) {
+        listener.selectionCleared();
+      }
     });
   }
 
@@ -84,30 +92,38 @@ export class DiagramModel extends BaseEntity {
 
   setZoomLevel(zoom) {
     this.zoom = zoom;
-    this.itterateListeners((listener) => {
-      listener.controlsUpdated();
+    this.itterateListeners(listener => {
+      if (listener.controlsUpdated) {
+        listener.controlsUpdated();
+      }
     });
   }
 
   setOffset(offsetX, offsetY) {
     this.offsetX = offsetX;
     this.offsetY = offsetY;
-    this.itterateListeners((listener) => {
-      listener.controlsUpdated();
+    this.itterateListeners(listener => {
+      if (listener.controlsUpdated) {
+        listener.controlsUpdated();
+      }
     });
   }
 
   setOffsetX(offsetX) {
     this.offsetX = offsetX;
-    this.itterateListeners((listener) => {
-      listener.controlsUpdated();
+    this.itterateListeners(listener => {
+      if (listener.controlsUpdated) {
+        listener.controlsUpdated();
+      }
     });
   }
 
   setOffsetY(offsetY) {
     this.offsetX = offsetY;
-    this.itterateListeners((listener) => {
-      listener.controlsUpdated();
+    this.itterateListeners(listener => {
+      if (listener.controlsUpdated) {
+        listener.controlsUpdated();
+      }
     });
   }
 
@@ -150,8 +166,10 @@ export class DiagramModel extends BaseEntity {
       }
     });
     this.links[link.getID()] = link;
-    this.itterateListeners((listener) => {
-      listener.linksUpdated();
+    this.itterateListeners(listener => {
+      if (listener.linksUpdated) {
+        listener.linksUpdated();
+      }
     });
     return link;
   }
@@ -163,8 +181,10 @@ export class DiagramModel extends BaseEntity {
       }
     });
     this.nodes[node.getID()] = node;
-    this.itterateListeners((listener) => {
-      listener.nodesUpdated();
+    this.itterateListeners(listener => {
+      if (listener.nodesUpdated) {
+        listener.nodesUpdated();
+      }
     });
     return node;
   }
@@ -172,29 +192,45 @@ export class DiagramModel extends BaseEntity {
   removeLink(link) {
     if (link instanceof LinkModel){
       delete this.links[link.getID()];
-      this.itterateListeners((listener) => {
-        listener.linksUpdated();
+      this.itterateListeners(listener => {
+        if (listener.linksUpdated) {
+          listener.linksUpdated();
+        }
       });
       return;
     }
     delete this.links['' + link];
-    this.itterateListeners((listener) => {
-      listener.linksUpdated();
+    this.itterateListeners(listener => {
+      if (listener.linksUpdated) {
+        listener.linksUpdated();
+      }
     });
   }
 
   removeNode(node) {
     if (node instanceof NodeModel) {
       delete this.nodes[node.getID()];
-      this.itterateListeners((listener) => {
-        listener.nodesUpdated();
+      this.itterateListeners(listener => {
+        if (listener.nodesUpdated) {
+          listener.nodesUpdated();
+        }
       });
       return;
     }
 
     delete this.nodes['' + node];
-    this.itterateListeners((listener) => {
-      listener.nodesUpdated();
+    this.itterateListeners(listener => {
+      if (listener.nodesUpdated) {
+        listener.nodesUpdated();
+      }
+    });
+  }
+
+  nodeSelected(node) {
+    this.itterateListeners(listener => {
+      if (listener.selectionChanged) {
+        listener.selectionChanged(node);
+      }
     });
   }
 

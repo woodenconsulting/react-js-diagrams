@@ -221,11 +221,12 @@ export class DiagramWidget extends React.Component {
         action: new MoveItemsAction(event.pageX, event.pageY, diagramEngine)
       });
     } else {
-      // It's some other element that needs to be moved
+      // It's a direct click selection
       if (!event.shiftKey && !model.model.isSelected()) {
-        diagramModel.clearSelection();
+        diagramModel.clearSelection(false, true);
       }
       model.model.setSelected(true);
+      diagramModel.nodeSelected(model);
 
       this.setState({
         action: new MoveItemsAction(event.pageX, event.pageY,diagramEngine)

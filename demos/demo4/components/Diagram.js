@@ -35,6 +35,17 @@ const nodesTarget = {
   canDrop: monitor.canDrop(),
 }))
 export class Diagram extends React.Component {
+  componentDidMount() {
+    diagramModel.addListener({
+      selectionChanged: (node, isSelected) => {
+        console.log('SELECTION CHANGED');
+        console.log(node);
+        console.log(isSelected);
+      },
+      selectionCleared: () => console.log('SELECTION CLEARED')
+    });
+  }
+
   render() {
     const { connectDropTarget } = this.props;
 
