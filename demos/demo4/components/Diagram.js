@@ -40,8 +40,8 @@ export class Diagram extends React.Component {
     // Render the canvas
     return connectDropTarget (
       <div className='diagram-drop-container'>
-  	    <RJD.DiagramWidget diagramEngine={diagramEngine} />
+        <RJD.DiagramWidget diagramEngine={diagramEngine} />
       </div>
-  	);
+    );
   }
 }

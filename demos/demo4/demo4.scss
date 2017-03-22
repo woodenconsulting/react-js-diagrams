@@ -1,12 +1,12 @@
 @import "../../src/sass.scss";
 
 html, body, #root {
-	width: 100%;
-	height: 100%;
-	padding: 0;
-	margin: 0;
-	display: flex;
-	flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .parent-container {
@@ -22,7 +22,7 @@ html, body, #root {
     flex: 1;
     display: flex;
     flex-direction: row;
-    
+
     .diagram-drop-container {
       flex: 1;
       display: flex;

@@ -14,10 +14,10 @@ class Node extends React.Component {
 
 export class NodesPanel extends React.Component {
   render() {
-  	return (
-  	  <div className='nodes-panel'>
-  	    <Node />
-  	  </div>
-  	);
+    return (
+      <div className='nodes-panel'>
+        <Node />
+      </div>
+    );
   }
 }

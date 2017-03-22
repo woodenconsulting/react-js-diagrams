@@ -2,11 +2,11 @@ import * as RJD from '../../../../src/main';
 import { OutputNodeModel } from './models/OutputNodeModel';
 
 export class OutputNodeFactory extends RJD.AbstractInstanceFactory {
-	constructor(){
-		super('OutputNodeModel');
-	}
+  constructor() {
+    super('OutputNodeModel');
+  }
 
-	getInstance(){
-		return new OutputNodeModel();
-	}
+  getInstance() {
+    return new OutputNodeModel();
+  }
 }
