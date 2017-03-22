@@ -1,6 +1,6 @@
 {
   "name": "react-js-diagrams",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/woodenconsulting/react-js-diagrams.git"
@@ -17,8 +17,7 @@
     "links",
     "nodes"
   ],
-  "main": "./dist/main.js",
-  "typings": "./dist/src/main",
+  "main": "./src/main.js",
   "author": "Jeff Wooden <woodenconsulting@gmail.com>",
   "dependencies": {
     "lodash": "4.17.4"
