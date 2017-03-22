@@ -285,7 +285,7 @@ export class NodeModel extends BaseModel {
   remove() {
     super.remove();
     for (const key in this.ports) {
-      this.ports[key].getLinks().forEach(link => link.remove());
+      _.forEach(this.ports[key].getLinks(), link => link.remove());
     }
   }
 
