@@ -121,6 +121,7 @@ export class DiagramWidget extends React.Component {
     const  { diagramEngine } = this.props;
     const { action } = this.state;
     const diagramModel = diagramEngine.getDiagramModel();
+    const { left, top } = this.refs.canvas.getBoundingClientRect();
 
     // Select items so draw a bounding box
     if (action instanceof SelectingAction) {
@@ -168,10 +169,10 @@ export class DiagramWidget extends React.Component {
       // Translate the actual canvas
       diagramModel.setOffset(
         action.initialOffsetX + (
-          (event.pageX - this.state.action.mouseX) / (diagramModel.getZoomLevel() / 100)
+          (event.pageX - left - this.state.action.mouseX) / (diagramModel.getZoomLevel() / 100)
         ),
         action.initialOffsetY + (
-          (event.pageY-this.state.action.mouseY) / (diagramModel.getZoomLevel() / 100)
+          (event.pageY - top - this.state.action.mouseY) / (diagramModel.getZoomLevel() / 100)
         )
       );
       this.forceUpdate();
