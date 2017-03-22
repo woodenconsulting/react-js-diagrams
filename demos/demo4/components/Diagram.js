@@ -43,11 +43,15 @@ const nodesTarget = {
 export class Diagram extends React.Component {
   componentDidMount() {
     const { onNodeSelected } = this.props;
-
-    diagramModel.addListener({
+    this.listeners = {
       selectionChanged: node => onNodeSelected(node),
       selectionCleared: () => onNodeSelected(null)
-    });
+    };
+    diagramModel.addListener(this.listeners);
+  }
+
+  componentWillUnmount() {
+    diagramModel.removeListener(this.listeners);
   }
 
   render() {
