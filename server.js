@@ -1,35 +1,41 @@
-var path = require('path');
-var fs = require('fs');
-var webpack = require('webpack');
-var express = require('express');
-var config = require('./webpack.config');
+import path from 'path';
+import fs from 'fs';
+import webpack from 'webpack';
+import express from 'express';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackHot from 'webpack-hot-middleware';
+import config from './webpack.config';
+
+const hotEntries = [
+  'react-hot-loader/patch',
+  'webpack-hot-middleware/client'
+];
 
 // Update config entry and output
 config[1].entry = {
   bundle: [
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client',
+    ...hotEntries,
     './src/main.js'
   ],
   demos: [
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client',
+    ...hotEntries,
     './demos/index.js'
   ],
   demo1: [
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client',
+    ...hotEntries,
     './demos/demo1/index.js'
   ],
   demo2: [
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client',
+    ...hotEntries,
     './demos/demo2/index.js'
   ],
   demo3: [
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client',
+    ...hotEntries,
     './demos/demo3/index.js'
+  ],
+  demo4: [
+    ...hotEntries,
+    './demos/demo4/index.js'
   ]
 };
 config[1].output.filename = '[name].js';
@@ -44,16 +50,24 @@ config[1].plugins = [
 ];
 
 // Create express application and attach middleware
-var app = express();
-var compiler = webpack(config[1]);
-app.use(require('webpack-dev-middleware')(compiler, {
-  publicPath: config[1].output.publicPath
+const app = express();
+const compiler = webpack(config[1]);
+app.use(webpackMiddleware(compiler, {
+  publicPath: config[1].output.publicPath,
+  stats: {
+    colors: true,
+    hash: false,
+    timings: true,
+    chunks: false,
+    chunkModules: false,
+    modules: false
+  }
 }));
-app.use(require('webpack-hot-middleware')(compiler));
+app.use(webpackHot(compiler));
 
 // Setup main route
-app.get('/', function(req, res) {
-  var body = fs
+app.get('/', (req, res) => {
+  const body = fs
     .readFileSync(path.join(__dirname, 'demos/index.html'), 'utf8')
     .replace(
       '${SCRIPTS}',
@@ -65,7 +79,7 @@ app.get('/', function(req, res) {
 
 // Setup demo routes
 app.get('/demos/:name', (req, res) => {
-  var body = fs
+  const body = fs
     .readFileSync(path.join(__dirname, 'demos/index.html'), 'utf8')
     .replace(
       '${SCRIPTS}',
@@ -76,12 +90,10 @@ app.get('/demos/:name', (req, res) => {
 });
 
 // Redirect unknown routes
-app.get('*', function(req, res) {
-  res.redirect('/');
-});
+app.get('*', (req, res) => res.redirect('/'));
 
 // Start the server
-app.listen(3000, function(err) {
+app.listen(3000, (err) => {
   if (err) {
     return console.error(err);
   }

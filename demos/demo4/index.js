@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Demos } from './demos';
+import { Demo4 } from './demo4';
 import { AppContainer } from 'react-hot-loader';
-import './test.scss';
 
 window.onload = () => {
   const rootEl = document.getElementById('root');
@@ -14,6 +13,6 @@ window.onload = () => {
       rootEl
     );
 
-  render(Demos);
-  if (module.hot) module.hot.accept('./demos', () => render(Demos));
+  render(Demo4);
+  if (module.hot) module.hot.accept('./demo4', () => render(Demo4));
 };
