@@ -8,15 +8,6 @@ module.exports = [{
     publicPath: '/dist/',
     library: 'react-js-diagrams'
   },
-  externals: {
-    "react": 'react',
-    "lodash": {
-      commonjs: 'lodash',
-      commonjs2: 'lodash',
-      amd: '_',
-      root: '_'
-    }
-  },
   module: {
     rules: [
       {
@@ -47,11 +38,6 @@ module.exports = [{
   output: {
     filename: '[name]',
     path: path.join(__dirname, 'demos')
-  },
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'lodash': '_'
   },
   module: {
     rules: [
