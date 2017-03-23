@@ -86,14 +86,14 @@ export class DiagramEngine extends BaseEntity {
 
   registerNodeFactory(factory) {
     this.nodeFactories[factory.getType()] = factory;
-    this.itterateListeners((listener) => {
+    this.itterateListeners(listener => {
       listener.nodeFactoriesUpdated();
     });
   }
 
   registerLinkFactory(factory) {
     this.linkFactories[factory.getType()] = factory;
-    this.itterateListeners((listener) => {
+    this.itterateListeners(listener => {
       listener.linkFactoriesUpdated();
     });
   }

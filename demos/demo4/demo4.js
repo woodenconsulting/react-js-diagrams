@@ -11,7 +11,7 @@ import './demo4.scss';
 
 class Demo extends React.Component {
   render() {
-    const { selectedNode, onNodeSelected, onUndo, onRedo, canUndo, canRedo } = this.props;
+    const { model, selectedNode, onNodeSelected, updateModel, onUndo, onRedo, canUndo, canRedo } = this.props;
 
     console.log('RENDER DEMO');
     console.log(this.props);
@@ -21,7 +21,11 @@ class Demo extends React.Component {
     	  <div className='parent-container'>
     	    <NodesPanel />
     	    <div className='canvas-controls-container'>
-    	      <Diagram onNodeSelected={node => onNodeSelected(node)} />
+    	      <Diagram
+    	        model={model}
+    	        updateModel={updateModel}
+    	        onNodeSelected={onNodeSelected}
+    	       />
     	      <Controls
     	        selectedNode={selectedNode}
     	        onUndo={onUndo}
@@ -38,12 +42,14 @@ class Demo extends React.Component {
 
 const mapStateToProps = state => ({
   selectedNode: state.history.present.selectedNode,
+  model: state.history.present.model,
   canUndo: state.history.past.length > 0,
   canRedo: state.history.future.length > 0
 });
 
 const mapDispatchToProps = dispatch => ({
   onNodeSelected: node => dispatch(actions.onNodeSelected(node)),
+  updateModel: model => dispatch(actions.updateModel(model)),
   onUndo: () => dispatch(UndoActionCreators.undo()),
   onRedo: () => dispatch(UndoActionCreators.redo())
 });

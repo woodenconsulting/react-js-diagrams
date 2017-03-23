@@ -1,7 +1,8 @@
 import undoable, { includeAction } from 'redux-undo';
 
 const getInitialState = () => ({
-  selectedNode: null
+  selectedNode: null,
+  model: null
 });
 
 export const reducerFn = (state = getInitialState(), action) => {
@@ -11,11 +12,16 @@ export const reducerFn = (state = getInitialState(), action) => {
         ...state,
         selectedNode: action.node
       };
+    case 'update-model':
+      return {
+        ...state,
+        model: action.model
+      };
     default:
       return state;
   }
 };
 
 export const reducer = undoable(reducerFn, {
-  filter: includeAction(['node-selected'])
+  filter: includeAction(['node-selected', 'update-model'])
 });
