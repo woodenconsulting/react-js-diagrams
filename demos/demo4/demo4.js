@@ -11,7 +11,7 @@ import './demo4.scss';
 
 class Demo extends React.Component {
   render() {
-    const { selectedNode, onNodeSelected, onUndo, onRedo } = this.props;
+    const { selectedNode, onNodeSelected, onUndo, onRedo, canUndo, canRedo } = this.props;
 
     console.log('RENDER DEMO');
     console.log(this.props);
@@ -22,7 +22,13 @@ class Demo extends React.Component {
     	    <NodesPanel />
     	    <div className='canvas-controls-container'>
     	      <Diagram onNodeSelected={node => onNodeSelected(node)} />
-    	      <Controls selectedNode={selectedNode} onUndo={onUndo} onRedo={onRedo} />
+    	      <Controls
+    	        selectedNode={selectedNode}
+    	        onUndo={onUndo}
+    	        onRedo={onRedo}
+    	        canUndo={canUndo}
+    	        canRedo={canRedo}
+    	       />
     	    </div>
     	  </div>
   	  </DragDropContextProvider>
@@ -31,7 +37,9 @@ class Demo extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  selectedNode: state.history.present.selectedNode
+  selectedNode: state.history.present.selectedNode,
+  canUndo: state.history.past.length > 0,
+  canRedo: state.history.future.length > 0
 });
 
 const mapDispatchToProps = dispatch => ({
