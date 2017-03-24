@@ -55,6 +55,25 @@ Therefore, to create custom nodes and links, register your own factories that re
 As long as a node contains at least one port and the corresponding NodeWidget contains at least one PortWidget,
 a link can be connected to it.
 
+## Events
+
+**onChange events**
+- items-drag-selected -> Array items (NodeModel | LinkModel)
+- items-moved -> Array items (NodeModel | LinkModel)
+- items-selected -> NodeModel model, Array items (NodeModel | LinkModel)
+- canvas-drag -> event
+- canvas-shift-select -> event
+- canvas-click -> event
+- link-created -> PointModel model
+- link-selected -> LinkModel model
+- link-deselected -> LinkModel model, Array items (NodeModel | LinkModel)
+- link-connected -> LinkModel linkModel, PortModel portModel
+- node-selected -> NodeModel model
+- node-deselected -> NodeModel model, Array items (NodeModel | LinkModel)
+- node-moved -> NodeModel model
+- point-created -> PointModel model
+- selections-deleted -> Array items (NodeModel | LinkModel)
+
 ## Questions
 
 #### Why didn’t I render the nodes as SVG's?
