@@ -73,11 +73,16 @@ export class Diagram extends React.Component {
     }
 
     // Check for canvas events
-    if (['canvas-click', 'canvas-drag', 'items-selected'].indexOf(action.type) !== -1) {
+    const deselectEvts = ['canvas-click', 'canvas-drag', 'items-selected', 'items-drag-selected', 'items-moved'];
+    if (deselectEvts.indexOf(action.type) !== -1) {
       return this.props.updateModel(model, { selectedNode: null });
     }
 
-    // Check if this is
+    // Check if this is a deselection and a single node exists
+    const isDeselect = ['node-deselected', 'link-deselected'].indexOf(action.type) !== -1;
+    if (isDeselect && action.items.length === 1 && action.items[0].nodeType) {
+      return this.props.updateModel(model, { selectedNode: action.items[0] });
+    }
 
     this.props.updateModel(model);
   }

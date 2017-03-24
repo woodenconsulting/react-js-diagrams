@@ -170,7 +170,7 @@ export class DiagramWidget extends React.Component {
           );
         }
       });
-      
+
       // Determine actionType
       let actionType = 'items-moved';
       if (action.selectionModels.length === 1 && action.selectionModels[0].model instanceof NodeModel) {
@@ -260,9 +260,9 @@ export class DiagramWidget extends React.Component {
 
       // Determine action type
       let actionType = 'items-selected';
-      if (selected.length <= 1 && deselect && model.model instanceof LinkModel) {
+      if (deselect && model.model instanceof LinkModel) {
         actionType = 'link-deselected';
-      } else if (selected.length <= 1 && deselect && model.model instanceof NodeModel) {
+      } else if (deselect && model.model instanceof NodeModel) {
         actionType = 'node-deselected';
       } else if (selected.length === 1 && selected[0] instanceof LinkModel) {
         actionType = 'link-selected';
@@ -318,7 +318,8 @@ export class DiagramWidget extends React.Component {
       });
     }
 
-    if (['items-selected', 'items-drag-selected', 'items-moved'].indexOf(actionType) !== -1) {
+    const attachItems = ['items-selected', 'items-drag-selected', 'items-moved', 'node-deselected', 'link-deselected'];
+    if (attachItems.indexOf(actionType) !== -1) {
       actionOutput.items = _.filter(diagramEngine.getDiagramModel().getSelectedItems(), item => !(item instanceof PointModel));
     }
     if (actionType === 'items-moved') {
@@ -326,7 +327,9 @@ export class DiagramWidget extends React.Component {
     }
 
     diagramEngine.clearRepaintEntities();
-    onChange(diagramEngine.getDiagramModel().serializeDiagram(), actionOutput);
+    if (actionOutput.type !== 'unknown') {
+      onChange(diagramEngine.getDiagramModel().serializeDiagram(), actionOutput);
+    }
     this.setState({ action: null, actionType: 'unknown' });
   }
 
