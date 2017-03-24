@@ -3,7 +3,7 @@ import { LinkModel, NodeModel } from './Common';
 import { BaseEntity } from './BaseEntity';
 
 export class DiagramModel extends BaseEntity {
-  constructor(){
+  constructor() {
     super();
     this.links = {};
     this.nodes = {};

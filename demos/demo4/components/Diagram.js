@@ -22,10 +22,6 @@ let diagramModel = new RJD.DiagramModel();
 
 const nodesTarget = {
   drop(props, monitor, component) {
-    console.log('DROP');
-    console.log(props);
-    console.log(monitor);
-    console.log(component);
     const { x: pageX, y: pageY } = monitor.getSourceClientOffset();
     const { left = 0, top = 0 } = diagramEngine.canvas.getBoundingClientRect();
     const { offsetX, offsetY } = diagramEngine.diagramModel;
@@ -36,9 +32,6 @@ const nodesTarget = {
     outputNode.x = x;
     outputNode.y = y;
     diagramModel.addNode(outputNode);
-    console.log('DIAGRAM MODEL');
-    console.log(diagramModel);
-    //diagramEngine.setDiagramModel(diagramModel);
     props.updateModel(diagramModel.serializeDiagram());
   },
 };
@@ -50,45 +43,52 @@ const nodesTarget = {
 }))
 export class Diagram extends React.Component {
   componentDidMount() {
-    const { onNodeSelected, model } = this.props;
-    this.listeners = {
-      selectionChanged: node => onNodeSelected(node),
-      selectionCleared: () => onNodeSelected(null)
-    };
-    diagramModel.addListener(this.listeners);
+    const { model } = this.props;
     if (model) {
       diagramEngine.setDiagramModel(diagramModel);
     }
   }
 
-  componentWillUnmount() {
-    diagramModel.removeListener(this.listeners);
-  }
-
-  componentWillUpdate() {
-    console.log('COMPONENT WILLUPDATE');
-  }
-
   componentWillReceiveProps(nextProps) {
-    console.log('COMPONENT WILL RECEIVE PROPS');
-    console.log(this.props);
-    console.log(nextProps);
     if (!_.isEqual(this.props.model, nextProps.model)) {
-      console.log('UPDATE DIAGRAM MODEL');
-      diagramModel = new RJD.DiagramModel();
-      diagramModel.deSerializeDiagram(nextProps.model, diagramEngine);
-  	  diagramEngine.setDiagramModel(diagramModel);
+      this.setModel(nextProps.model);
     }
   }
 
+  setModel(model) {
+    diagramModel = new RJD.DiagramModel();
+    if (model) {
+      diagramModel.deSerializeDiagram(model, diagramEngine);
+    }
+	  diagramEngine.setDiagramModel(diagramModel);
+  }
+
+  onChange(model, action) {
+    console.log('ON DIAGRAM CHANGE');
+    console.log(action);
+
+    // Check for single selected items
+    if (['node-selected', 'node-moved'].indexOf(action.type) !== -1) {
+      return this.props.updateModel(model, { selectedNode: action.model });
+    }
+
+    // Check for canvas events
+    if (['canvas-click', 'canvas-drag', 'items-selected'].indexOf(action.type) !== -1) {
+      return this.props.updateModel(model, { selectedNode: null });
+    }
+
+    // Check if this is
+
+    this.props.updateModel(model);
+  }
+
   render() {
-    console.log('RERENDER DIAGRAM');
     const { connectDropTarget } = this.props;
 
     // Render the canvas
     return connectDropTarget (
       <div className='diagram-drop-container'>
-        <RJD.DiagramWidget diagramEngine={diagramEngine} />
+        <RJD.DiagramWidget diagramEngine={diagramEngine} onChange={this.onChange.bind(this)} />
       </div>
     );
   }

@@ -3,7 +3,7 @@ import React from 'react';
 export class Controls extends React.Component {
   render() {
     const { selectedNode, onUndo, onRedo, canUndo, canRedo } = this.props;
-    const content = selectedNode ? JSON.stringify(selectedNode.model.serialize(), null, 2) : '';
+    const content = selectedNode ? JSON.stringify(selectedNode.serialize(), null, 2) : '';
 
   	return (
   	  <div className='controls'>

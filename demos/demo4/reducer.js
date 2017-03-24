@@ -15,7 +15,8 @@ export const reducerFn = (state = getInitialState(), action) => {
     case 'update-model':
       return {
         ...state,
-        model: action.model
+        model: action.model,
+        ...action.props
       };
     default:
       return state;
@@ -23,5 +24,5 @@ export const reducerFn = (state = getInitialState(), action) => {
 };
 
 export const reducer = undoable(reducerFn, {
-  filter: includeAction(['node-selected', 'update-model'])
+  filter: includeAction(['update-model'])
 });

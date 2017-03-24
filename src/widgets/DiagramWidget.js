@@ -6,10 +6,15 @@ import { LinkLayerWidget } from './LinkLayerWidget';
 import { NodeLayerWidget } from './NodeLayerWidget';
 
 export class DiagramWidget extends React.Component {
+  static defaultProps = {
+    onChange: () => {}
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       action: null,
+      actionType: 'unknown',
       renderedNodes: false,
       windowListener: null
     };
@@ -40,7 +45,7 @@ export class DiagramWidget extends React.Component {
   }
 
   componentDidMount() {
-    const { diagramEngine } = this.props;
+    const { diagramEngine, onChange } = this.props;
     diagramEngine.setCanvas(this.refs['canvas']);
     diagramEngine.setForceUpdate(this.forceUpdate.bind(this));
 
@@ -50,9 +55,11 @@ export class DiagramWidget extends React.Component {
       windowListener: window.addEventListener('keydown', event => {
         // Delete all selected
         if(event.keyCode === 46 || event.keyCode === 8) {
-          diagramEngine.getDiagramModel().getSelectedItems().forEach(element => {
+          const selectedItems = _.filter(diagramEngine.getDiagramModel().getSelectedItems(), item => !(item instanceof PointModel));
+          selectedItems.forEach(element => {
             element.remove();
           });
+          onChange(diagramEngine.getDiagramModel().serializeDiagram(), { type: 'selections-deleted', items: selectedItems });
           this.forceUpdate();
         }
       })
@@ -150,8 +157,7 @@ export class DiagramWidget extends React.Component {
 
       action.mouseX2 = relative.x;
       action.mouseY2 = relative.y;
-      this.setState({ action });
-      return;
+      this.setState({ action, actionType: 'items-drag-selected' });
     } else if (action instanceof MoveItemsAction) {
       // Translate the items on the canvas
       action.selectionModels.forEach(model => {
@@ -164,7 +170,14 @@ export class DiagramWidget extends React.Component {
           );
         }
       });
-      this.forceUpdate();
+      
+      // Determine actionType
+      let actionType = 'items-moved';
+      if (action.selectionModels.length === 1 && action.selectionModels[0].model instanceof NodeModel) {
+        actionType = 'node-moved';
+      }
+
+      this.setState({ actionType });
     } else if (this.state.action instanceof MoveCanvasAction) {
       // Translate the actual canvas
       diagramModel.setOffset(
@@ -175,7 +188,7 @@ export class DiagramWidget extends React.Component {
           (event.pageY - top - this.state.action.mouseY) / (diagramModel.getZoomLevel() / 100)
         )
       );
-      this.forceUpdate();
+      this.setState({ action, actionType: 'canvas-drag' });
     }
   }
 
@@ -194,14 +207,17 @@ export class DiagramWidget extends React.Component {
         this.setState({
           action: new SelectingAction(
             relative.x, relative.y
-          )
+          ),
+          actionType: 'canvas-shift-select'
         });
       } else {
         // This is a drag canvas event
         const relative = diagramEngine.getRelativePoint(event.pageX, event.pageY);
         diagramModel.clearSelection();
+
         this.setState({
-          action: new MoveCanvasAction(relative.x, relative.y, diagramModel)
+          action: new MoveCanvasAction(relative.x, relative.y, diagramModel),
+          actionType: 'canvas-click'
         });
       }
     } else if (model.model instanceof PortModel) {
@@ -218,44 +234,100 @@ export class DiagramWidget extends React.Component {
       diagramModel.addLink(link);
 
       this.setState({
-        action: new MoveItemsAction(event.pageX, event.pageY, diagramEngine)
+        action: new MoveItemsAction(event.pageX, event.pageY, diagramEngine),
+        actionType: 'link-created'
       });
     } else {
       // It's a direct click selection
+      let deselect = false;
+
+      // Clear selections if this wasn't a shift key or a click on a selected element
       if (!event.shiftKey && !model.model.isSelected()) {
         diagramModel.clearSelection(false, true);
       }
-      model.model.setSelected(true);
-      diagramModel.nodeSelected(model);
+
+      // Is this a deselect or select?
+      if (event.shiftKey && model.model.isSelected()) {
+        model.model.setSelected(false);
+        deselect = true;
+      } else {
+        model.model.setSelected(true);
+        diagramModel.nodeSelected(model);
+      }
+
+      // Get the selected items and filter out point model
+      const selected = _.filter(diagramEngine.getDiagramModel().getSelectedItems(), item => !(item instanceof PointModel));
+
+      // Determine action type
+      let actionType = 'items-selected';
+      if (selected.length <= 1 && deselect && model.model instanceof LinkModel) {
+        actionType = 'link-deselected';
+      } else if (selected.length <= 1 && deselect && model.model instanceof NodeModel) {
+        actionType = 'node-deselected';
+      } else if (selected.length === 1 && selected[0] instanceof LinkModel) {
+        actionType = 'link-selected';
+      } else if (selected.length === 1 && selected[0] instanceof NodeModel) {
+        actionType = 'node-selected';
+      }
 
       this.setState({
-        action: new MoveItemsAction(event.pageX, event.pageY,diagramEngine)
+        action: new MoveItemsAction(event.pageX, event.pageY, diagramEngine),
+        actionType
       });
     }
   }
 
   onMouseUp(event) {
-    const  { diagramEngine } = this.props;
+    const  { diagramEngine, onChange } = this.props;
+    const { action, actionType } = this.state;
+    const element = this.getMouseElement(event);
+    const actionOutput = {
+      type: actionType
+    };
 
-    // Check if we going to connect a link to something
-    if (this.state.action instanceof MoveItemsAction) {
-      const element = this.getMouseElement(event);
-      if (element) {
-        this.state.action.selectionModels.forEach(model => {
-          // Only care about points connecting to things
-          if (!(model.model instanceof PointModel)) {
-            return;
-          }
+    if (element === null) {
+      // No element, this is a canvas event
+      // actionOutput.type = 'canvas-event';
+      actionOutput.event = event;
+    } else if (action instanceof MoveItemsAction) {
+      // Add the node model to the output
+      actionOutput.model = element.model;
 
-          if (element.model instanceof PortModel) {
-            model.model.getLink().setTargetPort(element.model);
-          }
-        });
-      }
+      // Check if we going to connect a link to something
+      action.selectionModels.forEach(model => {
+        // Only care about points connecting to things
+        if (!(model.model instanceof PointModel)) {
+          return;
+        }
+
+        // A point was created
+        if (element.element.tagName === 'circle' && actionOutput.type !== 'link-created') {
+          actionOutput.type = 'point-created';
+        }
+
+        if (element.model instanceof PortModel) {
+          // Connect the link
+          model.model.getLink().setTargetPort(element.model);
+
+          // Link was connected to a port, update the output
+          actionOutput.type = 'link-connected';
+          delete actionOutput.model;
+          actionOutput.linkModel = model.model.getLink();
+          actionOutput.portModel = element.model;
+        }
+      });
+    }
+
+    if (['items-selected', 'items-drag-selected', 'items-moved'].indexOf(actionType) !== -1) {
+      actionOutput.items = _.filter(diagramEngine.getDiagramModel().getSelectedItems(), item => !(item instanceof PointModel));
+    }
+    if (actionType === 'items-moved') {
+      delete actionOutput.model;
     }
 
     diagramEngine.clearRepaintEntities();
-    this.setState({ action: null });
+    onChange(diagramEngine.getDiagramModel().serializeDiagram(), actionOutput);
+    this.setState({ action: null, actionType: 'unknown' });
   }
 
   renderLinkLayerWidget() {

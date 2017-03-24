@@ -13,9 +13,6 @@ class Demo extends React.Component {
   render() {
     const { model, selectedNode, onNodeSelected, updateModel, onUndo, onRedo, canUndo, canRedo } = this.props;
 
-    console.log('RENDER DEMO');
-    console.log(this.props);
-
   	return (
   	  <DragDropContextProvider backend={HTML5Backend}>
     	  <div className='parent-container'>
@@ -49,7 +46,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onNodeSelected: node => dispatch(actions.onNodeSelected(node)),
-  updateModel: model => dispatch(actions.updateModel(model)),
+  updateModel: (model, props) => dispatch(actions.updateModel(model, props)),
   onUndo: () => dispatch(UndoActionCreators.undo()),
   onRedo: () => dispatch(UndoActionCreators.redo())
 });
