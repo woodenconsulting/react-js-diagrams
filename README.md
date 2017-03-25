@@ -117,7 +117,7 @@ __click link and drag__ will create a new link anchor/point that you can then dr
 __click node-port and drag__ will create a new link that is anchored to the port, allowing you
 to drag the link to another connecting port
 
-__ctrl or ⌘ + c__ copy any selected items; note that only links that belong to a selected source node will 
+__ctrl or ⌘ + c__ copy any selected items; note that only links that belong to a selected source node will
 be copied to the internal clipboard
 
 __ctrl or ⌘ + v__ paste items previously copied to the internal clipboard
