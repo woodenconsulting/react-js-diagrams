@@ -21,6 +21,7 @@
   ],
   "main": "./lib/main.js",
   "author": "Jeff Wooden <woodenconsulting@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "lodash": "4.17.4"
   },
