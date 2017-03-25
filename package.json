@@ -6,9 +6,9 @@
     "url": "https://github.com/woodenconsulting/react-js-diagrams.git"
   },
   "scripts": {
-    "start": "babel-node server.js --presets es2015,es2016,es2017,stage-0",
+    "start": "node_modules/.bin/babel-node server.js --presets es2015,es2016,es2017,stage-0",
     "prepublish": "npm run build",
-    "build": "babel src --out-dir lib --presets es2015,es2016,es2017,stage-0"
+    "build": "node_modules/.bin/babel src --out-dir lib --presets es2015,es2016,es2017,stage-0"
   },
   "keywords": [
     "web",
