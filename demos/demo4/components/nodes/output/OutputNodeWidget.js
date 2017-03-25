@@ -1,9 +1,11 @@
 import React from 'react';
-import * as RJD from '../../../../src/main';
+import * as RJD from '../../../../../src/main';
+import { OutputNodeModel } from './OutputNodeModel';
 
 export class OutputNodeWidget extends React.Component {
   static defaultProps = {
     node: null,
+    color: 'rgb(0, 192, 255)'
   };
 
   onRemove() {
@@ -13,18 +15,26 @@ export class OutputNodeWidget extends React.Component {
   }
 
   getOutPorts() {
-    const { node } = this.props;
-    return node.getOutPorts ? node.getOutPorts().map((port, i) => <RJD.DefaultPortLabel model={port} key={`out-port-${i}`} />) : [];
+    const { node, color, displayOnly } = this.props;
+    let outputNode = node;
+
+    if (displayOnly) {
+      outputNode = new OutputNodeModel(node.name, color);
+    }
+
+    return outputNode.getOutPorts ? outputNode.getOutPorts().map((port, i) => (
+      <RJD.DefaultPortLabel model={port} key={`out-port-${i}`} />
+    )) : [];
   }
 
   render() {
-    const { node, displayOnly } = this.props;
+    const { node, displayOnly, color: displayColor } = this.props;
     const { name, color } = node;
     const style = {};
-    if (color) {
-      style.background = color;
+    if (color || displayColor) {
+      style.background = color || displayColor;
     }
-    
+
     return (
       <div className='basic-node' style={style}>
         <div className='title'>
@@ -33,13 +43,11 @@ export class OutputNodeWidget extends React.Component {
           </div>
           {!displayOnly ? <div className='fa fa-close' onClick={this.onRemove.bind(this)} /> : null}
         </div>
-        {!displayOnly ?
-          <div className='ports'>
-            <div className='out'>
-              {this.getOutPorts()}
-            </div>
+        <div className='ports'>
+          <div className='out'>
+            {this.getOutPorts()}
           </div>
-        : null}
+        </div>
       </div>
     );
   }

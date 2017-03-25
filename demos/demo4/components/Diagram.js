@@ -2,20 +2,10 @@ import React from 'react';
 import _ from 'lodash';
 import { DropTarget } from 'react-dnd';
 import * as RJD from '../../../src/main';
-import { OutputNodeModel } from './nodes/models/OutputNodeModel';
-import { OutputWidgetFactory } from './nodes/OutputWidgetFactory';
-import { OutputNodeFactory } from './nodes/OutputInstanceFactories';
-
-// Setup the diagram engine
-const diagramEngine = new RJD.DiagramEngine();
-diagramEngine.registerNodeFactory(new RJD.DefaultNodeFactory());
-diagramEngine.registerLinkFactory(new RJD.DefaultLinkFactory());
-diagramEngine.registerNodeFactory(new OutputWidgetFactory());
-// Register instance factories
-diagramEngine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
-diagramEngine.registerInstanceFactory(new RJD.DefaultPortInstanceFactory());
-diagramEngine.registerInstanceFactory(new RJD.LinkInstanceFactory());
-diagramEngine.registerInstanceFactory(new OutputNodeFactory());
+import { OutputNodeModel } from './nodes/output/OutputNodeModel';
+import { InputNodeModel } from './nodes/input/InputNodeModel';
+import { ConnectionNodeModel } from './nodes/connection/ConnectionNodeModel';
+import { diagramEngine } from './engine';
 
 // Setup the diagram model
 let diagramModel = new RJD.DiagramModel();
@@ -27,11 +17,22 @@ const nodesTarget = {
     const { offsetX, offsetY } = diagramEngine.diagramModel;
     const x = pageX - left - offsetX;
     const y = pageY - top - offsetY;
+    const item = monitor.getItem();
 
-    const outputNode = new OutputNodeModel();
-    outputNode.x = x;
-    outputNode.y = y;
-    diagramModel.addNode(outputNode);
+    let node;
+    if (item.type === 'output') {
+      node = new OutputNodeModel('Output Node');
+    }
+    if (item.type === 'input') {
+      node = new InputNodeModel('Input Node');
+    }
+    if (item.type === 'connection') {
+      node = new ConnectionNodeModel('Connection Node');
+    }
+
+    node.x = x;
+    node.y = y;
+    diagramModel.addNode(node);
     props.updateModel(diagramModel.serializeDiagram());
   },
 };
@@ -66,7 +67,7 @@ export class Diagram extends React.Component {
   onChange(model, action) {
     console.log('ON DIAGRAM CHANGE');
     console.log(action);
-    
+
     // Ignore some events
     if (['items-copied'].indexOf(action.type) !== -1) {
       return;

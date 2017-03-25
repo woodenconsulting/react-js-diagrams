@@ -1,5 +1,5 @@
-import * as RJD from '../../../../src/main';
-import { OutputNodeModel } from './models/OutputNodeModel';
+import * as RJD from '../../../../../src/main';
+import { OutputNodeModel } from './OutputNodeModel';
 
 export class OutputNodeFactory extends RJD.AbstractInstanceFactory {
   constructor() {
