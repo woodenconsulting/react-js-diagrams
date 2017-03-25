@@ -108,8 +108,8 @@ export class DefaultLinkWidget extends React.Component {
           var point = new PointModel(link, diagramEngine.getRelativeMousePoint(event));
           point.setSelected(true);
           this.forceUpdate();
-          link.addPoint(point,1);
-          pointAdded(point,event);
+          link.addPoint(point, 1);
+          pointAdded(point, event);
         }
       },
       d: ' M' + pointLeft.x + ' ' + pointLeft.y +

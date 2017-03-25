@@ -1,9 +1,11 @@
 import React from 'react';
 import _ from 'lodash';
+import { DiagramModel } from '../DiagramModel';
 import { PointModel, NodeModel, LinkModel, PortModel } from '../Common';
 import { SelectingAction, MoveCanvasAction, MoveItemsAction } from './actions';
 import { LinkLayerWidget } from './LinkLayerWidget';
 import { NodeLayerWidget } from './NodeLayerWidget';
+import { Toolkit } from '../Toolkit';
 
 export class DiagramWidget extends React.Component {
   static defaultProps = {
@@ -16,7 +18,8 @@ export class DiagramWidget extends React.Component {
       action: null,
       actionType: 'unknown',
       renderedNodes: false,
-      windowListener: null
+      windowListener: null,
+      clipboard: null
     };
   }
 
@@ -53,18 +56,137 @@ export class DiagramWidget extends React.Component {
     this.setState({
       renderedNodes: true,
       windowListener: window.addEventListener('keydown', event => {
+        const selectedItems = diagramEngine.getDiagramModel().getSelectedItems();
+        const ctrl = (event.metaKey || event.ctrlKey);
+
+        // Copy selected
+        if (event.keyCode === 67 && ctrl && selectedItems.length) {
+          this.copySelectedItems(selectedItems);
+        }
+
+        // Paste from clipboard
+        if (event.keyCode === 86 && ctrl && this.state.clipboard) {
+          this.pasteSelectedItems(selectedItems);
+        }
+
         // Delete all selected
-        if(event.keyCode === 46 || event.keyCode === 8) {
-          const selectedItems = _.filter(diagramEngine.getDiagramModel().getSelectedItems(), item => !(item instanceof PointModel));
+        if ([8, 46].indexOf(event.keyCode) !== -1 && selectedItems.length) {
           selectedItems.forEach(element => {
             element.remove();
           });
-          onChange(diagramEngine.getDiagramModel().serializeDiagram(), { type: 'selections-deleted', items: selectedItems });
+
+          onChange(diagramEngine.getDiagramModel().serializeDiagram(), { type: 'items-deleted', items: selectedItems });
           this.forceUpdate();
         }
       })
     });
     window.focus();
+  }
+
+
+  copySelectedItems(selectedItems) {
+    const { diagramEngine, onChange } = this.props;
+
+    // Cannot copy anything without a node, so ensure some are selected
+    const nodes = _.filter(selectedItems, item => item instanceof NodeModel);
+
+    // If there are no nodes, do nothing
+    if (!nodes.length) {
+      return;
+    }
+
+    // Deserialize the existing diagramModel
+    let flatModel = diagramEngine.diagramModel.serializeDiagram();
+
+    // Create a new diagramModel to hold clipboard data
+    const newModel = new DiagramModel();
+
+    // Create map of GUIDs for replacement
+    const gMap = {};
+
+    // Track what was copied to send back to onChange
+    const copied = [];
+
+    // Iterate the nodes
+    _.forEach(flatModel.nodes, node => {
+      if (node.selected) {
+        // Get the node instance, updated the GUID and deserialize
+        let nodeOb = diagramEngine.getInstanceFactory(node._class).getInstance();
+        node.id = gMap[node.id] = Toolkit.UID();
+        nodeOb.deSerialize(node);
+
+        // Deserialize ports
+        _.forEach(node.ports, port => {
+          let portOb = diagramEngine.getInstanceFactory(port._class).getInstance();
+          port.id = gMap[port.id] = Toolkit.UID();
+          port.links = [];
+          portOb.deSerialize(port);
+          nodeOb.addPort(portOb);
+        });
+
+        nodeOb.setSelected(true);
+        newModel.addNode(nodeOb);
+        copied.push(nodeOb);
+      }
+    });
+
+    // Iterate the links
+    _.forEach(flatModel.links, link  => {
+      if (link.selected) {
+        let linkOb = diagramEngine.getInstanceFactory(link._class).getInstance();
+        link.id = gMap[link.id] = Toolkit.UID();
+
+        // Change point GUIDs and set selected
+        link.points.forEach(point => {
+          point.id = Toolkit.UID();
+          point.selected = true;
+        });
+
+        // Deserialize the link
+        linkOb.deSerialize(link);
+
+        // Only add the target if the node was copied and the target exists
+        if (gMap[link.target] && gMap[link.source]) {
+          linkOb.setTargetPort(newModel.getNode(gMap[link.target]).getPortFromID(gMap[link.targetPort]));
+        }
+
+        // Add the source if it exists
+        if (gMap[link.source]) {
+          linkOb.setSourcePort(newModel.getNode(gMap[link.source]).getPortFromID(gMap[link.sourcePort]));
+          newModel.addLink(linkOb);
+          copied.push(linkOb);
+        }
+      }
+    });
+
+    this.setState({ clipboard: newModel });
+    onChange(diagramEngine.getDiagramModel().serializeDiagram(), { type: 'items-copied', items: copied });
+  }
+
+  pasteSelectedItems() {
+    const { diagramEngine, onChange } = this.props;
+    const { clipboard } = this.state;
+    const pasted = [];
+
+    // Clear existing selections
+    diagramEngine.diagramModel.clearSelection();
+    this.forceUpdate();
+
+    // Add the nodes to the existing diagramModel
+    _.forEach(clipboard.nodes, node => {
+      diagramEngine.diagramModel.addNode(node);
+      pasted.push(node);
+    });
+    this.forceUpdate();
+
+    // Add links to the existing diagramModel
+    _.forEach(clipboard.links, link => {
+      diagramEngine.diagramModel.addLink(link);
+      pasted.push(link);
+    });
+    this.setState({ clipboard: null });
+
+    onChange(diagramEngine.getDiagramModel().serializeDiagram(), { type: 'items-pasted', items: pasted });
   }
 
   /**
@@ -126,7 +248,7 @@ export class DiagramWidget extends React.Component {
 
   onMouseMove(event) {
     const  { diagramEngine } = this.props;
-    const { action } = this.state;
+    const { action, actionType: currentActionType } = this.state;
     const diagramModel = diagramEngine.getDiagramModel();
     const { left, top } = this.refs.canvas.getBoundingClientRect();
 
@@ -171,8 +293,9 @@ export class DiagramWidget extends React.Component {
         }
       });
 
-      // Determine actionType
-      let actionType = 'items-moved';
+      // Determine actionType, do not override some mouse down
+      const disallowed = ['link-created'];
+      let actionType = disallowed.indexOf(currentActionType) === -1 ? 'items-moved' : currentActionType;
       if (action.selectionModels.length === 1 && action.selectionModels[0].model instanceof NodeModel) {
         actionType = 'node-moved';
       }
@@ -256,18 +379,26 @@ export class DiagramWidget extends React.Component {
       }
 
       // Get the selected items and filter out point model
-      const selected = _.filter(diagramEngine.getDiagramModel().getSelectedItems(), item => !(item instanceof PointModel));
+      const selected = diagramEngine.getDiagramModel().getSelectedItems();
+      const filtered = _.filter(selected, item => !(item instanceof PointModel));
+      const isLink = model.model instanceof LinkModel;
+      const isNode = model.model instanceof NodeModel;
+      const isPoint = model.model instanceof PointModel;
 
       // Determine action type
       let actionType = 'items-selected';
-      if (deselect && model.model instanceof LinkModel) {
+      if (deselect && isLink) {
         actionType = 'link-deselected';
-      } else if (deselect && model.model instanceof NodeModel) {
+      } else if (deselect && isNode) {
         actionType = 'node-deselected';
-      } else if (selected.length === 1 && selected[0] instanceof LinkModel) {
+      } else if (deselect && isPoint) {
+        actionType = 'point-deselected';
+      } else if ((selected.length === 1 || selected.length === 2 && filtered.length === 1) && isLink) {
         actionType = 'link-selected';
-      } else if (selected.length === 1 && selected[0] instanceof NodeModel) {
+      } else if (selected.length === 1 && isNode) {
         actionType = 'node-selected';
+      } else if (selected.length === 1 && isPoint) {
+        actionType = 'point-selected';
       }
 
       this.setState({
@@ -295,25 +426,23 @@ export class DiagramWidget extends React.Component {
 
       // Check if we going to connect a link to something
       action.selectionModels.forEach(model => {
-        // Only care about points connecting to things
-        if (!(model.model instanceof PointModel)) {
-          return;
-        }
+        // Only care about points connecting to things or being created
+        if (model.model instanceof PointModel) {
+          // Check if a point was created
+          if (element.element.tagName === 'circle' && actionOutput.type !== 'link-created') {
+            actionOutput.type = 'point-created';
+          }
 
-        // A point was created
-        if (element.element.tagName === 'circle' && actionOutput.type !== 'link-created') {
-          actionOutput.type = 'point-created';
-        }
+          if (element.model instanceof PortModel) {
+            // Connect the link
+            model.model.getLink().setTargetPort(element.model);
 
-        if (element.model instanceof PortModel) {
-          // Connect the link
-          model.model.getLink().setTargetPort(element.model);
-
-          // Link was connected to a port, update the output
-          actionOutput.type = 'link-connected';
-          delete actionOutput.model;
-          actionOutput.linkModel = model.model.getLink();
-          actionOutput.portModel = element.model;
+            // Link was connected to a port, update the output
+            actionOutput.type = 'link-connected';
+            delete actionOutput.model;
+            actionOutput.linkModel = model.model.getLink();
+            actionOutput.portModel = element.model;
+          }
         }
       });
     }

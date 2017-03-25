@@ -66,6 +66,11 @@ export class Diagram extends React.Component {
   onChange(model, action) {
     console.log('ON DIAGRAM CHANGE');
     console.log(action);
+    
+    // Ignore some events
+    if (['items-copied'].indexOf(action.type) !== -1) {
+      return;
+    }
 
     // Check for single selected items
     if (['node-selected', 'node-moved'].indexOf(action.type) !== -1) {
@@ -80,8 +85,8 @@ export class Diagram extends React.Component {
 
     // Check if this is a deselection and a single node exists
     const isDeselect = ['node-deselected', 'link-deselected'].indexOf(action.type) !== -1;
-    if (isDeselect && action.items.length === 1 && action.items[0].nodeType) {
-      return this.props.updateModel(model, { selectedNode: action.items[0] });
+    if (isDeselect && action.items.length < 1 && action.model.nodeType) {
+      return this.props.updateModel(model, { selectedNode: action.model });
     }
 
     this.props.updateModel(model);

@@ -99,10 +99,7 @@ export class LinkModel extends BaseModel {
   constructor() {
     super();
     this.linkType = 'default';
-    this.points = [
-      new PointModel(this,{x: 0,y: 0}),
-      new PointModel(this,{x: 0,y: 0}),
-    ];
+    this.points = this.getDefaultPoints();
     this.extras = {};
     this.sourcePort = null;
     this.targetPort = null;
@@ -122,13 +119,20 @@ export class LinkModel extends BaseModel {
     return {
       ...super.serialize(),
       type: this.linkType,
-      source: this.sourcePort ? this.sourcePort.getParent().id:null,
-      sourcePort: this.sourcePort ? this.sourcePort.id:null,
-      target: this.targetPort ? this.targetPort.getParent().id:null,
-      targetPort: this.targetPort ? this.targetPort.id:null,
+      source: this.sourcePort ? this.sourcePort.getParent().id : null,
+      sourcePort: this.sourcePort ? this.sourcePort.id : null,
+      target: this.targetPort ? this.targetPort.getParent().id : null,
+      targetPort: this.targetPort ? this.targetPort.id : null,
       points: this.points.map(point => point.serialize()),
       extras: this.extras
     };
+  }
+
+  clone() {
+    const newLink = new LinkModel(this.linkType);
+    newLink.points = this.getDefaultPoints();
+    newLink.extras = this.extras;
+    return newLink;
   }
 
   remove() {
@@ -143,6 +147,13 @@ export class LinkModel extends BaseModel {
 
   isLastPoint(point) {
     return this.getPointIndex(point) === this.points.length-1;
+  }
+
+  getDefaultPoints() {
+    return [
+      new PointModel(this,{x: 0,y: 0}),
+      new PointModel(this,{x: 0,y: 0}),
+    ];
   }
 
   getPointIndex(point) {
@@ -227,6 +238,10 @@ export class PortModel extends BaseModel {
     };
   }
 
+  clone() {
+    return new PortModel(this.name);
+  }
+
   getName() {
     return this.name;
   }
@@ -279,6 +294,14 @@ export class NodeModel extends BaseModel {
       extras: this.extras,
       ports: _.map(this.ports, port => port.serialize())
     };
+  }
+
+  clone() {
+    const newNode = new NodeModel(this.nodeType);
+    newNode.x = this.x;
+    newNode.y = this.y;
+    newNode.extras = this.extras;
+    return newNode;
   }
 
   remove() {

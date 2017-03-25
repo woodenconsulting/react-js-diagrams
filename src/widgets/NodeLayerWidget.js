@@ -14,7 +14,7 @@ export class NodeLayerWidget extends React.Component {
         height: '100%'
       }
     };
-    
+
     // Create children
     const children = _.map(diagramModel.getNodes(), node => {
       return (
@@ -23,7 +23,7 @@ export class NodeLayerWidget extends React.Component {
         </NodeWidget>
       );
     });
-    
+
     return (
       <div {...props}>
         {children}

@@ -61,6 +61,9 @@ a link can be connected to it.
 - items-drag-selected -> Array items (NodeModel | LinkModel)
 - items-moved -> Array items (NodeModel | LinkModel)
 - items-selected -> NodeModel model, Array items (NodeModel | LinkModel)
+- items-deleted -> Array items (NodeModel | LinkModel | PointModel)
+- items-copied -> Array items (NodeModel | LinkModel)
+- items-pasted -> Array items (NodeModel | LinkModel)
 - canvas-drag -> event
 - canvas-shift-select -> event
 - canvas-click -> event
@@ -72,7 +75,8 @@ a link can be connected to it.
 - node-deselected -> NodeModel model, Array items (NodeModel | LinkModel)
 - node-moved -> NodeModel model
 - point-created -> PointModel model
-- selections-deleted -> Array items (NodeModel | LinkModel)
+- point-selected -> PointModel model
+- point-deselected -> PointModel model
 
 ## Questions
 
@@ -112,3 +116,8 @@ __click link and drag__ will create a new link anchor/point that you can then dr
 
 __click node-port and drag__ will create a new link that is anchored to the port, allowing you
 to drag the link to another connecting port
+
+__ctrl or ⌘ + c__ copy any selected items; note that only links that belong to a selected source node will 
+be copied to the internal clipboard
+
+__ctrl or ⌘ + v__ paste items previously copied to the internal clipboard
