@@ -2,7 +2,7 @@
 
 ![Demo](./images/main.png)
 
-A React diagramming libary using lodash as its only dependency. Initially this project started as an ECMAScript / JSX port of the awesome [react-diagrams](https://github.com/projectstorm/react-diagrams)@2.3.6 repository by dylanvorster. It has since diverged with different features and goals. If you like TypeScript, check out the original repository.
+A React diagramming libary using lodash as its only additional dependency. Initially this project started as an ECMAScript / JSX port of the awesome [react-diagrams](https://github.com/projectstorm/react-diagrams)@2.3.6 repository by dylanvorster. It has since diverged with different features and goals. If you like TypeScript, check out the original repository.
 
 ## How To Install
 
@@ -51,7 +51,7 @@ default class MyDiagram extends React.Component {
 }
 ```
 
-#### Action Types And Return Properties
+### Action Types And Return Properties
 
 ---
 
