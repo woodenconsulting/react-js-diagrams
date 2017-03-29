@@ -9,7 +9,8 @@ export class NodeLayerWidget extends React.Component {
     const props = {
       className:'node-view',
       style:{
-        transform: 'scale(' + diagramModel.getZoomLevel() / 100.0 + ') translate(' + diagramModel.getOffsetX()+'px,'+diagramModel.getOffsetY()+'px)',
+        transform: 'scale(' + diagramModel.getZoomLevel() / 100.0 + ') translate(' +
+          diagramModel.getOffsetX() + 'px,' + diagramModel.getOffsetY() + 'px)',
         width: '100%',
         height: '100%'
       }
@@ -18,7 +19,11 @@ export class NodeLayerWidget extends React.Component {
     // Create children
     const children = _.map(diagramModel.getNodes(), node => {
       return (
-        <NodeWidget key={node.id} node={node} diagramEngine={diagramEngine}>
+        <NodeWidget
+          key={node.id}
+          node={node}
+          diagramEngine={diagramEngine}
+        >
           {this.props.diagramEngine.generateWidgetForNode(node)}
         </NodeWidget>
       );

@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 export class NodeWidget extends React.Component {
   shouldComponentUpdate(){
@@ -6,7 +7,7 @@ export class NodeWidget extends React.Component {
   }
 
   render() {
-    const { node, children } = this.props;
+    const { node, children, diagramEngine } = this.props;
     const props = {
       'data-nodeid': node.id,
       className: 'node' + (this.props.node.isSelected() ? ' selected' : ''),
@@ -16,9 +17,14 @@ export class NodeWidget extends React.Component {
       }
     };
     
+    // Pass the diagramEngine to the node
+    const items = _.isArray(children) ?
+      children.map(child => (React.cloneElement(child, { diagramEngine }))) :
+      React.cloneElement(children, { diagramEngine });
+
     return (
       <div {...props}>
-        {children}
+        {items}
       </div>
     );
   }

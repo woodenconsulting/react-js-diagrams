@@ -128,13 +128,6 @@ export class LinkModel extends BaseModel {
     };
   }
 
-  clone() {
-    const newLink = new LinkModel(this.linkType);
-    newLink.points = this.getDefaultPoints();
-    newLink.extras = this.extras;
-    return newLink;
-  }
-
   remove() {
     super.remove();
     if (this.sourcePort) {
@@ -238,10 +231,6 @@ export class PortModel extends BaseModel {
     };
   }
 
-  clone() {
-    return new PortModel(this.name);
-  }
-
   getName() {
     return this.name;
   }
@@ -294,14 +283,6 @@ export class NodeModel extends BaseModel {
       extras: this.extras,
       ports: _.map(this.ports, port => port.serialize())
     };
-  }
-
-  clone() {
-    const newNode = new NodeModel(this.nodeType);
-    newNode.x = this.x;
-    newNode.y = this.y;
-    newNode.extras = this.extras;
-    return newNode;
   }
 
   remove() {

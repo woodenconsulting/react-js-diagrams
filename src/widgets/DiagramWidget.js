@@ -83,7 +83,6 @@ export class DiagramWidget extends React.Component {
     window.focus();
   }
 
-
   copySelectedItems(selectedItems) {
     const { diagramEngine, onChange } = this.props;
 
