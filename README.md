@@ -53,6 +53,8 @@ default class MyDiagram extends React.Component {
 
 #### Action Types And Return Properties
 
+---
+
 __items-drag-selected__ -> Array items (NodeModel | LinkModel)
 
 __items-moved__ -> Array items (NodeModel | LinkModel)
