@@ -54,25 +54,45 @@ default class MyDiagram extends React.Component {
 #### Action Types And Return Properties
 
 __items-drag-selected__ -> Array items (NodeModel | LinkModel)
+
 __items-moved__ -> Array items (NodeModel | LinkModel)
+
 __items-selected__ -> NodeModel model, Array items (NodeModel | LinkModel)
+
 __items-select-all__ -> Array items (NodeModel | LinkModel)
+
 __items-deselect-all__ -> Array items (NodeModel | LinkModel)
+
 __items-deleted__ -> Array items (NodeModel | LinkModel | PointModel)
+
 __items-copied__ -> Array items (NodeModel | LinkModel)
+
 __items-pasted__ -> Array items (NodeModel | LinkModel)
+
 __link-created__ -> PointModel model
+
 __link-selected__ -> LinkModel model
+
 __link-deselected__ -> LinkModel model, Array items (NodeModel | LinkModel)
+
 __link-connected__ -> LinkModel linkModel, PortModel portModel
+
 __node-selected__ -> NodeModel model
+
 __node-deselected__ -> NodeModel model, Array items (NodeModel | LinkModel)
+
 __node-moved__ -> NodeModel model
+
 __point-created__ -> PointModel model
+
 __point-selected__ -> PointModel model
+
 __point-deselected__ -> PointModel model
+
 __canvas-drag__ -> event
+
 __canvas-shift-select__ -> event
+
 __canvas-click__ -> event
 
 ## Keyboard / Mouse Commands
@@ -81,7 +101,7 @@ __Delete__ removes any selected items
 ![__Delete__](./images/rjdDelete.gif)
 
 __Shift + Mouse Drag__ triggers a multi-selection box
-![Shift + Mouse Drag](./images/mouteDrag.gif)
+![Shift + Mouse Drag](./images/mouseDrag.gif)
 
 __Shift + Mouse Click__ selects the item (items can be multi-selected)
 ![Shift + Mouse Click](./images/shiftClick.gif)
@@ -100,7 +120,9 @@ __Click Node Port + Drag__ creates a new link
 
 __Ctrl or ⌘ + C__ copy any selected items; note that only links that belong to a selected source node will
 be copied to the internal clipboard
-![Ctrl or ⌘ + C](./images/selectAll.gif)
 
 __Ctrl or ⌘ + V__ paste items previously copied to the internal clipboard
-![Ctrl or ⌘ + V](./images/deselectAll.gif)
+
+__Ctrl or ⌘ + A__ select all items
+
+__Ctrl or ⌘ + D__ deselect all items
