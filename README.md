@@ -39,7 +39,7 @@ __Demo 3 Custom Node:__
 The RJD Diagram Widget utilizes a standard onChange to capture events.
 
 ```javascript
-default class MyDiagram extends React.Component {
+class MyDiagram extends React.Component {
   onChange(model, action) {
     console.log(model) // Serialized diagramModel
     console.log(action) // Object containing the event type and returned properties
