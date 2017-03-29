@@ -59,6 +59,20 @@ export class DiagramWidget extends React.Component {
         const selectedItems = diagramEngine.getDiagramModel().getSelectedItems();
         const ctrl = (event.metaKey || event.ctrlKey);
 
+        // Select all
+        if (event.keyCode === 65 && ctrl) {
+          this.selectAll(true);
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        // Deselect all
+        if (event.keyCode === 68 && ctrl) {
+          this.selectAll(false);
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
         // Copy selected
         if (event.keyCode === 67 && ctrl && selectedItems.length) {
           this.copySelectedItems(selectedItems);
@@ -186,6 +200,32 @@ export class DiagramWidget extends React.Component {
     this.setState({ clipboard: null });
 
     onChange(diagramEngine.getDiagramModel().serializeDiagram(), { type: 'items-pasted', items: pasted });
+  }
+
+  selectAll(select) {
+    const { diagramEngine, onChange } = this.props;
+    const { nodes, links } = diagramEngine.diagramModel;
+    const selected = [];
+
+    // Select all nodes
+    _.forEach(nodes, node => {
+      node.setSelected(select);
+      selected.push(node);
+    });
+
+    // Select all links
+    _.forEach(links, link => {
+      link.setSelected(select);
+      // Select all points
+      link.points.forEach(point => point.setSelected(select));
+      selected.push(link);
+    });
+
+    // Repaint
+    this.forceUpdate();
+
+    const type = select ? 'items-select-all' : 'items-deselect-all';
+    onChange(diagramEngine.getDiagramModel().serializeDiagram(), { type, items: selected });
   }
 
   /**
