@@ -6,7 +6,8 @@ import { ConnectionNodeWidget } from './nodes/connection/ConnectionNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
-    const { type } = this.props;
+    const { type, color } = this.props;
+
     if (type === 'output') {
       return <OutputNodeWidget node={{ name: 'Output Node' }} displayOnly />;
     }
@@ -14,17 +15,17 @@ class Node extends React.Component {
       return <InputNodeWidget node={{ name: 'Input Node' }} displayOnly />;
     }
     if (type === 'connection') {
-      return <ConnectionNodeWidget node={{ name: 'Connection Node' }} displayOnly />;
+      return <ConnectionNodeWidget node={{ name: 'Connection Node' }} color={color} displayOnly />;
     }
     console.warn('Unknown node type');
     return null;
   }
 
   render() {
-    const { type } = this.props;
+    const { type, color } = this.props;
 
     return (
-      <DragWrapper type={type} style={{ display: 'inline-block' }}>
+      <DragWrapper type={type} color={color} style={{ display: 'inline-block' }}>
         {this.renderNode()}
       </DragWrapper>
     );
@@ -39,10 +40,16 @@ export class NodesPanel extends React.Component {
           <Node type='output' />
         </div>
         <div className='node-wrapper'>
-          <Node type='input' />
+          <Node type='connection' color='rgb(224, 98, 20)' />
         </div>
         <div className='node-wrapper'>
-          <Node type='connection' />
+          <Node type='connection' color='rgb(157, 13, 193)' />
+        </div>
+        <div className='node-wrapper'>
+          <Node type='connection' color='rgb(12, 193, 180)' />
+        </div>
+        <div className='node-wrapper'>
+          <Node type='input' />
         </div>
       </div>
     );

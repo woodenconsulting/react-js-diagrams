@@ -27,7 +27,7 @@ const nodesTarget = {
       node = new InputNodeModel('Input Node');
     }
     if (item.type === 'connection') {
-      node = new ConnectionNodeModel('Connection Node');
+      node = new ConnectionNodeModel('Connection Node', item.color);
     }
 
     node.x = x;
@@ -40,7 +40,7 @@ const nodesTarget = {
 @DropTarget('node-source', nodesTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
-  canDrop: monitor.canDrop(),
+  canDrop: monitor.canDrop()
 }))
 export class Diagram extends React.Component {
   componentDidMount() {

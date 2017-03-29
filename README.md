@@ -1,123 +1,106 @@
 # React JS Diagrams
 
-A JSX / ECMAScript port of the awesome [react-diagrams](https://github.com/projectstorm/react-diagrams) repository by dylanvorster.
+![Demo](./images/main.png)
 
-Note that this repo is currently under development.
+A React diagramming libary using lodash as its only dependency. Initially this project started as an ECMAScript / JSX port of the awesome [react-diagrams](https://github.com/projectstorm/react-diagrams)@2.3.6 repository by dylanvorster. It has since diverged with different features and goals. If you like TypeScript, check out the original repository.
 
-## Introduction
-
-A no-nonsense diagramming library written entirely in React with the help of Lodash. It aims to be:
-
-* Simple, and void of any fuss/complications when implementing it into your own application
-* Customizable without having to hack the core (adapters/factories etc..)
-* Simple to operate and understand without sugar and magic
-* Fast and optimized to handle large diagrams with hundreds of nodes/links
-* Super easy to use, and should work as you expect it to
-
-## How to install
+## How To Install
 
 ```
-npm install react-js-diagrams
+npm install --save react-js-diagrams
 ```
 or
 ```
 yarn add react-js-diagrams
 ```
 
-* Its only dependency is Lodash and obviously React so it will install that too.
+The above assumes that you are using [npm](http://npmjs.com/) with a module bundler like [Webpack](http://webpack.github.io/) or [Browserify](http://browserify.org/) in order to consume [CommonJS modules](http://webpack.github.io/docs/commonjs.html).
 
-#### How to see the examples
+## Viewing The Examples / Developing
 
-Simply navigate to the __demos__ directory and load up the corresponding index.html. Alternatively, you can
-start the development server with `npm start` and navigate to `http://localhost:3000`.
+From the repository directory, ensure you've run `npm install` then run `npm start` to spin up the development server and navigate to `http://localhost:3000`.
 
-To see how to create your own nodes like the one below, take a look at __demo3__:
+Alternatively, you can run `./node_modules/.bin/webpack` from the repository directory to build the demo bundles and run them from the file system.
 
-![Demo2](./custom-nodes.png)
-
-
-#### How to build / develop
-
-Simply run ```webpack``` in the root directory and it will spit out the transpiled code and typescript definitions
-into the dist directory as a single file. Run `npm start` to spin up the development server complete with HMR.
-
-
-## How does it work
+## How Does It Work
 
 The library uses a Model Graph to represent the virtual diagram and then renders the diagram using
 2 layers:
-* Node Layer -> which is responsible for rendering nodes as HTML components
-* Link Layer -> which renders the links as SVG paths
+* Node Layer -> responsible for rendering nodes as React components
+* Link Layer -> responsible for rendering links as SVG paths
 
-Each node and link is fed into a factory that then generates the corresponding node or link react widget.
-Therefore, to create custom nodes and links, register your own factories that return your own widgets.
+Each node and link is fed into a factory that then generates the corresponding node or link React widget. This allows for deep customization when creating your own nodes. Browse the demos directory to learn how to create your own custom nodes (see __demo3__ or __demo4__).
 
-As long as a node contains at least one port and the corresponding NodeWidget contains at least one PortWidget,
-a link can be connected to it.
+__Demo 3 Custom Node:__
+![CustomNode](./images/custom-nodes.png)
 
 ## Events
 
-**onChange events**
-- items-drag-selected -> Array items (NodeModel | LinkModel)
-- items-moved -> Array items (NodeModel | LinkModel)
-- items-selected -> NodeModel model, Array items (NodeModel | LinkModel)
-- items-deleted -> Array items (NodeModel | LinkModel | PointModel)
-- items-copied -> Array items (NodeModel | LinkModel)
-- items-pasted -> Array items (NodeModel | LinkModel)
-- canvas-drag -> event
-- canvas-shift-select -> event
-- canvas-click -> event
-- link-created -> PointModel model
-- link-selected -> LinkModel model
-- link-deselected -> LinkModel model, Array items (NodeModel | LinkModel)
-- link-connected -> LinkModel linkModel, PortModel portModel
-- node-selected -> NodeModel model
-- node-deselected -> NodeModel model, Array items (NodeModel | LinkModel)
-- node-moved -> NodeModel model
-- point-created -> PointModel model
-- point-selected -> PointModel model
-- point-deselected -> PointModel model
+The RJD Diagram Widget utilizes a standard onChange to capture events.
 
-## Questions
+```javascript
+default class MyDiagram extends React.Component {
+  onChange(model, action) {
+    console.log(model) // Serialized diagramModel
+    console.log(action) // Object containing the event type and returned properties
+  }
 
-#### Why didn’t I render the nodes as SVG's?
+  render() {
+    return <RJD.DiagramWidget diagramEngine={diagramEngine} onChange={this.onChange.bind(this)} />;
+  }
+}
+```
 
-Because its vastly better to render nodes as standard HTML so that we can embed input controls and not have
-to deal with the complexities of trying to get SVG to work like we want it to. I also created this primarily to embed into
-enterprise applications where the nodes themselves are highly interactive with buttons and other controls that cave when I try to use SVG.
+#### Action Types And Return Properties
 
-#### How do I make my own elements?
+__items-drag-selected__ -> Array items (NodeModel | LinkModel)
+__items-moved__ -> Array items (NodeModel | LinkModel)
+__items-selected__ -> NodeModel model, Array items (NodeModel | LinkModel)
+__items-select-all__ -> Array items (NodeModel | LinkModel)
+__items-deselect-all__ -> Array items (NodeModel | LinkModel)
+__items-deleted__ -> Array items (NodeModel | LinkModel | PointModel)
+__items-copied__ -> Array items (NodeModel | LinkModel)
+__items-pasted__ -> Array items (NodeModel | LinkModel)
+__link-created__ -> PointModel model
+__link-selected__ -> LinkModel model
+__link-deselected__ -> LinkModel model, Array items (NodeModel | LinkModel)
+__link-connected__ -> LinkModel linkModel, PortModel portModel
+__node-selected__ -> NodeModel model
+__node-deselected__ -> NodeModel model, Array items (NodeModel | LinkModel)
+__node-moved__ -> NodeModel model
+__point-created__ -> PointModel model
+__point-selected__ -> PointModel model
+__point-deselected__ -> PointModel model
+__canvas-drag__ -> event
+__canvas-shift-select__ -> event
+__canvas-click__ -> event
 
-Take a look at the __defaults__ directory, with specific attention to the __DefaultNodeWidget__
+## Keyboard / Mouse Commands
 
-#### How do I use the library?
+__Delete__ removes any selected items
+![__Delete__](./images/rjdDelete.gif)
 
-Take a look at the demo folders, they have simple and complex examples of the complete usage.
+__Shift + Mouse Drag__ triggers a multi-selection box
+![Shift + Mouse Drag](./images/mouteDrag.gif)
 
-## Usage Demo and Guide
+__Shift + Mouse Click__ selects the item (items can be multi-selected)
+![Shift + Mouse Click](./images/shiftClick.gif)
 
-This is a demo of the interaction taken directly from the test folder.
+__Mouse Drag__ drags the entire diagram
+![Mouse Drag](./images/canvasDrag.gif)
 
-![Demo](./demo.gif)
+__Mouse Wheel__ zooms the diagram in / out
+![Mouse Wheel](./images/mouseWheel.gif)
 
-#### Key commands
+__Click Link + Drag__ creates a new link point
+![Click Link + Drag](./images/createPoint.gif)
 
-__del key__ will remove anything selected including links
+__Click Node Port + Drag__ creates a new link
+![Click Node Port + Drag](./images/createLink.gif)
 
-__shift and drag__ will trigger a multi selection box
-
-__shift and select nodes/links/points__ will select multiple nodes
-
-__drag canvas__ will drag the complete diagram
-
-__mouse wheel__ will zoom in or out the entire diagram
-
-__click link and drag__ will create a new link anchor/point that you can then drag around
-
-__click node-port and drag__ will create a new link that is anchored to the port, allowing you
-to drag the link to another connecting port
-
-__ctrl or ⌘ + c__ copy any selected items; note that only links that belong to a selected source node will
+__Ctrl or ⌘ + C__ copy any selected items; note that only links that belong to a selected source node will
 be copied to the internal clipboard
+![Ctrl or ⌘ + C](./images/selectAll.gif)
 
-__ctrl or ⌘ + v__ paste items previously copied to the internal clipboard
+__Ctrl or ⌘ + V__ paste items previously copied to the internal clipboard
+![Ctrl or ⌘ + V](./images/deselectAll.gif)
