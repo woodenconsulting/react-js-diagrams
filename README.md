@@ -1,5 +1,8 @@
 # React JS Diagrams
 
+[![npm version](https://img.shields.io/npm/v/react-js-diagrams.svg?style=flat-square)](https://www.npmjs.com/package/react-js-diagrams)
+[![npm downloads](https://img.shields.io/npm/dm/react-js-diagrams.svg?style=flat-square)](https://www.npmjs.com/package/react-js-diagrams)
+
 ![Demo](./images/main.png)
 
 A React diagramming libary using lodash as its only additional dependency. Initially this project started as an ECMAScript / JSX port of the awesome [react-diagrams](https://github.com/projectstorm/react-diagrams)@2.3.6 repository by dylanvorster. It has since diverged with different features and goals. If you like TypeScript, check out the original repository.
