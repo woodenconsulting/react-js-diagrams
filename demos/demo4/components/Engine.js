@@ -22,5 +22,3 @@ diagramEngine.registerInstanceFactory(new RJD.LinkInstanceFactory());
 diagramEngine.registerInstanceFactory(new OutputNodeFactory());
 diagramEngine.registerInstanceFactory(new InputNodeFactory());
 diagramEngine.registerInstanceFactory(new ConnectionNodeFactory());
-
-
