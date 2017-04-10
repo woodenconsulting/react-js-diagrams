@@ -9,8 +9,7 @@ export class NodeLayerWidget extends React.Component {
     const props = {
       className:'node-view',
       style:{
-        transform: 'scale(' + diagramModel.getZoomLevel() / 100.0 + ') translate(' +
-          diagramModel.getOffsetX() + 'px,' + diagramModel.getOffsetY() + 'px)',
+        transform: `scale(${diagramModel.getZoomLevel() / 100.0}) translate(${diagramModel.getOffsetX()}px, ${diagramModel.getOffsetY()}px)`, // eslint-disable-line
         width: '100%',
         height: '100%'
       }

@@ -1,0 +1,70 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
+  "globals": {
+    "require": true,
+    "$": true,
+    "module": true
+  },
+  "rules": {
+    "arrow-spacing": 2,
+    "consistent-return": 0,
+    "eol-last": 2,
+    "eqeqeq": 0,
+    "indent": [2, 2, { "SwitchCase": 1 }],
+    "keyword-spacing": 2,
+    "no-array-constructor": 2,
+    "no-const-assign": 2,
+    "no-console": 0,
+    "no-console-log": 2,
+    "no-dupe-class-members": 2,
+    "no-extra-semi": 2,
+    "no-func-assign": 2,
+    "no-mixed-spaces-and-tabs": 2,
+    "no-new-func": 2,
+    "no-new-object": 2,
+    "no-multi-spaces": 2,
+    "no-multiple-empty-lines": 2,
+    "no-underscore-dangle": 0,
+    "no-unneeded-ternary": 2,
+    "no-useless-constructor": 2,
+    "object-shorthand": 2,
+    "prefer-const": 2,
+    "prefer-spread": 2,
+    "prefer-template": 2,
+    "quotes": [2, "single"],
+    "radix": 2,
+    "semi": [2, "always"],
+    "space-before-blocks": 2,
+    "space-infix-ops": [2, {"int32Hint": false}],
+    "strict": 0,
+    "template-curly-spacing": 2,
+    "object-curly-spacing": [2, "always"],
+    "space-in-parens": 2,
+    "padded-blocks": [2, {
+      "blocks": "never",
+      "classes": "never",
+      "switches": "never"}],
+    "max-len": [2, {
+      "code": 120,
+      "tabWidth": 2,
+      "ignoreComments": false,
+      "ignoreTrailingComments": false,
+      "ignoreStrings": false,
+      "ignoreRegExpLiterals": true,
+      "ignoreTemplateLiterals": false
+    }],
+    "prefer-rest-params": 2,
+    "no-param-reassign": 2,
+    "prefer-arrow-callback": 2
+  },
+  "ecmaFeatures": {
+    "jsx": true
+  }
+}

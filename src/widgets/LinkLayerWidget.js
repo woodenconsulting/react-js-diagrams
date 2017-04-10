@@ -9,22 +9,22 @@ export class LinkLayerWidget extends React.Component {
     return _.map(diagramModel.getLinks(), link => {
       // TODO: just improve this vastly x_x
       if (link.sourcePort !== null) {
-        try{
+        try {
           //generate a point
           link.points[0].updateLocation(this.props.diagramEngine.getPortCenter(link.sourcePort));
         }
         // Remove the link because its problematic (TODO implement this rather at an engine level)
-        catch(ex) {
+        catch (ex) {
           diagramModel.removeLink(link);
           return;
         }
       }
       if (link.targetPort !== null) {
-        try{
+        try {
           _.last(link.points).updateLocation(this.props.diagramEngine.getPortCenter(link.targetPort));
         }
         //remove the link because its problematic (TODO implement this rather at an engine level)
-        catch(ex){
+        catch (ex) {
           diagramModel.removeLink(link);
           return;
         }
@@ -32,14 +32,13 @@ export class LinkLayerWidget extends React.Component {
 
       // Generate the links
       const generatedLink = this.props.diagramEngine.generateWidgetForLink(link);
-      if(!generatedLink){
-        console.log("no link generated for type: " + link.getType());
+      if (!generatedLink) {
         return null;
       }
 
       const props = {
         key: link.getID(),
-        link: link,
+        link,
         diagramEngine: this.props.diagramEngine,
       };
 

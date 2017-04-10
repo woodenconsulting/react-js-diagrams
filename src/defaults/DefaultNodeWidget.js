@@ -25,7 +25,7 @@ export class DefaultNodeWidget extends React.Component {
   render() {
     const { node } = this.props;
     return (
-      <div className='basic-node' style={{background: node.color }}>
+      <div className='basic-node' style={{ background: node.color }}>
         <div className='title'>
           <div className='name'>
             {node.name}

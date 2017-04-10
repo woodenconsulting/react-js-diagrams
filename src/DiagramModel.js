@@ -21,12 +21,12 @@ export class DiagramModel extends BaseEntity {
 
     // Deserialize nodes
     _.forEach(object.nodes, node => {
-      let nodeOb = diagramEngine.getInstanceFactory(node._class).getInstance();
+      const nodeOb = diagramEngine.getInstanceFactory(node._class).getInstance();
       nodeOb.deSerialize(node);
 
       // Deserialize ports
       _.forEach(node.ports, port => {
-        let portOb = diagramEngine.getInstanceFactory(port._class).getInstance();
+        const portOb = diagramEngine.getInstanceFactory(port._class).getInstance();
         portOb.deSerialize(port);
         nodeOb.addPort(portOb);
       });
@@ -35,8 +35,8 @@ export class DiagramModel extends BaseEntity {
     });
 
     // Attach ports
-    _.forEach(object.links, link  => {
-      let linkOb = diagramEngine.getInstanceFactory(link._class).getInstance();
+    _.forEach(object.links, link => {
+      const linkOb = diagramEngine.getInstanceFactory(link._class).getInstance();
       linkOb.deSerialize(link);
 
       if (link.target) {
@@ -153,7 +153,7 @@ export class DiagramModel extends BaseEntity {
     if (link instanceof LinkModel) {
       return link;
     }
-    if(!this.links[link]) {
+    if (!this.links[link]) {
       return null;
     }
     return this.links[link];
@@ -190,7 +190,7 @@ export class DiagramModel extends BaseEntity {
   }
 
   removeLink(link) {
-    if (link instanceof LinkModel){
+    if (link instanceof LinkModel) {
       delete this.links[link.getID()];
       this.itterateListeners(listener => {
         if (listener.linksUpdated) {
@@ -199,7 +199,7 @@ export class DiagramModel extends BaseEntity {
       });
       return;
     }
-    delete this.links['' + link];
+    delete this.links[_.toString(link)];
     this.itterateListeners(listener => {
       if (listener.linksUpdated) {
         listener.linksUpdated();
@@ -218,7 +218,7 @@ export class DiagramModel extends BaseEntity {
       return;
     }
 
-    delete this.nodes['' + node];
+    delete this.nodes[_.toString(node)];
     this.itterateListeners(listener => {
       if (listener.nodesUpdated) {
         listener.nodesUpdated();

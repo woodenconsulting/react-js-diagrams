@@ -3,7 +3,7 @@ import { LinkWidgetFactory } from '../WidgetFactories';
 import { DefaultLinkWidget } from './DefaultLinkWidget';
 
 export class DefaultLinkFactory extends LinkWidgetFactory {
-  constructor(){
+  constructor() {
     super('default');
   }
 

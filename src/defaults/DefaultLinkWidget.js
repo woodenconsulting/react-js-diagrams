@@ -34,8 +34,8 @@ export class DefaultLinkWidget extends React.Component {
       cy: link.points[pointIndex].y,
       r: 15,
       opacity: 0,
-      onMouseLeave: () => this.setState({selected: false}),
-      onMouseEnter: () => this.setState({selected: true}),
+      onMouseLeave: () => this.setState({ selected: false }),
+      onMouseEnter: () => this.setState({ selected: true }),
     };
 
     return (
@@ -65,8 +65,8 @@ export class DefaultLinkWidget extends React.Component {
         stroke={color}
         strokeOpacity={selected ? 0.1 : 0}
         strokeWidth={20}
-        onMouseLeave={() => this.setState({selected: false})}
-        onMouseEnter={() => this.setState({selected: true})}
+        onMouseLeave={() => this.setState({ selected: false })}
+        onMouseEnter={() => this.setState({ selected: true })}
         onContextMenu={event => {
           event.preventDefault();
           this.props.link.remove();
@@ -104,7 +104,7 @@ export class DefaultLinkWidget extends React.Component {
     paths.push(this.generateLink({
       id: 0,
       onMouseDown: (event) => {
-        if (!event.shiftKey){
+        if (!event.shiftKey) {
           var point = new PointModel(link, diagramEngine.getRelativeMousePoint(event));
           point.setSelected(true);
           this.forceUpdate();
@@ -112,16 +112,13 @@ export class DefaultLinkWidget extends React.Component {
           pointAdded(point, event);
         }
       },
-      d: ' M' + pointLeft.x + ' ' + pointLeft.y +
-         ' C' + (pointLeft.x + margin) + ' ' + pointLeft.y +
-         ' ' + (pointRight.x - margin) + ' ' + pointRight.y +
-         ' ' + pointRight.x + ' ' + pointRight.y
+      d: ` M${pointLeft.x} ${pointLeft.y} C${pointLeft.x + margin} ${pointLeft.y} ${pointRight.x - margin} ${pointRight.y} ${pointRight.x} ${pointRight.y}` // eslint-disable-line
     }));
 
-    if (link.targetPort === null){
+    if (link.targetPort === null) {
       paths.push(this.generatePoint(1));
     }
-    
+
     return paths;
   }
 
@@ -132,22 +129,20 @@ export class DefaultLinkWidget extends React.Component {
 
     if (smooth) {
       ds.push(
-        ' M' + points[0].x + ' ' + points[0].y + ' C ' + (points[0].x+50) + ' ' + points[0].y +
-        ' ' + points[1].x + ' ' + points[1].y + ' ' + points[1].x + ' ' + points[1].y
+        ` M${points[0].x} ${points[0].y} C ${points[0].x + 50} ${points[0].y} ${points[1].x} ${points[1].y} ${points[1].x} ${points[1].y}` // eslint-disable-line
       );
 
       let i;
       for (i = 1; i < points.length - 2; i++) {
-        ds.push(' M ' + points[i].x + ' ' + points[i].y + ' L ' + points[i + 1].x + ' ' + points[i + 1].y);
+        ds.push(` M ${points[i].x} ${points[i].y} L ${points[i + 1].x} ${points[i + 1].y}`);
       }
 
       ds.push(
-        ' M' + points[i].x + ' ' + points[i].y + ' C ' + points[i].x + ' ' + points[i].y + ' ' +
-        (points[i + 1].x - 50) + ' ' + points[i + 1].y + ' ' + points[i + 1].x + ' ' + points[i + 1].y
+        ` M${points[i].x} ${points[i].y} C ${points[i].x} ${points[i].y} ${points[i + 1].x - 50} ${points[i + 1].y} ${points[i + 1].x} ${points[i + 1].y}` // eslint-disable-line
       );
     } else {
       for (let i = 0; i < points.length - 1; i++) {
-        ds.push(' M ' + points[i].x + ' ' + points[i].y + ' L ' + points[i + 1].x + ' ' + points[i + 1].y);
+        ds.push(` M ${points[i].x} ${points[i].y} L ${points[i + 1].x} ${points[i + 1].y}`);
       }
     }
 

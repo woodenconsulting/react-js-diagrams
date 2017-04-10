@@ -5,7 +5,7 @@ import * as RJD from '../../../src/main';
 import { OutputNodeModel } from './nodes/output/OutputNodeModel';
 import { InputNodeModel } from './nodes/input/InputNodeModel';
 import { ConnectionNodeModel } from './nodes/connection/ConnectionNodeModel';
-import { diagramEngine } from './engine';
+import { diagramEngine } from './Engine';
 
 // Setup the diagram model
 let diagramModel = new RJD.DiagramModel();

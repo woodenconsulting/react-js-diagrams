@@ -109,7 +109,7 @@ export class LinkModel extends BaseModel {
     super.deSerialize(ob);
     this.linkType = ob.type;
     this.points = ob.points.map(point => {
-      var p = new PointModel(this, {x: point.x,y:point.y});
+      var p = new PointModel(this, { x: point.x, y:point.y });
       p.deSerialize(point);
       return p;
     });
@@ -139,13 +139,13 @@ export class LinkModel extends BaseModel {
   }
 
   isLastPoint(point) {
-    return this.getPointIndex(point) === this.points.length-1;
+    return this.getPointIndex(point) === this.points.length - 1;
   }
 
   getDefaultPoints() {
     return [
-      new PointModel(this,{x: 0,y: 0}),
-      new PointModel(this,{x: 0,y: 0}),
+      new PointModel(this,{ x: 0, y: 0 }),
+      new PointModel(this,{ x: 0, y: 0 }),
     ];
   }
 
@@ -311,7 +311,7 @@ export class NodeModel extends BaseModel {
 
   removePort(port) {
     // Clear the parent node reference
-    if(this.ports[port.name]) {
+    if (this.ports[port.name]) {
       this.ports[port.name].setParentNode(null);
       delete this.ports[port.name];
     }

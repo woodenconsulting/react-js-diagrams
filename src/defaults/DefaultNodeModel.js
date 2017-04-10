@@ -3,11 +3,11 @@ import { NodeModel } from '../Common';
 import { AbstractInstanceFactory } from '../AbstractInstanceFactory';
 
 export class DefaultNodeInstanceFactory extends AbstractInstanceFactory {
-  constructor(){
+  constructor() {
     super('DefaultNodeModel');
   }
 
-  getInstance(){
+  getInstance() {
     return new DefaultNodeModel();
   }
 }

@@ -23,7 +23,7 @@ export class DiagramWidget extends React.Component {
     };
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.props.diagramEngine.setCanvas(null);
     window.removeEventListener('keydown', this.state.windowListener);
   }
@@ -109,7 +109,7 @@ export class DiagramWidget extends React.Component {
     }
 
     // Deserialize the existing diagramModel
-    let flatModel = diagramEngine.diagramModel.serializeDiagram();
+    const flatModel = diagramEngine.diagramModel.serializeDiagram();
 
     // Create a new diagramModel to hold clipboard data
     const newModel = new DiagramModel();
@@ -124,13 +124,13 @@ export class DiagramWidget extends React.Component {
     _.forEach(flatModel.nodes, node => {
       if (node.selected) {
         // Get the node instance, updated the GUID and deserialize
-        let nodeOb = diagramEngine.getInstanceFactory(node._class).getInstance();
+        const nodeOb = diagramEngine.getInstanceFactory(node._class).getInstance();
         node.id = gMap[node.id] = Toolkit.UID();
         nodeOb.deSerialize(node);
 
         // Deserialize ports
         _.forEach(node.ports, port => {
-          let portOb = diagramEngine.getInstanceFactory(port._class).getInstance();
+          const portOb = diagramEngine.getInstanceFactory(port._class).getInstance();
           port.id = gMap[port.id] = Toolkit.UID();
           port.links = [];
           portOb.deSerialize(port);
@@ -144,9 +144,9 @@ export class DiagramWidget extends React.Component {
     });
 
     // Iterate the links
-    _.forEach(flatModel.links, link  => {
+    _.forEach(flatModel.links, link => {
       if (link.selected) {
-        let linkOb = diagramEngine.getInstanceFactory(link._class).getInstance();
+        const linkOb = diagramEngine.getInstanceFactory(link._class).getInstance();
         link.id = gMap[link.id] = Toolkit.UID();
 
         // Change point GUIDs and set selected
@@ -276,7 +276,7 @@ export class DiagramWidget extends React.Component {
   }
 
   onWheel(event) {
-    const  { diagramEngine } = this.props;
+    const { diagramEngine } = this.props;
     const diagramModel = diagramEngine.getDiagramModel();
     event.preventDefault();
     event.stopPropagation();
@@ -286,7 +286,7 @@ export class DiagramWidget extends React.Component {
   }
 
   onMouseMove(event) {
-    const  { diagramEngine } = this.props;
+    const { diagramEngine } = this.props;
     const { action, actionType: currentActionType } = this.state;
     const diagramModel = diagramEngine.getDiagramModel();
     const { left, top } = this.refs.canvas.getBoundingClientRect();
@@ -355,7 +355,7 @@ export class DiagramWidget extends React.Component {
   }
 
   onMouseDown(event) {
-    const  { diagramEngine } = this.props;
+    const { diagramEngine } = this.props;
     const diagramModel = diagramEngine.getDiagramModel();
     const model = this.getMouseElement(event);
 
@@ -448,7 +448,7 @@ export class DiagramWidget extends React.Component {
   }
 
   onMouseUp(event) {
-    const  { diagramEngine, onChange } = this.props;
+    const { diagramEngine, onChange } = this.props;
     const { action, actionType } = this.state;
     const element = this.getMouseElement(event);
     const actionOutput = {
@@ -488,7 +488,8 @@ export class DiagramWidget extends React.Component {
 
     const attachItems = ['items-selected', 'items-drag-selected', 'items-moved', 'node-deselected', 'link-deselected'];
     if (attachItems.indexOf(actionType) !== -1) {
-      actionOutput.items = _.filter(diagramEngine.getDiagramModel().getSelectedItems(), item => !(item instanceof PointModel));
+      actionOutput.items = _.filter(diagramEngine.getDiagramModel().getSelectedItems(),
+        item => !(item instanceof PointModel));
     }
     if (actionType === 'items-moved') {
       delete actionOutput.model;
@@ -502,7 +503,7 @@ export class DiagramWidget extends React.Component {
   }
 
   renderLinkLayerWidget() {
-    const  { diagramEngine } = this.props;
+    const { diagramEngine } = this.props;
     const diagramModel = diagramEngine.getDiagramModel();
 
     if (!this.state.renderedNodes) {
@@ -558,7 +559,7 @@ export class DiagramWidget extends React.Component {
   }
 
   render() {
-    const  { diagramEngine } = this.props;
+    const { diagramEngine } = this.props;
 
     return (
       <div

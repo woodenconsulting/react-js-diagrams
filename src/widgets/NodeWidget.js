@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 export class NodeWidget extends React.Component {
-  shouldComponentUpdate(){
+  shouldComponentUpdate() {
     return this.props.diagramEngine.canEntityRepaint(this.props.node);
   }
 
@@ -10,7 +10,7 @@ export class NodeWidget extends React.Component {
     const { node, children, diagramEngine } = this.props;
     const props = {
       'data-nodeid': node.id,
-      className: 'node' + (this.props.node.isSelected() ? ' selected' : ''),
+      className: `node${(this.props.node.isSelected() ? ' selected' : '')}`,
       style:{
         top: this.props.node.y,
         left: this.props.node.x,

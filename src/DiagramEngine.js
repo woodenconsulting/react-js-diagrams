@@ -24,8 +24,7 @@ export class DiagramEngine extends BaseEntity {
 
   enableRepaintEntities(entities) {
     this.paintableWidgets = {};
-    entities.forEach((entity) => {
-
+    entities.forEach(entity => {
       // If a node is requested to repaint, add all of its links
       if (entity instanceof NodeModel) {
         _.forEach(entity.getPorts(), port => {
@@ -99,10 +98,10 @@ export class DiagramEngine extends BaseEntity {
   }
 
   getFactoryForNode(node) {
-    if (this.nodeFactories[node.getType()]){
+    if (this.nodeFactories[node.getType()]) {
       return this.nodeFactories[node.getType()];
     }
-    console.log(`Cannot find widget factory for node of type: [${node.getType()}]`);
+    console.log(`Cannot find widget factory for node of type: [${node.getType()}]`); // eslint-disable-line
     return null;
   }
 
@@ -110,13 +109,13 @@ export class DiagramEngine extends BaseEntity {
     if (this.linkFactories[link.getType()]) {
       return this.linkFactories[link.getType()];
     }
-    console.log(`Cannot find widget factory for link of type: [${link.getType()}]`);
+    console.log(`Cannot find widget factory for link of type: [${link.getType()}]`); // eslint-disable-line
     return null;
   }
 
   generateWidgetForLink(link) {
     const linkFactory = this.getFactoryForLink(link);
-    if(!linkFactory) {
+    if (!linkFactory) {
       throw `Cannot find link factory for link: ${link.getType()}`;
     }
     return linkFactory.generateReactWidget(this, link);
@@ -124,7 +123,7 @@ export class DiagramEngine extends BaseEntity {
 
   generateWidgetForNode(node) {
     const nodeFactory = this.getFactoryForNode(node);
-    if(!nodeFactory) {
+    if (!nodeFactory) {
       throw `Cannot find widget factory for node: ${node.getType()}`;
     }
     return nodeFactory.generateReactWidget(this, node);
@@ -140,7 +139,7 @@ export class DiagramEngine extends BaseEntity {
 
   getRelativePoint(x,y) {
     const canvasRect = this.canvas.getBoundingClientRect();
-    return { x: x-canvasRect.left, y: y-canvasRect.top };
+    return { x: x - canvasRect.left, y: y - canvasRect.top };
   }
 
   getNodePortElement(port) {
@@ -159,7 +158,7 @@ export class DiagramEngine extends BaseEntity {
     const rel = this.getRelativePoint(sourceRect.left,sourceRect.top);
     const x = (sourceElement.offsetWidth / 2) + rel.x / (this.diagramModel.getZoomLevel() / 100.0) -
       this.diagramModel.getOffsetX();
-    const y = (sourceElement.offsetHeight/2) + rel.y / (this.diagramModel.getZoomLevel() / 100.0) -
+    const y = (sourceElement.offsetHeight / 2) + rel.y / (this.diagramModel.getZoomLevel() / 100.0) -
       this.diagramModel.getOffsetY();
 
     return {

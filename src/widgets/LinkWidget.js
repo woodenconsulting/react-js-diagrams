@@ -1,7 +1,7 @@
 import React from 'react';
 
 export class LinkWidget extends React.Component {
-  shouldComponentUpdate(){
+  shouldComponentUpdate() {
     return this.props.diagramEngine.canEntityRepaint(this.props.link);
   }
 

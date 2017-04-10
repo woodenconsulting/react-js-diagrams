@@ -2,11 +2,11 @@ import { PortModel } from '../Common';
 import { AbstractInstanceFactory } from '../AbstractInstanceFactory';
 
 export class DefaultPortInstanceFactory extends AbstractInstanceFactory {
-  constructor(){
+  constructor() {
     super('DefaultPortModel');
   }
 
-  getInstance(){
+  getInstance() {
     return new DefaultPortModel(true, 'unknown');
   }
 }

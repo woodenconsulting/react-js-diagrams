@@ -19,7 +19,7 @@ export class DefaultPortLabel extends React.Component {
     );
     
     return (
-      <div className={(model.in ? 'in' : 'out') + '-port'}>
+      <div className={`${(model.in ? 'in' : 'out')}-port`}>
         {model.in ? port : label}
         {model.in ? label : port}
       </div>
