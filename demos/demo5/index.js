@@ -8,8 +8,7 @@ import '../test.scss';
 
 /**
  *
- * Simple test showing the Object oriented way of using this library.
- * It creates 2 nodes and links them together with a single link
+ * Demo showing the implementation of a custom link widget
  *
  */
 class Demo5 extends React.Component {
@@ -19,15 +18,15 @@ class Demo5 extends React.Component {
     // Setup the diagram engine
     this.engine = new RJD.DiagramEngine();
     this.engine.registerNodeFactory(new RJD.DefaultNodeFactory());
-  	this.engine.registerLinkFactory(new WhiteLinkFactory());
-  	
-  	// Register instance factories
-  	this.engine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
-  	this.engine.registerInstanceFactory(new RJD.DefaultPortInstanceFactory());
-  	this.engine.registerInstanceFactory(new WhiteLinkInstanceFactory());
+    this.engine.registerLinkFactory(new WhiteLinkFactory());
+    
+    // Register instance factories
+    this.engine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
+    this.engine.registerInstanceFactory(new RJD.DefaultPortInstanceFactory());
+    this.engine.registerInstanceFactory(new WhiteLinkInstanceFactory());
 
-  	// Setup the diagram model
-  	this.model = new RJD.DiagramModel();
+    // Setup the diagram model
+    this.model = new RJD.DiagramModel();
   }
 
   componentDidMount() {
@@ -39,9 +38,9 @@ class Demo5 extends React.Component {
   createNode(options) {
     const { name, color, x, y } = options;
     var node = new RJD.DefaultNodeModel(name, color);
-  	node.x = x;
-  	node.y = y;
-  	return node;
+    node.x = x;
+    node.y = y;
+    return node;
   }
 
   createPort(node, options) {
@@ -51,23 +50,23 @@ class Demo5 extends React.Component {
 
   linkNodes(port1, port2) {
     const link = new WhiteLinkModel();
-  	link.setSourcePort(port1);
-  	link.setTargetPort(port2);
-  	return link;
+    link.setSourcePort(port1);
+    link.setTargetPort(port2);
+    return link;
   }
 
   testSerialization() {
     const { engine, model } = this;
 
-  	// Serialize the model
-  	const str = JSON.stringify(model.serializeDiagram());
-  	console.log(str);
+    // Serialize the model
+    const str = JSON.stringify(model.serializeDiagram());
+    console.log(str);
 
-  	// Deserialize the model
-  	const model2 = new RJD.DiagramModel();
-  	model2.deSerializeDiagram(JSON.parse(str),engine);
-  	engine.setDiagramModel(model2);
-  	console.log(model2);
+    // Deserialize the model
+    const model2 = new RJD.DiagramModel();
+    model2.deSerializeDiagram(JSON.parse(str),engine);
+    engine.setDiagramModel(model2);
+    console.log(model2);
   }
 
   render() {
@@ -99,16 +98,16 @@ class Demo5 extends React.Component {
       name: 'In'
     });
 
-  	// Add the nodes and link to the model
-  	model.addNode(node1);
-  	model.addNode(node2);
-  	model.addLink(this.linkNodes(port1, port2));
+    // Add the nodes and link to the model
+    model.addNode(node1);
+    model.addNode(node2);
+    model.addLink(this.linkNodes(port1, port2));
 
-  	// Load the model into the diagram engine
-  	engine.setDiagramModel(model);
+    // Load the model into the diagram engine
+    engine.setDiagramModel(model);
 
     // Render the canvas
-  	return <RJD.DiagramWidget diagramEngine={engine} />;
+    return <RJD.DiagramWidget diagramEngine={engine} />;
   }
 }
 
