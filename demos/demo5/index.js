@@ -19,7 +19,7 @@ class Demo5 extends React.Component {
     this.engine = new RJD.DiagramEngine();
     this.engine.registerNodeFactory(new RJD.DefaultNodeFactory());
     this.engine.registerLinkFactory(new WhiteLinkFactory());
-    
+
     // Register instance factories
     this.engine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
     this.engine.registerInstanceFactory(new RJD.DefaultPortInstanceFactory());
