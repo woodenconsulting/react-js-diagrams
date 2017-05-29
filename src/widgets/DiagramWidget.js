@@ -570,8 +570,8 @@ export class DiagramWidget extends React.Component {
         onMouseDown={this.onMouseDown.bind(this)}
         onMouseUp={this.onMouseUp.bind(this)}
       >
-        {this.renderLinkLayerWidget()}
         <NodeLayerWidget diagramEngine={diagramEngine} />
+        {this.renderLinkLayerWidget()}
         {this.renderSelector()}
       </div>
     );

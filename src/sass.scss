@@ -5,20 +5,20 @@
   cursor: move;
   overflow: hidden;
 
-  .point{
+  .point {
     fill: rgba(white,0.5);
-    &.selected{
+    &.selected {
       fill: rgb(0,192,255);
     }
   }
 
-  .selector{
+  .selector {
     position: absolute;
     background-color: rgba(0,192,255,0.2);
     border: solid 2px rgb(0,192,255);
   }
 
-  svg{
+  svg {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -26,7 +26,7 @@
     overflow: visible;
   }
 
-  .node-view{
+  .node-view {
     top:0;
     left:0;
     right:0;
@@ -34,9 +34,10 @@
     position: absolute;
     pointer-events: none;
     transform-origin: 0 0;
+    z-index: 1;
   }
 
-  .node{
+  .node {
     position: absolute;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none;   /* Chrome/Safari/Opera */
@@ -44,7 +45,7 @@
     cursor: move;
     pointer-events: all;
 
-    &.selected{
+    &.selected {
       >* {
         border-color:rgb(0,192,255) !important;
         -webkit-filter: drop-shadow( 0 0 20px rgba(0,192,255,0.5));
@@ -54,29 +55,29 @@
 
   @keyframes dash {
     from {
-            stroke-dashoffset: 24;
+      stroke-dashoffset: 24;
     }
     to {
-            stroke-dashoffset: 0;
+      stroke-dashoffset: 0;
     }
-    }
+  }
 
   path{
     fill:none;
     pointer-events:all;
 
-    &.selected{
+    &.selected {
       stroke: rgb(0,192,255) !important;
       stroke-dasharray: 10,2;
       animation: dash 1s linear infinite;
     }
   }
 
-  .port{
+  .port {
     width: 15px;
     height: 15px;
     background: rgba(white,0.1);
-    &:hover,&.selected{
+    &:hover,&.selected {
       background: rgb(192,255,0);
     }
   }
@@ -91,49 +92,49 @@
     font-size: 11px;
     box-shadow: 0 0 10px rgba(black,0.5);
 
-    .title{
+    .title {
       background: rgba(black,0.3);
       display: flex;
       white-space: nowrap;
-      >*{
+      >* {
         align-self: center;
       }
-      .fa{
+      .fa {
         padding: 5px;
         opacity: 0.2;
         cursor: pointer;
 
-        &:hover{
+        &:hover {
           opacity: 1.0;
         }
       }
-      .name{
+      .name {
         flex-grow: 1;
         padding: 5px 5px;
       }
     }
 
-    .ports{
+    .ports {
       display: flex;
       background-image: linear-gradient(rgba(black,0.1),rgba(black,0.2));
-      .in, .out{
+      .in, .out {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
       }
-      .in-port,.out-port{
+      .in-port, .out-port {
         display: flex;
         margin-top: 1px;
-        >*{
+        >* {
           align-self: center;
         }
-        .name{
+        .name {
           padding: 0 5px;
         }
       }
-      .out-port{
+      .out-port {
         justify-content: flex-end;
-        .name{
+        .name {
           justify-content: flex-end;
           text-align: right;
         }

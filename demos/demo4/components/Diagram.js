@@ -46,7 +46,7 @@ export class Diagram extends React.Component {
   componentDidMount() {
     const { model } = this.props;
     if (model) {
-      diagramEngine.setDiagramModel(diagramModel);
+      this.setModel(model);
     }
   }
 
