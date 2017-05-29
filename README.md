@@ -160,13 +160,23 @@ render() {
 #### Supported Keys
 
 __deleteItems__ The deletion of items via delete keypress
+
 __selectItems__ The ability to select any item,
+
 __moveItems__ The ability to move items,
+
 __multiselect__ Shift selecting items,
+
 __multiselectDrag__ Multiselect box selection of items,
+
 __canvasDrag__ Dragging the canvas to move items,
+
 __zoom__ Zoom in / out by mouse wheel,
+
 __copy__ Copy items keyboard command,
+
 __paste__ Paste items keyboard command,
+
 __selectAll__ Select all keyboard command,
+
 __deselectAll__ Deselect all keyboard command
