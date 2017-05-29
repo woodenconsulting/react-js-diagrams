@@ -7,10 +7,32 @@ import { LinkLayerWidget } from './LinkLayerWidget';
 import { NodeLayerWidget } from './NodeLayerWidget';
 import { Toolkit } from '../Toolkit';
 
+const DEFAULT_ACTIONS = {
+  deleteItems: true,
+  selectItems: true,
+  moveItems: true,
+  multiselect: true,
+  multiselectDrag: true,
+  canvasDrag: true,
+  zoom: true,
+  copy: true,
+  paste: true,
+  selectAll: true,
+  deselectAll: true
+};
+
 export class DiagramWidget extends React.Component {
   static defaultProps = {
-    onChange: () => {}
+    onChange: () => {},
+    actions: DEFAULT_ACTIONS
   };
+
+  getActions() {
+    if (this.props.actions === null) {
+      return {};
+    }
+    return { ...DEFAULT_ACTIONS, ...(this.props.actions || {}) };
+  }
 
   constructor(props) {
     super(props);
@@ -51,6 +73,7 @@ export class DiagramWidget extends React.Component {
     const { diagramEngine, onChange } = this.props;
     diagramEngine.setCanvas(this.refs['canvas']);
     diagramEngine.setForceUpdate(this.forceUpdate.bind(this));
+    const { selectAll, deselectAll, copy, paste, deleteItems } = this.getActions();
 
     // Add a keyboard listener
     this.setState({
@@ -60,31 +83,31 @@ export class DiagramWidget extends React.Component {
         const ctrl = (event.metaKey || event.ctrlKey);
 
         // Select all
-        if (event.keyCode === 65 && ctrl) {
+        if (event.keyCode === 65 && ctrl && selectAll) {
           this.selectAll(true);
           event.preventDefault();
           event.stopPropagation();
         }
 
         // Deselect all
-        if (event.keyCode === 68 && ctrl) {
+        if (event.keyCode === 68 && ctrl && deselectAll) {
           this.selectAll(false);
           event.preventDefault();
           event.stopPropagation();
         }
 
         // Copy selected
-        if (event.keyCode === 67 && ctrl && selectedItems.length) {
+        if (event.keyCode === 67 && ctrl && selectedItems.length && copy) {
           this.copySelectedItems(selectedItems);
         }
 
         // Paste from clipboard
-        if (event.keyCode === 86 && ctrl && this.state.clipboard) {
+        if (event.keyCode === 86 && ctrl && this.state.clipboard && paste) {
           this.pasteSelectedItems(selectedItems);
         }
 
         // Delete all selected
-        if ([8, 46].indexOf(event.keyCode) !== -1 && selectedItems.length) {
+        if ([8, 46].indexOf(event.keyCode) !== -1 && selectedItems.length && deleteItems) {
           selectedItems.forEach(element => {
             element.remove();
           });
@@ -277,6 +300,10 @@ export class DiagramWidget extends React.Component {
 
   onWheel(event) {
     const { diagramEngine } = this.props;
+    const actions = this.getActions();
+    if (!actions.zoom) {
+      return;
+    }
     const diagramModel = diagramEngine.getDiagramModel();
     event.preventDefault();
     event.stopPropagation();
@@ -290,9 +317,10 @@ export class DiagramWidget extends React.Component {
     const { action, actionType: currentActionType } = this.state;
     const diagramModel = diagramEngine.getDiagramModel();
     const { left, top } = this.refs.canvas.getBoundingClientRect();
+    const { multiselectDrag, canvasDrag, moveItems } = this.getActions();
 
     // Select items so draw a bounding box
-    if (action instanceof SelectingAction) {
+    if (action instanceof SelectingAction && multiselectDrag) {
       const relative = diagramEngine.getRelativePoint(event.pageX, event.pageY);
 
       _.forEach(diagramModel.getNodes(), node => {
@@ -319,7 +347,7 @@ export class DiagramWidget extends React.Component {
       action.mouseX2 = relative.x;
       action.mouseY2 = relative.y;
       this.setState({ action, actionType: 'items-drag-selected' });
-    } else if (action instanceof MoveItemsAction) {
+    } else if (action instanceof MoveItemsAction && moveItems) {
       // Translate the items on the canvas
       action.selectionModels.forEach(model => {
         if (model.model instanceof NodeModel || model.model instanceof PointModel) {
@@ -340,7 +368,7 @@ export class DiagramWidget extends React.Component {
       }
 
       this.setState({ actionType });
-    } else if (this.state.action instanceof MoveCanvasAction) {
+    } else if (this.state.action instanceof MoveCanvasAction && canvasDrag) {
       // Translate the actual canvas
       diagramModel.setOffset(
         action.initialOffsetX + (
@@ -358,13 +386,14 @@ export class DiagramWidget extends React.Component {
     const { diagramEngine } = this.props;
     const diagramModel = diagramEngine.getDiagramModel();
     const model = this.getMouseElement(event);
+    const { selectItems, multiselect, multiselectDrag } = this.getActions();
 
     diagramEngine.clearRepaintEntities();
 
     // Check if this is the canvas
     if (model === null) {
       // Check for a multiple selection
-      if (event.shiftKey) {
+      if (event.shiftKey && multiselectDrag) {
         const relative = diagramEngine.getRelativePoint(event.pageX, event.pageY);
         this.setState({
           action: new SelectingAction(
@@ -384,7 +413,7 @@ export class DiagramWidget extends React.Component {
       }
     } else if (model.model instanceof PortModel) {
       const { getRelativeMousePoint, linkInstanceFactory } = diagramEngine;
-      
+
       // This is a port element, we want to drag a link
       const relative = getRelativeMousePoint(event);
       const link = linkInstanceFactory && linkInstanceFactory.getInstance() || new LinkModel();
@@ -401,12 +430,13 @@ export class DiagramWidget extends React.Component {
         action: new MoveItemsAction(event.pageX, event.pageY, diagramEngine),
         actionType: 'link-created'
       });
-    } else {
+    } else if (selectItems) {
       // It's a direct click selection
       let deselect = false;
+      const isSelected = model.model.isSelected();
 
       // Clear selections if this wasn't a shift key or a click on a selected element
-      if (!event.shiftKey && !model.model.isSelected()) {
+      if (!event.shiftKey && !isSelected || !multiselect && !isSelected) {
         diagramModel.clearSelection(false, true);
       }
 
