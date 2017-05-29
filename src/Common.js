@@ -96,9 +96,9 @@ export class PointModel extends BaseModel {
 }
 
 export class LinkModel extends BaseModel {
-  constructor() {
+  constructor(linkType = 'default') {
     super();
-    this.linkType = 'default';
+    this.linkType = linkType;
     this.points = this.getDefaultPoints();
     this.extras = {};
     this.sourcePort = null;

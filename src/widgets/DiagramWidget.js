@@ -383,9 +383,11 @@ export class DiagramWidget extends React.Component {
         });
       }
     } else if (model.model instanceof PortModel) {
+      const { getRelativeMousePoint, linkInstanceFactory } = diagramEngine;
+      
       // This is a port element, we want to drag a link
-      const relative = diagramEngine.getRelativeMousePoint(event);
-      const link = new LinkModel();
+      const relative = getRelativeMousePoint(event);
+      const link = linkInstanceFactory && linkInstanceFactory.getInstance() || new LinkModel();
       link.setSourcePort(model.model);
 
       link.getFirstPoint().updateLocation(relative);

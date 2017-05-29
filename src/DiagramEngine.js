@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { NodeModel, PointModel } from './Common';
+import { NodeModel, PointModel, LinkModel } from './Common';
 import { BaseEntity } from './BaseEntity';
 import { DiagramModel } from './DiagramModel';
 
@@ -13,6 +13,7 @@ export class DiagramEngine extends BaseEntity {
     this.nodeFactories = {};
     this.linkFactories = {};
     this.instanceFactories = {};
+    this.linkInstanceFactory = null;
     this.canvas = null;
     this.paintableWidgets = null;
     this.forceUpdate = () => {};
@@ -81,6 +82,10 @@ export class DiagramEngine extends BaseEntity {
 
   registerInstanceFactory(factory) {
     this.instanceFactories[factory.getName()] = factory;
+    // Check for a link instance factory to be used when creating new links via drag
+    if (factory.getInstance() instanceof LinkModel) {
+      this.linkInstanceFactory = factory;
+    }
   }
 
   registerNodeFactory(factory) {

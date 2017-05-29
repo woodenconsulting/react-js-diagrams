@@ -33,7 +33,8 @@ module.exports = [{
     'demo1/bundle.js': './demos/demo1/index.js',
     'demo2/bundle.js': './demos/demo2/index.js',
     'demo3/bundle.js': './demos/demo3/index.js',
-    'demo4/bundle.js': './demos/demo4/index.js'
+    'demo4/bundle.js': './demos/demo4/index.js',
+    'demo5/bundle.js': './demos/demo5/index.js'
   },
   output: {
     filename: '[name]',
