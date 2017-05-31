@@ -142,7 +142,7 @@ export class DiagramEngine extends BaseEntity {
     };
   }
 
-  getRelativePoint(x,y) {
+  getRelativePoint(x, y) {
     const canvasRect = this.canvas.getBoundingClientRect();
     return { x: x - canvasRect.left, y: y - canvasRect.top };
   }

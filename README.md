@@ -159,6 +159,7 @@ render() {
 
 #### Supported Keys
 
+
 __deleteItems__ The deletion of items via delete keypress
 
 __selectItems__ The ability to select any item,
