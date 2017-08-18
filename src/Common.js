@@ -108,6 +108,7 @@ export class LinkModel extends BaseModel {
   deSerialize(ob) {
     super.deSerialize(ob);
     this.linkType = ob.type;
+    this.extras = ob.extras;
     this.points = ob.points.map(point => {
       var p = new PointModel(this, { x: point.x, y:point.y });
       p.deSerialize(point);
