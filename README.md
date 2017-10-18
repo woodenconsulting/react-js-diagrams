@@ -25,6 +25,20 @@ From the repository directory, ensure you've run `npm install` then run `npm sta
 
 Alternatively, you can run `./node_modules/.bin/webpack` from the repository directory to build the demo bundles and run them from the file system.
 
+## Known Issues / FAQ
+1. Class names automatically change in production build
+    - Reason
+        If you use Webpack to build your app for production, there is a high chance you might be using `UglifyJsPlugin`. This plugin automatically mangles JS clas-snames and function-names in production builds.
+    - Solution: Just disable name-mangling in `UglifyJsPlugin`
+
+      ```
+      // Minify JS
+      new webpack.optimize.UglifyJsPlugin({
+          sourceMap: true,
+          mangle: false,
+      }),
+      ```
+
 ## How Does It Work
 
 The library uses a Model Graph to represent the virtual diagram and then renders the diagram using
